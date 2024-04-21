@@ -1,0 +1,41 @@
+.login-register-section .container{
+    width: 500px;
+    height: 100vh;
+
+}
+
+.login-register-section .nav-tabs{
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+}
+.login-register-section .form{
+    width: 100%;
+}
+.login-register-section .form .group{
+    margin: 20px 0;
+}
+.login-register-section .form input{
+    width: 100%;
+}
+.login-register-section .nav-item a{
+    font-size: 1.8rem;
+}
+
+
+.login-register-section .button{
+    padding: 20px 20px;
+}
+
+
+
+@media (max-width : 992px) {
+    .login-register-section .container {
+        width: 100vw;
+    }
+    .login-register-section .tabcontent {
+        padding: 0 20px;
+    }
+  
+}
