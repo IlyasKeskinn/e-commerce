@@ -1,0 +1,215 @@
+.page-title {
+    font-size: 3.2rem;
+    font-weight: 700;
+}
+
+
+.shopping-cart__container {
+    margin: 50px 0;
+    padding: 0 !important;
+}
+
+.shopping-cart__row {
+    display: flex;
+}
+
+.shopping-cart__container .button {
+    padding: 2rem 0;
+}
+
+.shopping-cart__container .group input {
+    padding: 2rem 0;
+}
+
+.shopping-cart__container .group {
+    margin: 0;
+}
+
+/* shopping-cart__totals-wrapper */
+
+
+.shopping-cart__totals-wrapper {
+    width: 30%;
+    margin-left: 20px;
+}
+
+.shopping-cart__totals {
+    border: 1px solid var(--black);
+    padding: 5rem 4rem;
+
+}
+
+.shopping-cart__totals table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shopping-cart__totals tr:nth-child(even) {
+    border-bottom: 1px solid rgba(3, 3, 3, 0.15);
+    border-top: 1px solid rgba(3, 3, 3, 0.15);
+}
+
+.shopping-cart__totals tr:last-child {
+    border-bottom: none;
+
+}
+
+
+
+.shopping-cart__totals th {
+    text-align: start;
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding-right: 60px;
+    vertical-align: text-top;
+    padding: 25px 0;
+}
+
+.shopping-cart__totals td {
+    text-align: start;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 25px 0;
+
+}
+
+.shopping-cart__totals .input-check-box .group {
+    margin: 0 !important;
+}
+
+.sticky-content {
+    position: sticky;
+    top: 0;
+    padding-bottom: 1px;
+}
+
+/* cart-table__wrapper */
+.cart-table__wrapper {
+    width: 70%;
+
+}
+
+.cart-table__wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.cart-table__wrapper thead th {
+    text-align: start;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.shopping-cart__product-price,
+.shopping-cart__subtotal {
+    font-size: 1.6rem;
+    font-weight: 400;
+
+}
+
+.cart-table__wrapper .cart-table-row {
+    border-bottom: 1px solid rgba(3, 3, 3, 0.15);
+    border-top: 1px solid rgba(3, 3, 3, 0.15);
+}
+
+.cart-table__wrapper .cart-table-row td {
+    padding: 30px 0 30px 0;
+
+}
+
+
+.cart-table__wrapper .cart-drawer-img-wrapper img {
+    height: 12rem;
+    width: 12rem;
+    object-fit: cover;
+    object-position: top;
+}
+.cart-table__wrapper .remove-cart svg{
+    pointer-events: none !important;
+}
+.quantity-control__number{
+    pointer-events: none;
+}
+
+@media (max-width : 992px) {
+    .shopping-cart-section .container {
+        width: 100vw;
+    }
+
+    .shopping-cart-section .page-title,
+    .shopping-cart-section .cart-table__wrapper,
+    .shopping-cart-section .shopping-cart__totals-wrapper {
+        padding: 0 20px;
+    }
+
+    .cart-table__wrapper thead {
+        display: none;
+    }
+
+    .shopping-cart__row {
+        flex-wrap: wrap;
+    }
+
+    .cart-table__wrapper {
+        width: 100%;
+
+    }
+
+    .shopping-cart__totals-wrapper {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .cart-table__wrapper tr {
+        position: relative;
+    }
+
+    .cart-table__wrapper .remove-cart {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    .cart-table__wrapper .remove-cart svg{
+        pointer-events: none !important;
+    }
+    .cart-table__wrapper .shopping-cart__subtotal {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .cart-table__wrapper .quantity-control {
+        width: 80px !important;
+    }
+
+    .cart-table__wrapper .quantity-control input {
+        border: none;
+    }
+
+    .cart-table__wrapper .shopping-cart__product-price {
+        display: none;
+    }
+
+    .cupon-apply_inputbutton .group {
+        width: 50% !important;
+    }
+
+    .cupon-apply_inputbutton .group input {
+        width: 100% !important;
+    }
+
+    .cart-table__wrapper .checkout-buttons {
+        flex-direction: column;
+        align-items: end;
+    }
+
+    .cart-table__wrapper .checkout-buttons .btn-secondary {
+        margin-top: 10px;
+    }
+
+
+
+}

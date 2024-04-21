@@ -6,9 +6,6 @@ import {GridBanner} from"../../components/Home/gridBanner/GridBanner";
 import {InstagramArea} from"../../components/Instagram/InstagramArea"
 import "./Home.css"
 import { ServicesPromotion } from "../../components/ServicePromotion/ServicePromotion";
-import { PageOverlay } from "../../components/PageOverlay/PageOverlay";
-import { AuthAside } from "../../components/Asides/AuthAside/AuthAside";
-import { ShoppingCartAside } from "../../components/Asides/CartAside/ShoppingCartAside";
 
 export const Home = () => {
     return (
@@ -20,9 +17,6 @@ export const Home = () => {
             <GridBanner/>
             <InstagramArea/>
             <ServicesPromotion/>
-            <PageOverlay/>
-            <AuthAside/>
-            <ShoppingCartAside/>
         </>
     );
 }

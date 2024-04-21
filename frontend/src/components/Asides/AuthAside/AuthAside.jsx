@@ -18,17 +18,17 @@ export const AuthAside = () => {
                 <form action="./" className="aside-content">
                     <div className="group">
                         <input type="text" id="usernameTxt" name="usernameTxt"/>
-                        <label for="usernameTxt" className="custom-label">Username or email *</label>
+                        <label htmlFor="usernameTxt" className="custom-label">Username or email *</label>
 
                     </div>
                     <div className="group">
                         <input type="password" id="usernameTxt" name="usernameTxt"/>
-                        <label for="usernameTxt" className="custom-label">Password *</label>
+                        <label htmlFor="usernameTxt" className="custom-label">Password *</label>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="input-check-box d-flex justify-content-start align-items-center">
                             <div className="group dummy-box">
-                                <label className="custom-label-checkbox" for="customCheckbox">
+                                <label className="custom-label-checkbox" htmlFor="customCheckbox">
                                     <input type="checkbox" id="customCheckbox"/>
                                     <span></span>
                                 </label>
