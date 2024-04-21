@@ -1,7 +1,9 @@
-import { CollectionTimer } from "../components/home/collectionTimer/CollectionTimer";
-import { ProductsArea } from "../components/home/productsArea/ProductsArea";
-import { ShopCollection } from "../components/home/shopCollection/ShopCollection";
-import { Slider } from "../components/sliders/Slider";
+import { Slider } from "../components/Sliders/Slider";
+import { ShopCollection } from "../components/Home/shopCollection/ShopCollection";
+import { ProductsArea } from "../components/Home/productsArea/ProductsArea";
+import {CollectionTimer} from"../components/Home/collectionTimer/CollectionTimer";
+import {GridBanner} from"../components/Home/gridBanner/GridBanner";
+import {InstagramArea} from"../components/Instagram/InstagramArea"
 import "./Home.css"
 
 export const Home = () => {
@@ -9,8 +11,10 @@ export const Home = () => {
         <>
             <Slider />
             <ShopCollection />
-            <ProductsArea/>
+            <ProductsArea />
             <CollectionTimer/>
+            <GridBanner/>
+            <InstagramArea/>
         </>
     );
 }

@@ -3,7 +3,7 @@ export const CollectionItem = (props) => {
 
     return (
         <div className=" collection-item position-relative h-md-100">
-            <div className="background-img" style={{ backgroundImage: `url(./img/collection/${props.image})` }} ></div>
+            <div className="background-img" style={{ backgroundImage: `url(${props.image})` }} ></div>
             <div className="collection-content">
                 <p className="colection-topic text-uppercase">Hot List</p>
                 <h3 className="collection-title text-uppercase">
