@@ -1,13 +1,14 @@
+import { ProductsArea } from "../components/home/productsArea/ProductsArea";
 import { ShopCollection } from "../components/home/shopCollection/ShopCollection";
-import { ProductCard } from "../components/productCard/ProductCard";
 import { Slider } from "../components/sliders/Slider";
+import "./Home.css"
 
 export const Home = () => {
     return (
         <>
             <Slider />
             <ShopCollection />
-            <ProductCard/>
+            <ProductsArea/>
         </>
     );
 }

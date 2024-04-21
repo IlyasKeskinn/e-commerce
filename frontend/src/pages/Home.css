@@ -1,0 +1,134 @@
+.deal-timer {
+    margin-top: 5rem;
+}
+
+.deal-timer .dealtimer-bg {
+    height: 100% !important;
+    width: 100% !important;
+    background-color: #ebebeb;
+}
+
+.deal-timer .dealtimer-bg img {
+    height: 60rem;
+    max-width: 100% !important;
+    object-fit: cover;
+}
+
+.deal-timer-text {
+    position: absolute;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.deal-timer .dealtimer-countdown {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+
+}
+
+.countdown-unit {
+    position: relative;
+    line-height: 1;
+}
+
+.countdown-unit .countdown-num {
+    font-size: 3rem;
+}
+
+.countdown-unit .countdown-word {
+    font-size: 1rem !important;
+}
+
+
+.dealtimer-countdown .day:after,
+.dealtimer-countdown .hour:after,
+.dealtimer-countdown .min:after {
+    content: ':';
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -12px);
+    right: -15px;
+    font-size: 16px;
+}
+
+.limited-products {
+    margin: 100px 0;
+}
+
+.grid-banner {
+    height: 40rem;
+    margin: 100px 0;
+}
+
+.instgram__section{
+    margin: 75px 0;
+}
+.service-promotion{
+    margin-bottom: 50px;
+}
+.service-promotion__row{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+.service-promotion__title{
+    font-size: 2rem;
+}
+.col-md-4{
+    width: 100%;
+}
+
+/* responsive */
+
+
+@media (max-width : 992px) {
+    .grid-banner {
+        height: 60rem;
+    }
+
+    .grid-banner .collection-row {
+        gap: 0;
+    }
+    .instgram-area {
+        grid-template-columns: 1fr 1fr 1fr !important;
+    }
+
+
+}
+
+
+
+@media (max-width: 768px) {
+    .deal-timer .dealtimer-bg img {
+        height: 40rem;
+    }
+
+    .deal-timer-text .h1 {
+        font-size: 45px;
+        line-height: 1;
+    }
+    .instgram-area {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .service-promotion__row{
+        grid-template-columns: 1fr;
+        row-gap: 80px;
+    }
+
+
+
+}
+
+@media (max-width: 576px) {
+    .deal-timer .dealtimer-bg img {
+        height: 30rem;
+    }
+
+    .deal-timer-text .h1 {
+        font-size: 25px;
+        line-height: 1;
+    }
+}
