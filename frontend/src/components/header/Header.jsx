@@ -121,7 +121,7 @@ export const Header = () => {
                                         </div>
                                         <div className="col">
                                             <div className="position-relative">
-                                                <img src="./img/mega-menu-item.jpg" alt="shopnowImg" className="mega-menu__img"></img>
+                                                <img src="../../../public/img/mega-menu-item.jpg" alt="shopnowImg" className="mega-menu__img"></img>
                                                 <div className="mega-menu__mediacontent">
                                                     <h3>New</h3>
                                                     <h3>Horizons</h3>

@@ -1,0 +1,138 @@
+.btn {
+    position: relative;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.btn-outlined-half:after {
+    content: "";
+    bottom: -5px;
+    left: 0;
+    height: 1.5px;
+    width: 0;
+    background-color: currentColor;
+    position: absolute;
+    transition: all 0.3s ease-out;
+}
+
+.btn-outlined-half:hover::after {
+    width: 65%;
+
+}
+
+.btn-outlined-half.active::after {
+    width: 65%;
+}
+
+.btn-outlined-half.active {
+    color: var(--black) !important;
+}
+
+.btn-outlined-half:hover {
+    color: var(--black) !important;
+}
+
+.btn-full::after {
+    content: "";
+    bottom: 0;
+    left: 0;
+    height: 1.5px;
+    width: 0;
+    background-color: var(--black);
+    position: absolute;
+    transition: all 0.3s ease-out;
+}
+.btn-full:hover::after{
+    width: 100%;
+}
+.btn-full.active::after{
+    width: 100%;
+}
+.btn-full.active {
+    color: var(--black) !important;
+}
+
+.btn-full:hover {
+    color: var(--black) !important;
+}
+
+.btn-outlined::after {
+    content: "";
+    bottom: -5px;
+    left: 0;
+    height: 1.5px;
+    width: 60%;
+    background-color: currentColor;
+    position: absolute;
+    transition: all 0.3s ease-out;
+}
+
+.btn-outlined:hover::after {
+    width: 100%;
+}
+
+.button {
+    display: inline-block;
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.5;
+    vertical-align: middle;
+    padding: 4rem;
+    border-radius: 0;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    transition: opacity 0.1s ease-out;
+    border: none;
+}
+
+.btn-primary {
+    color: var(--bg-white);
+    background-color: var(--black);
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    background-color: #e4e4e4;
+    color: var(--black);
+}
+
+.btn-secondary:hover {
+    background-color: #e8e8e8;
+    color: var(--black);
+}
+
+.btn-white {
+    background-color: var(--bg-white);
+    border: 1px solid var(--bg-white);
+
+    color: var(--black);
+    transition: all 0.3s ease-out;
+}
+
+.btn-white:hover {
+    border: 1px solid var(--black);
+}
+
+.aside-header-button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.aside-content-button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.aside .quantity-control button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
