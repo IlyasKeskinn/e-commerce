@@ -4,13 +4,14 @@ import {AsideLayout} from "./AsideLayout"
 import { Home } from "../pages/Home/Home";
 import { Shop } from "../pages/Shop/Shop";
 import { ShopingCart } from "../pages/ShopingCart/ShopingCart";
+import { ShopCheckout } from "../pages/ShopCheckout/ShopCheckout";
 
 export const MainLayout = () => {
     return (
         <>
             <Header />
             <main>
-                <ShopingCart/>
+                <ShopCheckout/>
             </main>
             <AsideLayout/>
             <Footer />

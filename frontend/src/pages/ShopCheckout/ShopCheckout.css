@@ -1,0 +1,81 @@
+.checkout-cart__row {
+    display: flex;
+}
+
+/* billings__wrapper */
+
+.billings-info__wrapper {
+    width: 70%;
+}
+
+.billings-info__wrapper .form-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.billings-info__wrapper .col-6 {
+    width: 50% !important;
+    padding-right: 15px;
+}
+
+.billings-info__wrapper .col-12 {
+    width: 100% !important;
+    padding-right: 15px;
+
+}
+
+.billings-info__wrapper .group {
+    width: 100%;
+    margin: 10px;
+}
+
+.billings-info__wrapper .group input {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+
+.billings-info__wrapper .group textarea {
+    width: 100%;
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.order-list-table thead {
+    border-bottom: 1px solid rgba(3, 3, 3, 0.15) !important;
+
+}
+
+.order-list-table tr:last-child{
+    border-top: none !important;
+    border-bottom: 1px solid rgba(3, 3, 3, 0.15) !important;
+}
+
+@media (max-width : 992px) {
+    .checkout-section  .container{
+        width: 100vw;
+    }
+    .checkout-section  .checkout-steps,
+    .checkout-section .page-title,
+    .checkout-section .billings-info__wrapper,
+    .checkout-section .shopping-cart__totals-wrapper{
+        padding: 0 20px;
+    }
+    .checkout-cart__row {
+        flex-wrap: wrap;
+    }
+
+    .billings-info__wrapper {
+        width: 100%;
+
+    }
+
+    .shopping-cart__totals-wrapper {
+        width: 100%;
+        margin-left: 0;
+    }
+
+}
