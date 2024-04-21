@@ -1,0 +1,144 @@
+.aside {
+    position: fixed;
+    max-width: 100%;
+    width: 42rem;
+    height: 100vh;
+    top: 0;
+    transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+    z-index: 1050;
+    overflow: hidden;
+    background-color: var(--bg-white);
+    right: -42rem;
+}
+
+.aside-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.aside-visible.aside-right {
+    right: 0;
+}
+
+
+.aside-header {
+    height: 12vh;
+}
+.aside-header .aside-title{
+    font-size: 1.6rem;
+}
+
+.aside-header i{
+    font-size: 3.5rem;
+}
+
+
+.customer-login__wraper::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12vh;
+    background-color: #FAF9F8;
+    z-index: -10;
+}
+
+.customer-option{
+    margin: 2rem 0;
+}
+
+.shopping-cart__wraper{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12vh;
+    background-color: #FAF9F8;
+    z-index: -10;
+}
+.shopping-cart{
+    padding: 0 1.25rem;
+}
+.aside-content{
+    min-width: 30rem;
+}
+
+.cart-drawer-item-list{
+    margin-top: 2.6rem;
+    overflow-y: auto;
+    height: 55vh;
+}
+.cart-drawer-item-list .cart-drawer-item{
+    max-height: 12rem;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+.cart-drawer-item-list .cart-item-img{
+    height: 12rem;
+    width: 12rem;
+    object-fit: cover;
+}
+
+.cart-drawer-item-list .cart-drawer-info{
+    flex-grow: 2;
+    padding: 0.2rem 1rem;
+
+}
+.card-drawer-title p,
+.cart-drawer-info p,
+.card-drawer-title h3{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; 
+}
+.cart-drawer-item-list .cart-drawer-info h3{
+    font-size: 1.6rem;
+}
+.cart-drawer-item-list .cart-drawer-info p{
+    font-size: 1.4rem;
+}
+.cart-drawer-item-list .cart-drawer-info span{
+    font-size: 1.4rem;
+}
+.cart-drawer-item-list .cart-drawer-info .quantity-control *{
+    margin-right: 1rem;
+}
+.cart-drawer-remove-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.cart-drawer-remove-btn i{
+    font-size: 2.4rem;
+    pointer-events: none;
+}
+
+.cart-drawer-divider{
+    left: 0;
+    width: 100%;
+    background-color: #E4E4E4 !important;
+    height: 1px !important;
+    opacity: 0.3;
+}
+
+.aside .cart-drawer-actions{
+    margin: 3rem 0;
+}
+.aside .cart-total{
+    margin: 1rem 0;
+}
+.aside .buttonwrapper a{
+    margin: 0.7rem 0;
+}
+
+@media (max-width: 576px) {
+    .aside {
+        width: 100%;
+        right: -100%;
+    }
+
+}
