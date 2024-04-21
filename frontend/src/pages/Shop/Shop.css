@@ -21,7 +21,6 @@
 }
 
 
-
 /* shop aside */
 
 
@@ -116,7 +115,7 @@
 
 @media (max-width: 992px) {
     .shop-banner-container {
-        width: 100vw;
+        width: 100vw !important;
         padding: 0;
     }
 

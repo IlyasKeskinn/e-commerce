@@ -1,0 +1,53 @@
+.shop-banner {
+    margin-bottom: 25px;
+}
+
+.shop-banner-row {
+    height: 42rem !important;
+}
+
+.shop-banner-container {
+    border: 1px solid #f5e6e0;
+    padding: 1rem;
+}
+.shop-banner-title{
+    font-size: 6rem;
+}
+
+.shop-banner-content {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.shop-banner__items{
+    flex-wrap: wrap !important;
+}
+.shop-banner__items .shop-banner__item{
+    margin-right: 15px;
+    margin-bottom: 15px;
+    
+}
+.shop-banner__items .shop-banner__item a{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* responsive */
+
+@media (max-width: 992px) {
+    .shop-banner-container {
+        width: 100vw;
+        padding: 0;
+    }
+    .shop-banner-row {
+        height: 24rem !important;
+    }
+    .shop-banner__items .shop-banner__item{
+        margin-right: 9px;
+    }
+    .shop-banner__items{
+        justify-content: start !important;
+    }
+}
+    
