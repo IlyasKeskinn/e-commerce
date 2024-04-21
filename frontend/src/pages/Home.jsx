@@ -1,3 +1,4 @@
+import { CollectionTimer } from "../components/home/collectionTimer/CollectionTimer";
 import { ProductsArea } from "../components/home/productsArea/ProductsArea";
 import { ShopCollection } from "../components/home/shopCollection/ShopCollection";
 import { Slider } from "../components/sliders/Slider";
@@ -9,6 +10,7 @@ export const Home = () => {
             <Slider />
             <ShopCollection />
             <ProductsArea/>
+            <CollectionTimer/>
         </>
     );
 }
