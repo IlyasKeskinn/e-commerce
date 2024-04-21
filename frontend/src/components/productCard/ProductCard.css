@@ -1,0 +1,119 @@
+.product-card {
+    position: relative;
+    overflow: hidden;
+
+
+}
+
+.product-card .pc-img__wrapper {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    padding-top: 125%;
+
+}
+
+.pc__addcart{
+    width: 95%;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%,0);
+    pointer-events: none;
+    opacity: 0;
+    z-index: -50;
+    border-radius: 5px;
+    transition: all 0.2s ease-out;
+}
+.product-card:hover .pc__addcart{
+   
+    z-index: 10;
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.product-card:hover img{
+    opacity: 0.8;
+}
+.pc__removewhislist{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px ;
+    padding: 5px 5px;
+    background-color: white;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    opacity: 0;
+    border: none;
+    z-index: -50;
+    transition: all 0.2s ease-out;
+}
+
+.whislist-product:hover .pc__removewhislist{
+    z-index: 10;
+    pointer-events: auto;
+    opacity: 1;
+    cursor: pointer;
+}
+.whislist-product a{
+    pointer-events: none;
+}
+
+.product-card .pc-img__wrapper .pc__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-position: top;
+}
+
+
+
+.pc-info .pc__category {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+
+.pc-info .pc__title {
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.product-card__price .price {
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.product-card .reviews-note {
+    font-size: 1.4rem;
+
+}
+
+.review-stars-group svg{
+    margin-right: 0.1rem;
+    fill: var(--light-gray)
+}
+
+.review-stars-group svg.active {
+    fill: orange;
+}
+.review-stars-group svg.is-overed {
+    fill: orange;
+}
+.pc__btn{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+

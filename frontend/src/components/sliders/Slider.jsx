@@ -5,9 +5,9 @@ import { SliderBackgrounds } from "./SliderBackground";
 
 export const Slider = () => {
     return (
-        <div class="slider ">
-            <div class=" slider-container position-relative">
-                <div class="slide-show overflow-hidden position-relative">
+        <div className="slider ">
+            <div className=" slider-container position-relative">
+                <div className="slide-show overflow-hidden position-relative">
                     <SliderBackgrounds/>
                     <SliderItem />
                 </div>
