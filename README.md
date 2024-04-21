@@ -42,20 +42,16 @@ Before starting the development of the project, follow these steps:
 
 
 ## Project Structure
-ecommerce/
-│
-├── backend/       # Node.js backend code
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   
-│
-└── frontend/      # React frontend code
-    ├── src/
-    │   ├── actions/
-    │   ├── components/
-    │   ├── layout/
-    │   ├── pages/
-    │   ├── reducers/
-    │   ├── store/
-    └── ...
+- ecommerce/
+  - backend/
+    - controllers/
+    - models/
+    - routes/
+  - frontend/
+    - src/
+    - actions/
+    - components/
+    - layout/
+    - pages/
+    - reducers/
+    - store/
