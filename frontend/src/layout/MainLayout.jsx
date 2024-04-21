@@ -6,13 +6,14 @@ import { Shop } from "../pages/Shop/Shop";
 import { ShopingCart } from "../pages/ShopingCart/ShopingCart";
 import { ShopCheckout } from "../pages/ShopCheckout/ShopCheckout";
 import { ShopComplete } from "../pages/ShopComplete/ShopComplete";
+import { NotFound } from "../pages/NotFoundPage/NotFound";
 
 export const MainLayout = () => {
     return (
         <>
             <Header />
             <main>
-                <ShopComplete/>
+                <NotFound/>
             </main>
             <AsideLayout/>
             <Footer />

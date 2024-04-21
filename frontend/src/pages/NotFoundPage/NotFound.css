@@ -1,0 +1,29 @@
+.not-found-page{
+    background-image: url(../../img/404page/pattern_bg.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.not-found__section{
+    height: calc(100vh - 220px);
+}
+.mw-300{
+    max-width: 450px;
+}
+.not-found__section .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.not-found__title {
+    font-size: 10rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.not-found__section .button{
+    width: 80% ;
+    padding: 2rem;
+}
