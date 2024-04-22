@@ -6,6 +6,8 @@ import "./style/typography.css"
 import "./style/button.css"
 import "./style/input.css"
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css"
+import 'swiper/css';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
