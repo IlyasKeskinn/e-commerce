@@ -7,11 +7,11 @@ import "./ProductSlider.css"
 
 export const ProductSlider = ({ slideItems }) => {
     return (
-        <section class="limited-products d-flex justify-content-center align-items center">
-            <div class="container position-relative ">
-                <h2 class="text-uppercase section-title text-center fw-normal my-5">Limited <strong>Edition</strong>
+        <section className="limited-products d-flex justify-content-center align-items center">
+            <div className="container position-relative ">
+                <h2 className="text-uppercase section-title text-center fw-normal my-5">Limited <strong>Edition</strong>
                 </h2>
-                <div class="swiper mySwiper">
+                <div className="swiper mySwiper">
                     <Swiper
                         className="mySwiper"
                         modules={[Autoplay, Pagination]}
@@ -41,9 +41,9 @@ export const ProductSlider = ({ slideItems }) => {
                             <SwiperSlide><ProductCard product={slideItem} /></SwiperSlide>
                         ))}
                     </Swiper>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div className="swiper-pagination"></div>
+                    <div className="swiper-button-prev"></div>
+                    <div className="swiper-button-next"></div>
                 </div>
 
             </div>

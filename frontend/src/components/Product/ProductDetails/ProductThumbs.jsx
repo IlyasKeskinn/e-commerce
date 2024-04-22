@@ -1,26 +1,48 @@
-export const ProductThumbs = () => {
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+export const ProductThumbs = ({ activeImage, setActiveImage, productImg }) => {
     return (
         <div className="product-thumb swiper mySwiper2">
-            <ul className="gallery-thumbs swiper-wrapper my-2">
-                <li className="swiper-slide gallery-thumbs__item">
-                    <img src="../img/product_simple/product_0.jpg" style={{ height: 104, width: 104 }}
-                        className="img-fluid gallery-thumbs__img active" alt=""></img>
-                </li>
-                <li className="swiper-slide gallery-thumbs__item" data-id="1">
-                    <img src="../img/product_simple/product_0-1.jpg" style={{ height: 104, width: 104 }}
-                        className="img-fluid gallery-thumbs__img" alt=""></img>
-                </li>
-                <li className="swiper-slide gallery-thumbs__item">
-                    <img src="../img/product_simple/product_0-2.jpg" style={{ height: 104, width: 104 }}
-                        className="img-fluid gallery-thumbs__img" alt=""></img>
-                </li>
-                <li className="swiper-slide gallery-thumbs__item">
-                    <img style={{ height: 104, width: 104 }} src="../img/product_simple/product_0-3.jpg"
-                        className="img-fluid gallery-thumbs__img" alt=""></img>
-                </li>
-            </ul>
-            <div className="swiper-button swiper-button-prev"></div>
-            <div className="swiper-button swiper-button-next"></div>
+            <Swiper
+                modules={[Navigation]}
+                className="gallery-thumbs"
+                spaceBetween={10}
+                slidesPerView={5}
+                navigation={true}
+                loop={true}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 5,
+                        spaceBetween: 10,
+                    },
+                    768: {
+                        slidesPerView: 5,
+                        spaceBetween: 10,
+                    },
+                    1024: {
+                        slidesPerView: 5,
+                        spaceBetween: 10,
+                    },
+                }}
+            >
+                {productImg.map((img) => {
+                    return (
+                        <SwiperSlide>
+                            <img src={`${img.imageUrl}`} style={{ height: 104, width: 104 }}
+                                className={`img-fluid gallery-thumbs__img ${activeImage.imageUrl == img.imageUrl ? "active" : ""}`}
+                                alt=""
+                                onClick={()=> {setActiveImage(img)}}
+                                >
+                            </img>
+                        </SwiperSlide>
+                    );
+                })}
+            </Swiper>
+
         </div>
     )
 }
+
