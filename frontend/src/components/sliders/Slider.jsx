@@ -9,7 +9,8 @@ export const Slider = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const showSlide = (index) => {
-        setActiveIndex(index)
+        setActiveIndex(index);
+        clearInterval(sliderTimer);
     }
 
     const slide = () => {
@@ -21,9 +22,9 @@ export const Slider = () => {
         return index;
     }
 
-    setTimeout(() => {
+    let sliderTimer = setTimeout(() => {
         setActiveIndex(slide())
-    }, 10000);
+    }, 8000);
 
     return (
         <div className="slider ">

@@ -1,8 +1,8 @@
 import "./ShoppingCartAside.css"
 
-export const ShoppingCartAside = () => {
+export const ShoppingCartAside = ({ isCartAsideActive, setCartAsideActive, setAsideActive }) => {
     return (
-        <aside className="aside aside-right" id="shopingCartAside">
+        <aside className={`aside aside-right ${isCartAsideActive ? "aside-visible" : ""}`} id="shopingCartAside">
             <div className="shopping-cart__wraper position-relative d-flex justify-content-center">
                 <div className="shopping-cart w-95">
                     <div className="aside-header  d-flex align-items-center justify-content-between">
@@ -10,14 +10,14 @@ export const ShoppingCartAside = () => {
                             SHOPPING BAG <span className="shoping-cart-amount">( 0 )</span>
                         </h3>
                         <button className="aside-header-button">
-                            <i className="bi bi-x"></i>
+                            <i className="bi bi-x" onClick={() => { setCartAsideActive(false); setAsideActive(false) }}></i>
                         </button>
                     </div>
                     <div className="aside-content">
                         <div className="cart-drawer-item-list">
 
                         </div>
-                      
+
                         <div className="cart-drawer-actions">
                             <div className="cart-total d-flex justify-content-between align-items-center">
                                 <p className="fw-normal text-uppercase">Subtotal: </p>

@@ -2,7 +2,7 @@ import { Form } from "react-router-dom";
 import "./Header.css";
 import { HeaderTools } from "./HeaderTools";
 
-export const Header = () => {
+export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActive, setCartAsideActive, isAsideActice, setAsideActive }) => {
     return (
         <header id="header" className="header">
             <div className="container">
@@ -172,7 +172,8 @@ export const Header = () => {
                             </li>
                         </ul>
                     </nav>
-                   <HeaderTools/>
+                    {/* TODO: Refactor this section to make it cleaner and more readable */}
+                    <HeaderTools isAuthAsideActive={isAuthAsideActive} setAuthAsideActive={setAuthAsideActive} isCartAsideActive={isCartAsideActive} setCartAsideActive={setCartAsideActive} isAsideActice={isAsideActice} setAsideActive={setAsideActive} />
                 </div>
             </div>
         </header>
