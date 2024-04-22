@@ -120,26 +120,6 @@
     max-width: 900px;
 }
 
-.nav-tabs {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.tab-pane {
-    opacity: 0;
-    visibility: hidden;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.3s ease-out, max-height 0.3s ease-out, visibility 0.3s ease-out;
-}
-
-.tab-pane.active {
-    opacity: 1;
-    visibility: visible;
-    max-height: 100%;
-}
-
 
 .product-single__tabs .tabcontent {
     margin: 50px 0;

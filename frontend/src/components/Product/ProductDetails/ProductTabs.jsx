@@ -1,18 +1,20 @@
+import { useState } from "react"
 import { NavItem } from "../../NavTabs/NavItem"
 import { ReviewForm } from "../../Reviews/ReviewForm"
 import { ReviewsStars } from "../../Reviews/ReviewsStars"
 
 export const ProductTabs = () => {
+    const [activeTabs, setActiveTabs] = useState(0);
+
     return (
         <div className="product-single__tabs">
             <ul className="nav nav-tabs" id="myTabs1">
-                <NavItem navText="Description" navId="descriptionTabs" />
-                <NavItem navText="Additional Information" navId="additionalInformationTabs" />
-                <NavItem navText="Reviews" navId="reviewsTabs" />
+                <NavItem navText="Description" navId="descriptionTabs"  tabIndex={0} isActive={activeTabs === 0} setActiveTabs={setActiveTabs} />
+                <NavItem navText="Additional Information" navId="additionalInformationTabs"  tabIndex={1} isActive={activeTabs === 1} setActiveTabs={setActiveTabs} />
+                <NavItem navText="Reviews" navId="reviewsTabs"  tabIndex={2} isActive={activeTabs === 2} setActiveTabs={setActiveTabs} />
             </ul>
             <div className="tabcontent ">
-                <div className="tab-pane fade active! show!" id="tab-description"
-                    aria-labelledby="collections-tab-1-trigger">
+                <div className={`tab-pane fade ${activeTabs === 0 ? "active" : ""} show`}>
                     <div className="product-single__description">
                         <h3 className="text-uppercase fw-normal">
                             Sed do eiusmod tempor incididunt ut labore
@@ -67,8 +69,7 @@ export const ProductTabs = () => {
                         </p>
                     </div>
                 </div>
-                <div className="tab-pane fade show" id="tab-additionalInformation"
-                    aria-labelledby="collections-tab-2-trigger">
+                <div className={`tab-pane fade ${activeTabs === 1 ? "active" : ""} show`}>
                     <div className="product-single__additionalInformation">
                         <div className="item">
                             <label className="fw-normal">Weight</label>
@@ -92,7 +93,7 @@ export const ProductTabs = () => {
                         </div>
                     </div>
                 </div>
-                <div className="tab-pane fade show active" id="tab-reviews" aria-labelledby="collections-tab-3-trigger">
+                <div className={`tab-pane fade ${activeTabs === 2 ? "active" : ""} show`} >
                     <div className="product-singe__reviews">
                         <h3 className="text-uppercase fw-normal my-5">
                             Reviews

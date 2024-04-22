@@ -1,0 +1,13 @@
+.tab-pane {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.05s ease-out, max-height 0.05s ease-out, visibility 0.05s ease-out;
+}
+
+.tab-pane.active {
+    opacity: 1;
+    visibility: visible;
+    max-height: 100%;
+}
