@@ -1,0 +1,138 @@
+
+.account-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 70px 0;
+
+}
+
+.account-row .col-3 {
+    width: 25%;
+    flex: 0 0 auto;
+
+}
+
+.account-row .col-9 {
+    width: 75%;
+    flex: 0 0 auto;
+}
+
+.account-nav .account-nav-item {
+    padding: 15px 0;
+}
+
+.my-account__section .page-content {
+    vertical-align: top;
+}
+
+.my-account__section .my-account__dashboard {
+    width: 70%;
+}
+
+.my-account__section .my-account__dashboard p {
+    padding-bottom: 20px;
+}
+
+.my-account__section .my-account__dashboard a {
+    text-decoration: underline;
+}
+
+.my-account__section .account-nav .account-nav-item .btn.active {
+    color: #c32929 !important;
+    pointer-events: none;
+}
+
+
+.my-account__section table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgba(3, 3, 3, 0.15);
+}
+
+.my-account__section thead {
+    background-color: var(--gray);
+}
+
+.my-account__section tr {
+    border-bottom: 1px solid rgba(3, 3, 3, 0.15);
+    text-align: center;
+}
+
+.my-account__section th {
+    padding: 20px 10px;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.my-account__section td {
+
+    padding: 20px 10px;
+}
+
+.my-account__address-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+.my-account__address-item{
+    width: 50%;
+    padding: 0 20px 0 0;
+}
+.my-account__address-item__title h6{
+    font-size: 1.6rem;
+}
+
+.my-account__details-row{
+    width: 100%;
+}
+.my-account__details-wrapper{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.my-account__details-wrapper .col-6{
+    width: 50%;
+}
+.my-account__details-wrapper .col-12{
+    width: 100%;
+}
+.my-account__details-wrapper .group{
+    padding-right: 10px;
+    margin: 10px 0;
+}
+.my-account__details-wrapper .group input{
+    width: 100%;
+}
+.my-account__details-wrapper .btn-primary{
+    padding: 20px 10px;
+    margin: 30px 0;
+    width: 40%;
+}
+
+@media (max-width : 992px) {
+    .my-account__section .container {
+        width: 100vw;
+    }
+
+    .my-account__section .page-title,
+    .my-account__section .account-row {
+        padding: 0 20px;
+    }
+
+    .account-row .col-3 {
+        width: 100%;
+
+    }
+
+    .account-row .col-9 {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .my-account__section .my-account__dashboard {
+        width: 90%;
+    }
+    .my-account__address-item{
+        width: 100%;
+        padding: 0;
+    }
+}

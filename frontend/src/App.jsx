@@ -7,7 +7,12 @@ import { ShopingCart } from './pages/ShopingCart/ShopingCart'
 import { ShopCheckout } from './pages/ShopCheckout/ShopCheckout'
 import { ShopComplete } from './pages/ShopComplete/ShopComplete'
 import { Auth } from "./pages/Auth/Auth"
-
+import { NotFound } from './pages/NotFoundPage/NotFound'
+import { AccountLayout } from './layout/AccountLayout'
+import { AccountDashboard } from './pages/Account/AccountDashboard'
+import { AccountAdress } from './pages/Account/AccountAddress'
+import { AccountDetails } from './pages/Account/AccountDetails'
+import { AccountOrders } from './pages/Account/AccountOrders'
 function App() {
   const router = createBrowserRouter([
     {
@@ -15,12 +20,23 @@ function App() {
       element: <MainLayout />,
       children: [
         { path: "/", element: <Home /> },
-        { path: "/index", element: <Home /> },
-        { path: "/shop", element: <Shop /> },
-        { path: "/cart", element: <ShopingCart /> },
-        { path: "/checkout", element: <ShopCheckout /> },
-        { path: "/complete", element: <ShopComplete /> },
-        { path: "/login_register", element: <Auth /> },
+        { path: "home", element: <Home /> },
+        { path: "shop", element: <Shop /> },
+        { path: "cart", element: <ShopingCart /> },
+        { path: "checkout", element: <ShopCheckout /> },
+        { path: "complete", element: <ShopComplete /> },
+        { path: "login_register", element: <Auth /> },
+        {
+          path: "account", element: <AccountLayout />,
+          children: [
+            { path: "", element: <AccountDashboard /> },
+            { path: "address", element: <AccountAdress /> },
+            { path: "details", element: <AccountDetails /> },
+            { path: "orders", element: <AccountOrders /> }
+          ]
+        },
+
+        { path: "*", element: <NotFound /> }
       ]
     }
   ])
