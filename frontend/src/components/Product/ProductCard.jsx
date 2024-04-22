@@ -1,3 +1,4 @@
+import { ReviewRate } from "../Reviews/ReviewRate";
 import { ReviewsStars } from "../Reviews/ReviewsStars";
 import "./ProductCard.css"
 export const ProductCard = ({ product }) => {
@@ -18,6 +19,7 @@ export const ProductCard = ({ product }) => {
                     <span className="money price">${product.price}</span>
                 </div>
                 <ReviewsStars />
+                <ReviewRate/>
                 <button className="pc__btn d-flex align-items-center justify-content center ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                         className="bi bi-heart" viewBox="0 0 16 16">

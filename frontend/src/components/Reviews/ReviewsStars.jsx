@@ -10,9 +10,6 @@ export const ReviewsStars = () => {
                 <Stars active="true"/>
                 <Stars active="false"/>
             </div>
-            <span className="reviews-note text-lowercase text-secondary">
-                8k+ reviews
-            </span>
         </div>
     )
 }
