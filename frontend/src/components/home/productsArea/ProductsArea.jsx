@@ -1,4 +1,4 @@
-import { Products } from "../../Product/Products";
+import Products from "../../Product/Products";
 
 export const ProductsArea = () => {
     return (

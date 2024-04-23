@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { ProductCard } from '../../Product/ProductCard';
@@ -5,7 +6,7 @@ import 'swiper/css/pagination';
 import "./ProductSlider.css"
 
 
-export const ProductSlider = ({ slideItems }) => {
+const ProductSlider = (props) => {
     return (
         <section className="limited-products d-flex justify-content-center align-items center">
             <div className="container position-relative ">
@@ -37,13 +38,11 @@ export const ProductSlider = ({ slideItems }) => {
                             },
                         }}
                     >
-                        {slideItems.map((slideItem) => (
-                            <SwiperSlide><ProductCard product={slideItem} /></SwiperSlide>
+                        {props.products.map((product) => (
+                            <SwiperSlide><ProductCard product={product} /></SwiperSlide>
                         ))}
                     </Swiper>
                     <div className="swiper-pagination"></div>
-                    <div className="swiper-button-prev"></div>
-                    <div className="swiper-button-next"></div>
                 </div>
 
             </div>
@@ -51,3 +50,11 @@ export const ProductSlider = ({ slideItems }) => {
     )
 }
 
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        products: state.products
+    }
+}
+
+export default connect(mapStateToProps)(ProductSlider)

@@ -11,7 +11,7 @@ export const SliderItem = ({ slideItem, activeIndex, index}) => {
                     {slideItem.slider_title}
                 </h2>
                 {slideItem.slider_subtitle ? <h2 className="text-uppercase">{slideItem.slider_subtitle}</h2> : ""}
-                {slideItem.slider_desc ? <h6 class="text-uppercase">{slideItem.slider_desc}</h6> : ""}
+                {slideItem.slider_desc ? <h6 className="text-uppercase">{slideItem.slider_desc}</h6> : ""}
                 <a href={slideItem.slider_url} className="btn btn-outlined">Discover More</a>
             </div>
 

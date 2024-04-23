@@ -6,8 +6,7 @@ import { GridBanner } from "../../components/Home/gridBanner/GridBanner";
 import { InstagramArea } from "../../components/Instagram/InstagramArea"
 import { ServicesPromotion } from "../../components/ServicePromotion/ServicePromotion";
 import "./Home.css"
-import prds from "../../../data/products.json"
-import { ProductSlider } from "../../components/Home/productSlider/ProductSlider";
+import  ProductSlider  from "../../components/Home/productSlider/ProductSlider";
 
 export const Home = () => {
     return (
@@ -20,7 +19,7 @@ export const Home = () => {
             <GridBanner />
             <InstagramArea />
             <ServicesPromotion />
-            <ProductSlider slideItems={prds}/>
+            <ProductSlider/>
         </>
     );
 }

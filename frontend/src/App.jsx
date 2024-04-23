@@ -31,7 +31,7 @@ function App() {
         {
           path: "account", element: <AccountLayout />,
           children: [
-            { path: "", element: <AccountDashboard /> },
+            { path :"dashboard", element: <AccountDashboard /> },
             { path: "address", element: <AccountAdress /> },
             { path: "details", element: <AccountDetails /> },
             { path: "orders", element: <AccountOrders /> }
@@ -43,6 +43,8 @@ function App() {
     }
   ])
   return (<RouterProvider router={router}></RouterProvider>)
+
 }
 
 export default App
+

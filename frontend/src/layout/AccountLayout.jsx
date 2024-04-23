@@ -11,7 +11,7 @@ export const AccountLayout = () => {
                         <AccountNav />
                     </div>
                     <div className="col-9">
-                        <Outlet/>
+                        <Outlet />
                     </div>
                 </div>
             </div>

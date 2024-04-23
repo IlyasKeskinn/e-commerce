@@ -32,7 +32,6 @@ export const Slider = () => {
                 <div className="slide-show overflow-hidden position-relative">
                     <SliderBackgrounds />
                     {sliderItems.map((slideItem, index) => {
-                        console.log(index);
                         return <SliderItem key={slideItem.id} slideItem={slideItem} activeIndex={activeIndex} index={index} />
                     })}
                 </div>

@@ -49,6 +49,9 @@ ul,
 ol {
     list-style: none;
 }
+li{
+    list-style: none;
+}
 
 a {
     color: #222;

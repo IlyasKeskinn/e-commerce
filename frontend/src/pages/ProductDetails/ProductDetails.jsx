@@ -5,9 +5,14 @@ import { ProductMeta } from '../../components/Product/ProductDetails/ProductMeta
 import { ProductTabs } from '../../components/Product/ProductDetails/ProductTabs'
 import { ReviewRate } from '../../components/Reviews/ReviewRate'
 import { ReviewsStars } from '../../components/Reviews/ReviewsStars'
+import { useEffect } from 'react'
 import './ProductDetails.css'
 
-export const ProductDetails = () => {
+export const ProductDetails = (props) => {
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
+      
     return (
         <section className="product-single d-flex flex-wrap justify-content-center align-items-center">
             <div className="container product-single-wrapper">
@@ -19,11 +24,10 @@ export const ProductDetails = () => {
                                 <div className="breadcrumb">
                                     <a href="#" className="btn btn-outlined-half text-uppercase">Home</a>
                                     <span className="fw-normal">/</span>
-                                    <a href="#" className="btn btn-outlined-half text-uppercase">Shirts</a>
+                                    <a href="#" className="btn btn-outlined-half text-uppercase"></a>
                                 </div>
                             </div>
                             <h1 className="product-single__name text-uppercase fw-normal mt-5">
-
                             </h1>
                             <div className="product-card__review d-flex align-items-center ">
                                 <ReviewsStars />
