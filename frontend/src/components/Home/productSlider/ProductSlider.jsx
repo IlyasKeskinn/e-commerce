@@ -39,7 +39,7 @@ const ProductSlider = (props) => {
                         }}
                     >
                         {props.products.map((product) => (
-                            <SwiperSlide><ProductCard product={product} /></SwiperSlide>
+                            <SwiperSlide key={product.id}><ProductCard product={product} /></SwiperSlide>
                         ))}
                     </Swiper>
                     <div className="swiper-pagination"></div>
@@ -51,7 +51,6 @@ const ProductSlider = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         products: state.products
     }

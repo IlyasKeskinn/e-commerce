@@ -13,7 +13,7 @@ import { AccountDashboard } from './pages/Account/AccountDashboard'
 import { AccountAdress } from './pages/Account/AccountAddress'
 import { AccountDetails } from './pages/Account/AccountDetails'
 import { AccountOrders } from './pages/Account/AccountOrders'
-import { ProductDetails } from './pages/ProductDetails/ProductDetails'
+import  ProductDetails  from './pages/ProductDetails/ProductDetails'
 function App() {
   const router = createBrowserRouter([
     {
@@ -27,7 +27,7 @@ function App() {
         { path: "checkout", element: <ShopCheckout /> },
         { path: "complete", element: <ShopComplete /> },
         { path: "login_register", element: <Auth /> },
-        { path: "product/:id", element: <ProductDetails /> },
+        { path: "/product/:id", element: <ProductDetails /> },
         {
           path: "account", element: <AccountLayout />,
           children: [

@@ -21,7 +21,8 @@ const store = configureAppStore(composeEnhancers(applyMiddleware(thunk)))
 store.dispatch(getProductsFromData())
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
   <Provider store={store}>
     <App />
   </Provider>

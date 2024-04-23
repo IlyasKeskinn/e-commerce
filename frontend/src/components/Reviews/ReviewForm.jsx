@@ -7,7 +7,7 @@ export const ReviewForm = () => {
                 <div className="group">
                     <textarea type="text" id="commentText" name="commentText"
                         required></textarea>
-                    <label for="commentText" className="custom-label">Your Review </label>
+                    <label htmlFor="commentText" className="custom-label">Your Review </label>
                 </div>
             </div>
             <div className="col-12">

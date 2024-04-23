@@ -6,7 +6,7 @@ export const ProductCard = ({ product }) => {
  
       
     return (
-        <Link to={`/product/${product.id}`}>
+        <Link to={`product/${product.id}`}>
             <div className="product-card">
                 <div className="pc-img__wrapper">
                     <a href="#" data-id="${product.id}" className="product-link">

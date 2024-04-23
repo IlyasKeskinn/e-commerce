@@ -1,5 +1,6 @@
 import "./Account.css"
 import { FormInput } from "../../components/Inputs/FormInput"
+import { connect } from "react-redux"
 
 export const AccountDetails = () => {
     return (
@@ -40,3 +41,4 @@ export const AccountDetails = () => {
         </div>
     )
 }
+
