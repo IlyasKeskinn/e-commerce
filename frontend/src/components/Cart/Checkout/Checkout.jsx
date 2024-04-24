@@ -67,7 +67,6 @@ export const Checkout = () => {
                         </div>
                     </form>
                 </div>
-
             </div>
         </section>
     )

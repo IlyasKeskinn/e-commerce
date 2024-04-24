@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
-import { ProductCard } from '../../Product/ProductCard';
+import ProductCard  from '../../Product/ProductCard';
 import 'swiper/css/pagination';
 import "./ProductSlider.css"
 

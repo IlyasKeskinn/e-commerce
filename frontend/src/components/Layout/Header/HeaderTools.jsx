@@ -1,5 +1,7 @@
+import { connect } from "react-redux";
 import { Search } from "../../Search/Serach";
-export const HeaderTools = (props) => {
+const HeaderTools = (props) => {
+    console.log(props);
     return (
         <div className="header-tools">
             <Search />
@@ -11,9 +13,19 @@ export const HeaderTools = (props) => {
             </a>
             <a href="#" className="header-tools__item header-tools__cart">
                 <i className="bi bi-bag" onClick={() => { props.setCartAsideActive(true); props.setAsideActive(true) }}>
-                    <span className="cart-amount">0</span>
+                    <span className="cart-amount">
+                        {props.cart.cartItems.length ? props.cart.cartItems.length : 0}
+                    </span>
                 </i>
             </a>
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(HeaderTools)

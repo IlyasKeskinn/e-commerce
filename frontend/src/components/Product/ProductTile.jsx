@@ -1,25 +1,34 @@
-export const ProductTile = () => {
+import { connect } from "react-redux";
+import { deleteCartLocalStorage, updateCartTotal } from "../../actions/cartAction";
+
+const ProductTile = (props) => {
+    console.log(props);
+    const handleRemove = (e) => {
+        e.preventDefault();
+        props.dispatch(deleteCartLocalStorage(props.product.cartId))
+        props.dispatch(updateCartTotal());
+    }
     return (
         <tr data-id="{cartItem.id}" cart-id="{cartItem.cartId}" className="cart-table-row">
             <td>
                 <div className="position-relative cart-drawer-img-wrapper">
-                    <img src="./img/product/product_1-1.jpg" alt=""
+                    <img src={`./img/product/${props.product.img}`} alt=""
                         className="cart-item-img img-fluid"></img>
                 </div>
             </td>
             <td>
                 <div className="cart-drawer-info">
-                    <h3 className="card-drawer-title text-capitalize fw-normal ">product_name
+                    <h3 className="card-drawer-title text-capitalize fw-normal ">{props.product.name}
                     </h3>
                     <p className="cart-drawer-option text-capitalize text-secondary">
-                        Color:
+                        Color: {props.product.selectedColor}
                     </p>
                     <p className="cart-drawer-option text-uppercase text-secondary">
-                        Size:
+                        Size:{props.product.selectedSize}
                     </p>
                 </div>
             </td>
-            <td> <span className="shopping-cart__product-price text-secondary">$cartItem price</span>
+            <td> <span className="shopping-cart__product-price text-secondary">${props.product.price}</span>
             </td>
             <td>
                 <div className="quantity-control position-relative">
@@ -30,10 +39,10 @@ export const ProductTile = () => {
                 </div>
             </td>
             <td>
-                <span className="shopping-cart__subtotal ">$totla</span>
+                <span className="shopping-cart__subtotal ">${props.product.price * props.product.amount}</span>
             </td>
             <td>
-                <a href="#" className="remove-cart" data-id="{cartItem.id}" cart-id="{cartItem.cartId}">
+                <a href="#" className="remove-cart" onClick={(e) => { handleRemove(e) }} >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
                         <path
@@ -44,3 +53,5 @@ export const ProductTile = () => {
         </tr>
     );
 }
+
+export default connect()(ProductTile)

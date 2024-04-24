@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Products from "../../Product/Products";
 
 export const ProductsArea = () => {
@@ -21,7 +22,7 @@ export const ProductsArea = () => {
                     </li>
 
                 </ul>
-                <Products/>
+                <Products />
                 <div className="tab-content pt-2 ">
                     <div className="tab-pane fade active show" id="collections-tab-1" role="tabpanel"
                         aria-labelledby="collections-tab-1-trigger">
@@ -44,9 +45,11 @@ export const ProductsArea = () => {
                         </div>
                     </div>
                 </div>
-                <div className="text-center my-5 pt-5">
-                    <a href="#" className="btn btn-outlined">Disccover More</a>
-                </div>
+                <Link to={"/shop"}>
+                    <div className="text-center my-5 pt-5">
+                        <a href="#" className="btn btn-outlined">Disccover More</a>
+                    </div>
+                </Link>
             </div>
         </section>
 

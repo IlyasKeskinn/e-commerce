@@ -1,22 +1,25 @@
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import "./Header.css";
-import { HeaderTools } from "./HeaderTools";
+import HeaderTools from "./HeaderTools";
 
 export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActive, setCartAsideActive, isAsideActice, setAsideActive }) => {
     return (
         <header id="header" className="header">
             <div className="container">
                 <div className="header-wrapper">
-                    <div className="logo">
-                        <a href="index.html">
-                            <h1>Zephyra</h1>
-                        </a>
-                    </div>
+                    <Link to={"/"}>
+                        <div className="logo">
+                            <a href="index.html">
+                                <h1>Zephyra</h1>
+                            </a>
+                        </div></Link>
                     <nav className="navigation">
                         <ul>
-                            <li className="navigation-item">
-                                <a href="#" className="navigation-link btn btn-outlined-half">Home</a>
-                            </li>
+                            <Link to={"/home"}>
+                                <li className="navigation-item">
+                                    <a href="#" className="navigation-link btn btn-outlined-half">Home</a>
+                                </li>
+                            </Link>
                             <li className="navigation-item mega-menu-wrapper">
                                 <a href="#" className="navigation-link btn btn-outlined-half">Shop</a>
                                 <div className="mega-menu default-menu-wrapper">

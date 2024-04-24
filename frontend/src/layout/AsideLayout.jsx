@@ -1,6 +1,6 @@
 import { PageOverlay } from "../components/PageOverlay/PageOverlay";
 import { AuthAside } from "../components/Asides/AuthAside/AuthAside";
-import { ShoppingCartAside } from "../components/Asides/CartAside/ShoppingCartAside"
+import ShoppingCartAside  from "../components/Asides/CartAside/ShoppingCartAside"
 import { useState } from "react";
 
 export const AsideLayout = (props) => {

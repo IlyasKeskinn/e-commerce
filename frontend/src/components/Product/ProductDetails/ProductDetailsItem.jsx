@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import {ProductGallery} from './ProductGallery'
 import { ReviewRate } from '../../Reviews/ReviewRate';
 import { ReviewsStars } from '../../Reviews/ReviewsStars';
-import { AddingCartForm } from './AddingCartForm'
+import  AddingCartForm  from './AddingCartForm'
 import { ProductLinks } from './ProductLinks'
 import { ProductMeta } from './ProductMeta'
 import {ProductTabs} from './ProductTabs'
@@ -17,7 +17,6 @@ const ProductDetailsItem = ({product}) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
-    console.log(product);
     return (
         <section className="product-single d-flex flex-wrap justify-content-center align-items-center">
             <div className="container product-single-wrapper">
@@ -48,7 +47,7 @@ const ProductDetailsItem = ({product}) => {
                                     omnis aperiam. Fugit!
                                 </p>
                             </div>
-                            <AddingCartForm />
+                            <AddingCartForm product={product} />
                             <ProductLinks />
                             <ProductMeta />
                         </div>
