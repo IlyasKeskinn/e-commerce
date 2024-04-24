@@ -1,4 +1,4 @@
-const { Product, validateProduct } = require("../models/product");
+const { Product, Comment, validateProduct } = require("../models/product");
 const { mongoose } = require("mongoose");
 
 exports.getProducts = async (req, res) => {
@@ -68,6 +68,79 @@ exports.deleteProduct = async (req, res) => {
     try {
         const deletedItem = await Product.findOneAndDelete({ "_id": req.params.id });
         res.json(deletedItem);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+//product comments
+
+exports.putProductComment = async (req, res) => {
+    const productId = req.params.id;
+
+    try {
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        const comment = new Comment(req.body);
+
+        product.reviews.push(comment);
+
+        const updatedProduct = await product.save();
+
+        res.status(200).json(updatedProduct);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.deleteProductComment = async (req, res) => {
+    const productId = req.params.id;
+    const commentId = req.body.id;
+    try {
+        const product = await Product.findById(productId);
+        if (!productId) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+        const comment = product.reviews.id(commentId);
+
+        const commentIndex = product.reviews.indexOf(comment);
+
+        product.reviews.splice(commentIndex, 1);
+
+        const updatedProduct = await product.save();
+
+        res.status(200).json(updatedProduct);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.putUpdateProdcutComment = async (req, res) => {
+    const productId = req.params.id;
+    const commentId = req.body.id;
+    const updates = req.body;
+    try {
+        const product = await Product.findById(productId);
+        if (!productId) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+        const comment = product.reviews.id(commentId);
+
+        const commentIndex = product.reviews.indexOf(comment);
+
+        product.reviews.splice(commentIndex, 1, updates);
+
+        const updatedProduct = await product.save();
+
+        res.status(200).json(updatedProduct);
+
     } catch (error) {
         console.log(error);
     }

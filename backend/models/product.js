@@ -1,30 +1,40 @@
 const { mongoose, Schema, disconnect } = require("mongoose");
 const Joi = require("joi");
 
+//creating reviews schema 
 
-//creating schema
+const reviewSchema = mongoose.Schema({
+    rating: { type: Number, required: true },
+    reviewText: { type: String, required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+
+}, { timestamps: true })
+
+//creating product schema
 const productSchema = mongoose.Schema({
-    title: String,
-    color_options: Array,
-    size_options: Array,
-    image: Object,
+    title: { type: String, required: true },
+    color_options: { type: Array, required: true },
+    size_options: { type: Array, required: true },
     desc: String,
-    price : {
-        current : {type : Number, required : true},
-        discount: {type : Number ,required : true}
+    price: {
+        current: { type: Number, required: true },
+        discount: { type: Number, required: true }
     },
     addedDate: {
         type: Schema.Types.Date,
         default: Date.now()
     },
-    images: Array,
+    images: { type: Array, required: true },
     categories: [
-        { type: Schema.Types.ObjectId, ref: "Categories" }
+        { type: Schema.Types.ObjectId, ref: "Categories", required: true }
     ],
+    reviews: [reviewSchema]
 });
 
 //define model
 const Product = mongoose.model("Products", productSchema);
+const Comment = mongoose.model("Reviews", reviewSchema);
+
 function validateProduct(product) {
     const schema = Joi.object({
         title: Joi.string().required().min(3).max(100),
@@ -41,5 +51,5 @@ function validateProduct(product) {
 }
 
 
-module.exports = { Product, validateProduct };
+module.exports = { Product, Comment ,validateProduct };
 
