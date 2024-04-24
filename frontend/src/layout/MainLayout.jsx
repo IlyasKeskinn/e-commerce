@@ -10,7 +10,7 @@ export const MainLayout = () => {
     const [isCartAsideActive, setCartAsideActive] = useState(false);
 
     return (
-        <>
+        <div className="main-layout">
             {/* TODO: Refactor this section to make it cleaner and more readable */}
             <Header isAuthAsideActive={isAuthAsideActive} setAuthAsideActive={setAuthAsideActive} isCartAsideActive={isCartAsideActive} setCartAsideActive={setCartAsideActive} isAsideActice={isAsideActice} setAsideActive={setAsideActive} />
             <main>
@@ -19,6 +19,6 @@ export const MainLayout = () => {
             {/* TODO: Refactor this section to make it cleaner and more readable */}
             <AsideLayout isAuthAsideActive={isAuthAsideActive} setAuthAsideActive={setAuthAsideActive} isCartAsideActive={isCartAsideActive} setCartAsideActive={setCartAsideActive} isAsideActice={isAsideActice} setAsideActive={setAsideActive} />
             <Footer />
-        </>
+        </div>
     );
 }   

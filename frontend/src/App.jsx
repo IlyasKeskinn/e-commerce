@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { MainLayout } from './layout/MainLayout'
 import { Home } from './pages/Home/Home'
 import { Shop } from './pages/Shop/Shop'
 import { ShopingCart } from './pages/ShopingCart/ShopingCart'
@@ -13,12 +11,15 @@ import { AccountDashboard } from './pages/Account/AccountDashboard'
 import { AccountAdress } from './pages/Account/AccountAddress'
 import { AccountDetails } from './pages/Account/AccountDetails'
 import { AccountOrders } from './pages/Account/AccountOrders'
+import { DefaultLayout } from './layout/DefaultLayout'
 import  ProductDetails  from './pages/ProductDetails/ProductDetails'
+
 function App() {
+  
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayout />,
+      element: <DefaultLayout />,
       children: [
         { path: "/", element: <Home /> },
         { path: "home", element: <Home /> },
