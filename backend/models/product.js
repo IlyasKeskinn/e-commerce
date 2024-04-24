@@ -19,12 +19,12 @@ const productSchema = mongoose.Schema({
     },
     images: Array,
     categories: [
-        { type: Schema.Types.ObjectId, ref: "Category" }
+        { type: Schema.Types.ObjectId, ref: "Categories" }
     ],
 });
 
 //define model
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model("Products", productSchema);
 function validateProduct(product) {
     const schema = Joi.object({
         title: Joi.string().required().min(3).max(100),

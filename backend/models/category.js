@@ -5,12 +5,12 @@ const Joi = require("joi");
 const categorySchema = mongoose.Schema({
     name: String,
     products: [{
-        type: Schema.Types.ObjectId, ref: "Product"
+        type: Schema.Types.ObjectId, ref: "Products"
     }]
 });
 
 //define model
-const Category = mongoose.model("Category", categorySchema);
+const Category = mongoose.model("Categories", categorySchema);
 
 function validateCategory(category) {
     const schema = Joi.object({

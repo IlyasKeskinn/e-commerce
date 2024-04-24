@@ -5,8 +5,9 @@ const productController = require("../controller/products");
 
 router.get("/getProducts" , productController.getProducts );
 router.get("/getProducts/:id" ,productController.getProdcutById);
-router.post("/postProduct", productController.postProduct);
-router.put("/updateProduct/:id", productController.putUpdateProduct);
+
+router.post("/postProduct",productController.postProduct);
+router.put("/updateProduct/:id",productController.putUpdateProduct);
 router.delete("/deleteProduct/:id" ,productController.deleteProduct)
 
 module.exports = router;
