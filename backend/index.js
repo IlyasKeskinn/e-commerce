@@ -1,14 +1,21 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose")
+const cors = require("cors");
 
 //db
 const connectDB = require("./db/dataBase")
 connectDB();
 
 //middlewares
-
 app.use(express.json());
+app.use(cors(
+    {
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,POST,DELETE",
+      }
+      
+));
 
 //models 
 

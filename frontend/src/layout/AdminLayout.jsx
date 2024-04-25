@@ -142,28 +142,39 @@ export const AdminLayout = () => {
     }
   }
 
+  const isAdmin = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const isAdmin = user.role === "admin" ? true : false;
+    return isAdmin;
+  }
 
-  return (
-    <div style={{ minHeight: "100vh" }}>
-      <Layout style={layoutStyle}>
-        <Sider theme='dark' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
-          <Menu
-            theme='dark'
-            style={{
-              width: "100%",
-            }}
-            mode="vertical"
-            items={menuItems}
-            defaultSelectedKeys={getActiveKeys()}
-          />
-        </Sider>
-        <Layout>
-          <Header width={"75%"} style={headerStyle}>
-            <h2>{getProductTitle()}</h2>
-          </Header>
-          <Content style={contentStyle}><Outlet /></Content>
+  if (isAdmin()) {
+    return (
+      <div style={{ minHeight: "100vh" }}>
+        <Layout style={layoutStyle}>
+          <Sider theme='dark' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
+            <Menu
+              theme='dark'
+              style={{
+                width: "100%",
+              }}
+              mode="vertical"
+              items={menuItems}
+              defaultSelectedKeys={getActiveKeys()}
+            />
+          </Sider>
+          <Layout>
+            <Header width={"75%"} style={headerStyle}>
+              <h2>{getProductTitle()}</h2>
+            </Header>
+            <Content style={contentStyle}><Outlet /></Content>
+          </Layout>
         </Layout>
-      </Layout>
-    </div>
-  )
+      </div>
+    );
+  }
+  else{
+    window.location.href = "/";
+  }
+
 }

@@ -1,3 +1,4 @@
+import { LoginForm } from "../../Auth/LoginForm";
 import "./AuthAside.css"
 
 
@@ -14,36 +15,7 @@ export const AuthAside = ({ isAuthAsideActive, setAuthAsideActive, setAsideActiv
                             <i className="bi bi-x" onClick={() => { setAuthAsideActive(false); setAsideActive(false) }}></i>
                         </button>
                     </div>
-                    <form action="./" className="aside-content">
-                        <div className="group">
-                            <input type="text" id="usernameTxt" name="usernameTxt" />
-                            <label htmlFor="usernameTxt" className="custom-label">Username or email *</label>
-
-                        </div>
-                        <div className="group">
-                            <input type="password" id="usernameTxt" name="usernameTxt" />
-                            <label htmlFor="usernameTxt" className="custom-label">Password *</label>
-                        </div>
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="input-check-box d-flex justify-content-start align-items-center">
-                                <div className="group dummy-box">
-                                    <label className="custom-label-checkbox" htmlFor="customCheckbox">
-                                        <input type="checkbox" id="customCheckbox" />
-                                        <span></span>
-                                    </label>
-                                </div>
-                                <span className="checkbox-label-text">Remember Me!</span>
-                            </div>
-                            <a href="" className="text-underline text">Lost Password?</a>
-                        </div>
-                        <div className="buttonwrapper">
-                            <button className="button btn-primary w-100">Log in</button>
-                        </div>
-                        <div className="customer-option text-center">
-                            <span>No account yet?</span>
-                            <a href="" className="text-underline text">Create an acount!</a>
-                        </div>
-                    </form>
+                   <LoginForm/>
                 </div>
             </div>
         </aside>

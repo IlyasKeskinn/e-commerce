@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import { Search } from "../../Search/Serach";
 const HeaderTools = (props) => {
-    console.log(props);
+
+ 
     return (
         <div className="header-tools">
             <Search />

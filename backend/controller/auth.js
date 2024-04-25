@@ -38,7 +38,6 @@ exports.postRegister = async (req, res) => {
 exports.postLogin = async (req, res) => {
     const { email, password } = req.body;
     try {
-
         const user = await User.findOne({ "email": email });
         if (!user) {
             return res.status(401).json({ error: "Invalid email or password!" })
@@ -47,18 +46,20 @@ exports.postLogin = async (req, res) => {
 
 
         if (!isValidPassword) {
-            return res.status(401).json({ error: "Invalid email or password1" })
+            return res.status(401).json({ error: "Invalid email or password!" })
         }
 
         const token = user.createAuthToken();
 
+        res.setHeader("Access-Control-Expose-Headers", "x-auth-token");
 
-        res.status(200).header({ "x-auth-token": token }).json(
-            { msg: "login succesful" }
+        res.status(201).header({ "x-auth-token": token }).json(
+            { email: user.email, userName: user.userName, role: user.userRole }
         )
 
-
-} catch (error) {
-    console.log(error);
-}
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
