@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const productController = require("../controller/products");
-
+const isAuth = require("../middlewares/isAuth");
+const isAdmin = require("../middlewares/isAdmin");
 
 router.get("/getProducts" , productController.getProducts );
 router.get("/getProducts/:id" ,productController.getProdcutById);
 
-router.post("/postProduct",productController.postProduct);
-router.put("/updateProduct/:id",productController.putUpdateProduct);
-router.delete("/deleteProduct/:id" ,productController.deleteProduct)
+router.post("/postProduct",isAuth,isAdmin, productController.postProduct);
+router.put("/updateProduct/:id", isAuth,isAdmin,productController.putUpdateProduct);
+router.delete("/deleteProduct/:id" ,isAuth,isAdmin ,productController.deleteProduct)
 
 //product comments
 

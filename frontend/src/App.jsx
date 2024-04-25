@@ -12,10 +12,12 @@ import { AccountAdress } from './pages/Account/AccountAddress'
 import { AccountDetails } from './pages/Account/AccountDetails'
 import { AccountOrders } from './pages/Account/AccountOrders'
 import { DefaultLayout } from './layout/DefaultLayout'
-import  ProductDetails  from './pages/ProductDetails/ProductDetails'
+import ProductDetails from './pages/ProductDetails/ProductDetails'
+import { Dashboard } from './pages/Admin/Dashboard'
+import { CategoryList } from './pages/Admin/Category/CategoryList'
 
 function App() {
-  
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -32,12 +34,19 @@ function App() {
         {
           path: "account", element: <AccountLayout />,
           children: [
-            { path :"dashboard", element: <AccountDashboard /> },
+            { path: "dashboard", element: <AccountDashboard /> },
             { path: "address", element: <AccountAdress /> },
             { path: "details", element: <AccountDetails /> },
             { path: "orders", element: <AccountOrders /> }
           ]
         },
+        {
+          path: "admin", element: <Dashboard />,
+        },
+        {
+          path: "admin/categorylist", element: <CategoryList/>,
+        },
+        
 
         { path: "*", element: <NotFound /> }
       ]

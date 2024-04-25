@@ -1,17 +1,19 @@
 const jwt = require("jsonwebtoken");
-exports.module = function async (req, res, next) {
-    const token = req.header("x-auth-token");
 
-    if (!token) {
-        res.status(401).json({ error: "No tokens" });
+module.exports =  function (req,res, next){
+    const token = req.header("x-auth-token");
+    console.log(token);
+    const regexToken = token.replace(/^"|"$/g, '');
+
+    if (!regexToken) {
+       return res.status(401).json({error : "No tokens."});
     }
 
     try {
-        const decodedToken = jwt.decode(token, "secretKeys");
+        const decodedToken = jwt.verify(regexToken, "mySecretKey");
         req.user = decodedToken;
         next();
-    } catch (error) {
-        res.status(401).json({ error: "Not valid token." })
+    } catch (ex) {
+        return res.status(401).json({error : ex});
     }
-
 }

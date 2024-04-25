@@ -1,12 +1,13 @@
 
 import { Layout, Menu } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { DashboardOutlined, AppstoreOutlined, LaptopOutlined, UserOutlined, ShoppingCartOutlined, RollbackOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
 const { Header, Footer, Sider, Content } = Layout;
 
 const AdminLayout = ({ auth }) => {
+  const navigate = useNavigate();
   const siderStyle = {
     textAlign: "center",
     lineHeight: "120px",

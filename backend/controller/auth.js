@@ -19,6 +19,7 @@ exports.postRegister = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        
         const newUser = await new User({
             userName: userName,
             email: email,
@@ -26,9 +27,10 @@ exports.postRegister = async (req, res) => {
             userRole: userRole,
             avatar: avatar
         })
+        const token = newUser.createAuthToken();
 
         newUser.save();
-        res.status(200).json(newUser);
+        res.header("x-auth-token", token).status(200).json(newUser);
     } catch (error) {
         console.log(error);
     }
