@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Popconfirm, Space, Table, Button,message } from 'antd';
+import { Popconfirm, Space, Table, Button, message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 export const CategoryList = () => {
+    //TODO REFACTOR
+    const navigate = useNavigate();
     const [dataSource, setDataSource] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
@@ -20,11 +23,11 @@ export const CategoryList = () => {
             key: "action",
             render: (_, record) => (
                 <Space size={'large'}>
-                    <Button>Update</Button>
+                    <Button onClick={()=> {navigate(`/admin/updatecategory/${record._id}`)}}>Update</Button>
                     <Popconfirm
                         title="Delete the category"
                         description="Are you sure to delete this category?"
-                        onConfirm={()=>deleteCategory(record._id)}
+                        onConfirm={() => deleteCategory(record._id)}
                         okText="Yes"
                         cancelText="No"
                     >
@@ -57,7 +60,7 @@ export const CategoryList = () => {
             if (message instanceof Error) {
                 message.error(error)
             }
-        }finally{
+        } finally {
             setLoading(false);
         }
 
@@ -92,7 +95,7 @@ export const CategoryList = () => {
 
     return (
         <div>
-            <Table style={{textTransform : "capitalize"}} columns={columns} dataSource={dataSource} loading={isLoading} rowKey={(record) => record._id} />
+            <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={dataSource} loading={isLoading} rowKey={(record) => record._id} />
         </div>
     )
 }

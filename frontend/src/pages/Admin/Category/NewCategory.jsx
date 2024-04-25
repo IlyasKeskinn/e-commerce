@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Input, Button, Spin, message } from "antd"
 export const NewCategory = () => {
+
+    //TODO REFACTOR
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
     const fetchUrl = "/category/postCategory";
     const [form] = Form.useForm();
@@ -21,13 +23,13 @@ export const NewCategory = () => {
                 body: JSON.stringify(values)
             });
             if (response.ok) {
-                message.success("Category added succesfuly.")
+                form.resetFields();
+                message.success("Category added succesfuly.");
             } else {
                 const { error } = await response.json();
                 message.error(error);
             }
         } catch (error) {
-            form.resetFields();
             message.error(error)
         }finally{
             setLoading(false);
@@ -42,6 +44,7 @@ export const NewCategory = () => {
                 layout='vertical'
                 autoComplete='off'
                 onFinish={onFinish}
+                form={form}
             >
                 <Form.Item
                     label="Category Name"
