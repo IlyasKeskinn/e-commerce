@@ -146,7 +146,7 @@ export const AdminLayout = () => {
   return (
     <div style={{ minHeight: "100vh" }}>
       <Layout style={layoutStyle}>
-        <Sider theme='dark' width={"15%"} style={siderStyle} >
+        <Sider theme='dark' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
           <Menu
             theme='dark'
             style={{
