@@ -50,19 +50,34 @@ const AdminLayout = ({ auth }) => {
       key: 2,
       icon: <LaptopOutlined />,
       label: "Products",
-      path: "/admin/products",
-      onClick: () => {
-        navigate("/admin/products")
-      }
+      path: "/",
+      children: [
+        {
+          key: 3,
+          label: "Product List",
+          path: "/admin/productlist",
+          onClick: () => {
+            navigate("/admin/productlist")
+          },
+        },
+        {
+          key: 4,
+          label: "New Product",
+          path: "/admin/newproduct",
+          onClick: () => {
+            navigate("/admin/newproduct")
+          },
+        },
+      ]
     },
     {
-      key: 3,
+      key: 5,
       icon: <AppstoreOutlined />,
       label: "Categories",
       path: "/",
       children: [
         {
-          key: 4,
+          key: 6,
           label: "Category List",
           path: "/admin/categoryList",
           onClick: () => {
@@ -70,7 +85,7 @@ const AdminLayout = ({ auth }) => {
           }
         },
         {
-          key: 5,
+          key: 7,
           label: "New Category",
           path: "/admin/newCategory",
           onClick: () => {
@@ -80,7 +95,7 @@ const AdminLayout = ({ auth }) => {
       ]
     },
     {
-      key: 6,
+      key: 8,
       icon: <UserOutlined />,
       label: "Users",
       path: "/admin/users",
@@ -98,7 +113,7 @@ const AdminLayout = ({ auth }) => {
       }
     },
     {
-      key: 8,
+      key: 9,
       icon: <RollbackOutlined />,
       label: "Home",
       path: "/",

@@ -17,6 +17,7 @@ import { Dashboard } from './pages/Admin/Dashboard'
 import { CategoryList } from './pages/Admin/Category/CategoryList'
 import { NewCategory } from './pages/Admin/Category/NewCategory'
 import { CategoryUpdate } from './pages/Admin/Category/CategoryUpdate'
+import { ProductList } from './pages/Admin/Product/ProductList'
 
 function App() {
 
@@ -53,6 +54,9 @@ function App() {
         },
         {
           path: "admin/updatecategory/:id", element: <CategoryUpdate/>,
+        },
+        {
+          path: "admin/productlist", element: <ProductList/>,
         },
         
 
