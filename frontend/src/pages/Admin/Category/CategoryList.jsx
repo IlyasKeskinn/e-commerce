@@ -92,7 +92,7 @@ export const CategoryList = () => {
 
     return (
         <div>
-            <Table style={{textTransform : "capitalize"}} columns={columns} dataSource={dataSource} loading={"true"} rowKey={(record) => record._id} />
+            <Table style={{textTransform : "capitalize"}} columns={columns} dataSource={dataSource} loading={isLoading} rowKey={(record) => record._id} />
         </div>
     )
 }

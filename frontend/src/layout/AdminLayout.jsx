@@ -25,7 +25,6 @@ const AdminLayout = ({ auth }) => {
 
   }
   const contentStyle = {
-    textAlign: 'center',
     minHeight: 300,
     lineHeight: '120px',
     color: '#333',

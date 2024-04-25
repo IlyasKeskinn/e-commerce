@@ -15,6 +15,7 @@ import { DefaultLayout } from './layout/DefaultLayout'
 import ProductDetails from './pages/ProductDetails/ProductDetails'
 import { Dashboard } from './pages/Admin/Dashboard'
 import { CategoryList } from './pages/Admin/Category/CategoryList'
+import { NewCategory } from './pages/Admin/Category/NewCategory'
 
 function App() {
 
@@ -45,6 +46,9 @@ function App() {
         },
         {
           path: "admin/categorylist", element: <CategoryList/>,
+        },
+        {
+          path: "admin/newcategory", element: <NewCategory/>,
         },
         
 
