@@ -5,8 +5,9 @@ import configureAppStore from './store/configureAppStore'
 import { applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { thunk } from 'redux-thunk'
-import {getProductsFromData} from './actions/productAction'
+import { getProductsFromData } from './actions/productAction'
 import { setCartLocalStorage } from './actions/cartAction.jsx'
+import { getAuthUser } from './actions/authAction.jsx'
 import "./style/index.css"
 import "./style/typography.css"
 import "./style/button.css"
@@ -20,8 +21,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = configureAppStore(composeEnhancers(applyMiddleware(thunk)))
 
 
-store.dispatch(getProductsFromData())
-store.dispatch(setCartLocalStorage())
+store.dispatch(getProductsFromData());
+store.dispatch(setCartLocalStorage());
+store.dispatch(getAuthUser());
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

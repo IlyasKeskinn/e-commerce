@@ -1,5 +1,3 @@
-import { getProductsFromData } from "./productAction";
-
 export const setCart = (cart) => (
     {
         type: "SET_CART",
@@ -80,16 +78,17 @@ export const deleteCart = (id) => (
 )
 
 export const deleteCartLocalStorage = (id) => {
-    return (dispatch) => { 
+    return (dispatch) => {
         let cart = []
         cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.cartItems.forEach((cartItem,index) => {
+        cart.cartItems.forEach((cartItem, index) => {
             if (cartItem.cartId == id) {
-                cart.cartItems.splice(index,1);
+                cart.cartItems.splice(index, 1);
             }
         });
         localStorage.setItem("cart", JSON.stringify(cart));
         dispatch(deleteCart(id));
+        updateCartTotal();
     }
 }
 
@@ -119,10 +118,14 @@ export const updateTotal = (sub_total, total) => ({
 export const updateCartTotal = () => {
     return (dispatch) => {
         const localCart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {};
-        const productsPrices = Object.values(localCart.cartItems).map((item) => { return (item.amount * item.price) });
-        const subTotal = productsPrices.reduce((prevValue, currentValue) => prevValue + currentValue);
-        const total = subTotal + 10
-
+        let productsPrices = 0;
+        let subTotal = 0;
+        let total = 0;
+        if (localCart.cartItems.length > 0) {
+            productsPrices = Object.values(localCart.cartItems).map((item) => { return (item.amount * item.price) });
+            subTotal = productsPrices.reduce((prevValue, currentValue) => prevValue + currentValue);
+            total = subTotal + 10
+        }
         localCart.total = {
             sub_total: subTotal,
             total: total

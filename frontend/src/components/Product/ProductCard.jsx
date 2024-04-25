@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ReviewRate } from "../Reviews/ReviewRate";
 import { ReviewsStars } from "../Reviews/ReviewsStars";
-import { addCartLocalStorage, updateCartLocalStorage } from "../../actions/cartAction";
+import { addCartLocalStorage, updateCartTotal } from "../../actions/cartAction";
 import { connect } from "react-redux";
 import uuid from 'react-uuid';
 import "./ProductCard.css"
@@ -23,7 +23,7 @@ const ProductCard = (props) => {
             selectedSize: props.product.size_options[0] || mull,
         }
         props.dispatch(addCartLocalStorage(cartItem, 1))
-        props.dispatch(updateCartLocalStorage())
+        props.dispatch(updateCartTotal())
     }
 
     return (

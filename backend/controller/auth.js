@@ -10,7 +10,6 @@ exports.postRegister = async (req, res) => {
     }
     const { userName, email, password, userRole, avatar } = req.body;
 
-    console.log(password);
     try {
         const existingUser = await User.findOne({ "email": email });
 

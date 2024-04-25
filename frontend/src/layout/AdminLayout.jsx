@@ -1,12 +1,12 @@
 
 import { Layout, Menu } from 'antd';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { DashboardOutlined, AppstoreOutlined, LaptopOutlined, UserOutlined, ShoppingCartOutlined, RollbackOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-export const AdminLayout = () => {
-  const navigate = useNavigate();
+const AdminLayout = ({ auth }) => {
   const siderStyle = {
     textAlign: "center",
     lineHeight: "120px",
@@ -44,7 +44,6 @@ export const AdminLayout = () => {
       path: "/admin",
       onClick: () => {
         navigate(`/admin`);
-        console.log("tik");
       }
     },
     {
@@ -104,7 +103,6 @@ export const AdminLayout = () => {
       label: "Home",
       path: "/",
       onClick: () => {
-        console.log("cdasdsa");
         window.location.href = "/";
       }
     },
@@ -143,38 +141,42 @@ export const AdminLayout = () => {
   }
 
   const isAdmin = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user").user);
     const isAdmin = user.role === "admin" ? true : false;
     return isAdmin;
   }
-
-  if (isAdmin()) {
-    return (
-      <div style={{ minHeight: "100vh" }}>
-        <Layout style={layoutStyle}>
-          <Sider theme='dark' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
-            <Menu
-              theme='dark'
-              style={{
-                width: "100%",
-              }}
-              mode="vertical"
-              items={menuItems}
-              defaultSelectedKeys={getActiveKeys()}
-            />
-          </Sider>
-          <Layout>
-            <Header width={"75%"} style={headerStyle}>
-              <h2>{getProductTitle()}</h2>
-            </Header>
-            <Content style={contentStyle}><Outlet /></Content>
-          </Layout>
+  if (isAdmin) {
+    return (<div style={{ minHeight: "100vh" }}>
+      <Layout style={layoutStyle}>
+        <Sider theme='dark' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
+          <Menu
+            theme='dark'
+            style={{
+              width: "100%",
+            }}
+            mode="vertical"
+            items={menuItems}
+            defaultSelectedKeys={getActiveKeys()}
+          />
+        </Sider>
+        <Layout>
+          <Header width={"75%"} style={headerStyle}>
+            <h2>{getProductTitle()}</h2>
+          </Header>
+          <Content style={contentStyle}><Outlet /></Content>
         </Layout>
-      </div>
-    );
-  }
-  else{
+      </Layout>
+    </div>);
+  } else {
     window.location.href = "/";
   }
-
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(AdminLayout);

@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import { deleteCartLocalStorage, updateCartTotal } from "../../actions/cartAction";
 
 const ProductTile = (props) => {
-    console.log(props);
     const handleRemove = (e) => {
         e.preventDefault();
         props.dispatch(deleteCartLocalStorage(props.product.cartId))

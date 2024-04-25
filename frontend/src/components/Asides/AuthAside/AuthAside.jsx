@@ -1,4 +1,4 @@
-import { LoginForm } from "../../Auth/LoginForm";
+import  LoginForm  from "../../Auth/LoginForm";
 import "./AuthAside.css"
 
 

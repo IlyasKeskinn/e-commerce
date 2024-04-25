@@ -31,7 +31,6 @@ export const Products = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         products: state.products
     }

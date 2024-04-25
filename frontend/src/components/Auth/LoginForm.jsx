@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { FormInput } from '../Inputs/FormInput'
 import { Checkbox } from '../Inputs/Checkbox'
 import { message } from "antd";
+import { setAuthUser } from '../../actions/authAction';
+import {connect} from "react-redux"
 
 
-export const LoginForm = () => {
+const LoginForm = ({dispatch}) => {
 
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    console.log(apiUrl);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -35,8 +36,7 @@ export const LoginForm = () => {
             if (response.ok) {
                 const authToken = response.headers.get("x-auth-token");
                 const user = await response.json();
-                localStorage.setItem("x-auth-token", JSON.stringify(authToken));
-                localStorage.setItem("user", JSON.stringify({ ...user, "remeberMe": formData.rememberMe }));
+                dispatch(setAuthUser(user,authToken,formData));
                 if (user.role === "admin") {
                     window.location.href = "/admin"
                 }
@@ -81,3 +81,5 @@ export const LoginForm = () => {
         </div>
     )
 }
+
+export default connect()(LoginForm)
