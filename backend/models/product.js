@@ -46,7 +46,8 @@ function validateProduct(product) {
         images: Joi.array().required(),
         categories: Joi.array().required(),
         current: Joi.number(),
-        discount : Joi.number()
+        discount : Joi.number(),
+        categorylist : Joi.allow()
 
     })
     return schema.validate(product);

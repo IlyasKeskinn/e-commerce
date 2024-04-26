@@ -1,5 +1,6 @@
 const { Product, Comment, validateProduct } = require("../models/product");
 const { mongoose } = require("mongoose");
+const { Category } = require("../models/category");
 
 exports.getProducts = async (req, res) => {
     try {
@@ -29,7 +30,6 @@ exports.getProdcutById = async (req, res) => {
 }
 exports.postProduct = async (req, res) => {
 
-    console.log(req.body);
 
     const { error } = validateProduct(req.body);
 
@@ -37,22 +37,32 @@ exports.postProduct = async (req, res) => {
         return res.status(400).json({ error: error.details[0].message });
     }
     try {
-        const product = new Product({
-            title: req.body.title,
-            color_options: req.body.color_options,
-            size_options: req.body.size_options,
-            desc: req.body.desc,
-            price: req.body.price,
-            images: req.body.images,
-            categories: req.body.categories
-        })
+        const product = new Product(req.body)
         await product.save();
+
+        const categories = req.body.categorylist;
+        const selectedCategories = req.body.categories;
+
+        for (const catId of selectedCategories) {
+            await updateCategoryWithProducts(catId, product._id)
+        }
         return res.json(product);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ error: error.message });
-            console.log(error);
         }
+    }
+}
+async function updateCategoryWithProducts(categoryId, productId) {
+    try {
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            res.status(404).json({ error: "Category not found" });
+        }
+        category.products.push(productId);
+        await category.save();
+    } catch (error) {
+
     }
 }
 

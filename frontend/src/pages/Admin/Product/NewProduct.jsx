@@ -62,7 +62,6 @@ export const NewProduct = () => {
     }
 
 
-    console.log(images);
     //TODO REFACTOR 
     const fetchCategories = useCallback(async () => {
         setLoading(true);
@@ -96,8 +95,7 @@ export const NewProduct = () => {
     //TODO Refactor
     const onFinish = async (values) => {
         setLoading(true);
-        const data = {...values , "images": images, price: { "current": values.current, "discount": values.discount } }
-        console.log(data);
+        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist : categories }
         try {
             const response = await fetch(`${apiUrl}${fetchUrl}`, {
                 method: "POST",
@@ -108,8 +106,11 @@ export const NewProduct = () => {
                 body: JSON.stringify(data)
             });
             if (response.ok) {
-                //form.resetFields();
+                form.resetFields();
                 message.success("Product added succesfuly.");
+                const { _id } = await response.json();
+
+
             } else {
                 const { error } = await response.json();
                 message.error(error);
@@ -120,10 +121,6 @@ export const NewProduct = () => {
             setLoading(false);
         }
     }
-
-
-
-
 
     return (
         <Spin spinning={isLoading}>
@@ -296,32 +293,3 @@ export const NewProduct = () => {
 }
 
 
-{/* <form>
-<div>
-    <input onChange={onInputChange} type='file' name='image'></input>
-    <button onClick={handleSubmit}>upload image</button>
-</div>
-</form> */}
-
-// 
-
-
-// const submitPhotos = info => {
-//     setLoading(true)
-//     const formy = new FormData();
-//     fileList.forEach(file => {
-//         formy.append("files", file.originFileObj);
-//     });
-
-//     fetch('http://localhost:3000/upload/photo', {
-//         method: 'POST',
-//         body: formy
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             setImages([data]);
-//         })
-//         .catch(error => {
-//             message.error(error);
-//         }).finally(() => { setLoading(false) });
-// }

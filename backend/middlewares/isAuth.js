@@ -3,11 +3,10 @@ const jwt = require("jsonwebtoken");
 module.exports =  function (req,res, next){
     const token = req.header("x-auth-token");
     console.log(token);
-    const regexToken = token.replace(/^"|"$/g, '');
-
-    if (!regexToken) {
-       return res.status(401).json({error : "No tokens."});
+    if (!token) {
+        return res.status(401).json({error : "No tokens."});
     }
+    const regexToken = token.replace(/^"|"$/g, '');
 
     try {
         const decodedToken = jwt.verify(regexToken, "mySecretKey");
