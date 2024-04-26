@@ -7,7 +7,7 @@ exports.getProducts = async (req, res) => {
         res.json(products);
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error.message);
+            res.status(500).json(error.message);
         }
     }
 }
@@ -18,26 +18,41 @@ exports.getProdcutById = async (req, res) => {
     try {
         const product = await Product.findById(productId);
         if (!product) {
-            res.status(404).json("Product not found");
+            res.status(404).json({ error: "Product not found" });
         }
         res.status(201).json(product);
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
     }
 }
 exports.postProduct = async (req, res) => {
+
+    console.log(req.body);
+
     const { error } = validateProduct(req.body);
 
     if (error) {
-        return res.status(400).json(error.details[0].message);
+        return res.status(400).json({ error: error.details[0].message });
     }
-
-    const product = new Product(req.body)
     try {
+        const product = new Product({
+            title: req.body.title,
+            color_options: req.body.color_options,
+            size_options: req.body.size_options,
+            desc: req.body.desc,
+            price: req.body.price,
+            images: req.body.images,
+            categories: req.body.categories
+        })
         await product.save();
         return res.json(product);
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+            console.log(error);
+        }
     }
 }
 
@@ -47,20 +62,22 @@ exports.putUpdateProduct = async (req, res) => {
 
         const selectedProduct = await Product.findById(productId);
         if (!selectedProduct) {
-            res.status(404).json("Product not found");
+            res.status(404).json({ error: "Product not found" });
         }
 
         const { error } = validateProduct(req.body);
 
         if (error) {
-            res.status(400).json(error.details[0].message);
+            res.status(400).json({ error: error.details[0].message });
         }
 
         const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
 
         res.json(updatedProduct);
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
     }
 }
 
@@ -69,7 +86,9 @@ exports.deleteProduct = async (req, res) => {
         const deletedItem = await Product.findOneAndDelete({ "_id": req.params.id });
         res.json(deletedItem);
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
     }
 }
 
@@ -95,7 +114,9 @@ exports.putProductComment = async (req, res) => {
         res.status(200).json(updatedProduct);
 
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
     }
 }
 
@@ -118,7 +139,9 @@ exports.deleteProductComment = async (req, res) => {
         res.status(200).json(updatedProduct);
 
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
     }
 }
 
@@ -142,6 +165,8 @@ exports.putUpdateProdcutComment = async (req, res) => {
         res.status(200).json(updatedProduct);
 
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
     }
 }

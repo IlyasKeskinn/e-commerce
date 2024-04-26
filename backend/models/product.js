@@ -18,7 +18,7 @@ const productSchema = mongoose.Schema({
     desc: String,
     price: {
         current: { type: Number, required: true },
-        discount: { type: Number, required: true }
+        discount: { type: Number }
     },
     addedDate: {
         type: Schema.Types.Date,
@@ -45,11 +45,13 @@ function validateProduct(product) {
         addedDate: Joi.date(),
         images: Joi.array().required(),
         categories: Joi.array().required(),
+        current: Joi.number(),
+        discount : Joi.number()
 
     })
     return schema.validate(product);
 }
 
 
-module.exports = { Product, Comment ,validateProduct };
+module.exports = { Product, Comment, validateProduct };
 

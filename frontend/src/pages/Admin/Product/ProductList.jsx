@@ -16,7 +16,7 @@ export const ProductList = () => {
             title: "Image",
             dataIndex: "images",
             key: "image",
-            render: (imgSrc) => <img src={imgSrc[0]} alt="Image" width={100} />,
+            render: (images) => <img src={`../../../../src/images/${images[0]}`} alt="Image" width={100} />,
         },
         {
             title: "Product",
@@ -36,7 +36,7 @@ export const ProductList = () => {
             key: "action",
             render: (_, record) => (
                 <Space size={'large'}>
-                    <Button onClick={()=> {navigate(`/admin/updateproduct/${record._id}`)}}>Update</Button>
+                    <Button onClick={() => { navigate(`/admin/updateproduct/${record._id}`) }}>Update</Button>
                     <Popconfirm
                         title="Delete the category"
                         description="Are you sure to delete this category?"

@@ -104,7 +104,7 @@ const AdminLayout = ({ auth }) => {
       }
     },
     {
-      key: 7,
+      key: 9,
       icon: <ShoppingCartOutlined />,
       label: "Orders",
       path: "/admin/orders",
@@ -113,7 +113,7 @@ const AdminLayout = ({ auth }) => {
       }
     },
     {
-      key: 9,
+      key: 10,
       icon: <RollbackOutlined />,
       label: "Home",
       path: "/",

@@ -9,26 +9,21 @@ connectDB();
 
 //middlewares
 app.use(express.json());
-app.use(cors(
-    {
-        "origin": "*",
-        "methods": "GET,HEAD,PUT,POST,DELETE",
-      }
-      
-));
+app.use(cors());
 
 //models 
 
 
 //routes
+const uploadRoutes = require("./middlewares/photoUpload");
 const productRoutes = require("./router/products");
 const categoryRoutes = require("./router/category");
 const authRoutes = require("./router/auth");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);
-app.use("/auth" ,authRoutes);
-
+app.use("/auth", authRoutes);
+app.use("/upload", uploadRoutes);
 
 
 

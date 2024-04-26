@@ -4,6 +4,7 @@ const productController = require("../controller/products");
 const isAuth = require("../middlewares/isAuth");
 const isAdmin = require("../middlewares/isAdmin");
 
+
 router.get("/getProducts" , productController.getProducts );
 router.get("/getProducts/:id" ,productController.getProdcutById);
 
