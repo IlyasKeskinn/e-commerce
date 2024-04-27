@@ -38,9 +38,9 @@ export const ProductList = () => {
                 <Space size={'large'}>
                     <Button onClick={() => { navigate(`/admin/updateproduct/${record._id}`) }}>Update</Button>
                     <Popconfirm
-                        title="Delete the category"
-                        description="Are you sure to delete this category?"
-                        onConfirm={() => deleteCategory(record._id)}
+                        title="Delete the product!"
+                        description="Are you sure to delete this product?"
+                        onConfirm={() => deleteProduct(record._id)}
                         okText="Yes"
                         cancelText="No"
                     >
@@ -51,7 +51,7 @@ export const ProductList = () => {
         }
     ]
 
-    const fetchCategories = useCallback(async () => {
+    const fetchProducts = useCallback(async () => {
         setLoading(true);
         try {
             const response = await fetch(`${apiUrl}${fetchUrl}`, {
@@ -78,9 +78,9 @@ export const ProductList = () => {
 
     }, [apiUrl]);
 
-    const deleteCategory = async (categoryId) => {
+    const deleteProduct = async (productId) => {
         try {
-            const response = await fetch(`${apiUrl}${deleteUrl}/${categoryId}`, {
+            const response = await fetch(`${apiUrl}${deleteUrl}/${productId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export const ProductList = () => {
             });
             if (response.ok) {
                 message.success("Category deleted successfully.")
-                fetchCategories();
+                fetchProducts();
             }
             else {
                 const { error } = await response.json();
@@ -103,7 +103,7 @@ export const ProductList = () => {
 
     }
 
-    useEffect(() => { fetchCategories() }, [fetchCategories])
+    useEffect(() => { fetchProducts() }, [fetchProducts])
 
     return (
         <div>

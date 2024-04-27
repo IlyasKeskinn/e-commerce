@@ -1,7 +1,7 @@
 const { Product, Comment, validateProduct } = require("../models/product");
 const { mongoose } = require("mongoose");
 const { Category } = require("../models/category");
-
+const deleteOldImages = require("../helpers/deletePhoto");
 exports.getProducts = async (req, res) => {
     try {
         const products = await Product.find();
@@ -40,7 +40,6 @@ exports.postProduct = async (req, res) => {
         const product = new Product(req.body)
         await product.save();
 
-        const categories = req.body.categorylist;
         const selectedCategories = req.body.categories;
 
         for (const catId of selectedCategories) {
@@ -59,8 +58,29 @@ async function updateCategoryWithProducts(categoryId, productId) {
         if (!category) {
             res.status(404).json({ error: "Category not found" });
         }
-        category.products.push(productId);
-        await category.save();
+        const isProductAlreadyInCategory = category.products.includes(productId);
+        if (!isProductAlreadyInCategory) {
+            category.products.push(productId);
+            await category.save();
+        } else {
+            console.log("Product has already added.");
+        }
+    } catch (error) {
+
+    }
+}
+
+async function updateCategoryDeleteProducts(categoryId, productId) {
+    try {
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            res.status(404).json({ error: "Category not found" });
+        }
+        const productIndex = category.products.indexOf(productId);
+        if (productIndex !== -1) {
+            category.products.splice(productIndex, 1);
+            await category.save();
+        }
     } catch (error) {
 
     }
@@ -82,9 +102,20 @@ exports.putUpdateProduct = async (req, res) => {
         }
 
         const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
+        deleteOldImages(req.body.deletedImagePaths);
 
+        const allCategories = req.body.categorylist;
+        const selectedCategories = req.body.categories;
+        for (const catId of allCategories) {
+            if (selectedCategories.includes(catId._id)) {
+                await updateCategoryWithProducts(catId._id, updatedProduct._id);
+            } else {
+                await updateCategoryDeleteProducts(catId._id, updatedProduct._id);
+            }
+        }
         res.json(updatedProduct);
     } catch (error) {
+        console.log(error);
         if (error instanceof Error) {
             res.status(500).json(error.message);
         }

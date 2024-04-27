@@ -3,22 +3,27 @@ import {
     Form, Input, Select, Button, Row, Col, Upload, Checkbox, InputNumber,
     Spin, message
 } from "antd"
+import { useNavigate, useParams } from 'react-router-dom';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 
 const { TextArea } = Input;
-export const NewProduct = () => {
+export const UpdateProduct = () => {
 
     //TODO REFACTOR
     const [fileList, setFileList] = useState([]);
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = "/product/postproduct";
+    const fetchUrl = "/product/getproducts";
     const fetchCategoriesUrl = "/category/getCategories";
+    const updateUrl = "/product/updateProduct";
     const [form] = Form.useForm();
     const [isLoading, setLoading] = useState(false)
     const token = localStorage.getItem("x-auth-token");
     const [categories, setCategories] = useState([]);
+    const [oldImages, setOldImages] = useState([]);
     const [images, setImages] = useState([]);
+    const productId = useParams().id;
+    const navigate = useNavigate();
 
     const normFile = (e) => {
         if (Array.isArray(e)) {
@@ -28,24 +33,18 @@ export const NewProduct = () => {
 
     };
     //TODO REFACTOR 
-    const handleDeletePhoto = async ({ fileList: newFileList }) => {
+    const handleChangePhoto = ({ fileList: newFileList }) => {
         setFileList(newFileList)
     };
 
-
-    //TODO REFACTOR 
-    const handleImageChange = ({fileList : newFileList}) => {
-        setFileList(newFileList);
-    };
-
     const onSubmitPhotos = async () => {
-        setLoading(true);
+        setLoading(true)
+        console.log(fileList);
         const formy = new FormData();
         fileList.forEach(file => {
             formy.append("files", file.originFileObj);
+
         });
-
-
         try {
             const response =
                 await fetch('http://localhost:3000/upload/photo', {
@@ -56,8 +55,8 @@ export const NewProduct = () => {
                 message.success("Photos uploaded successfully");
                 const data = await response.json();
                 if (data) {
-                    await data.forEach( file => {
-                         setImages(prevImages => [...prevImages, file.filename]);
+                    await data.forEach(file => {
+                        setImages(prevImages => [...prevImages, file.filename]);
                     });
                 }
             }
@@ -67,8 +66,52 @@ export const NewProduct = () => {
             setLoading(false);
         }
     }
+    const handleChange = ({ fileList: newFileList }) => {
+        setFileList(newFileList)
+        setOldImages(fileList.filter(file => !newFileList.some(newFile => newFile.uid === file.uid)));
+        setImages(images.filter(image => oldImages.some(oldImage => oldImage === image)));
+    };
 
 
+
+    const fetchProducts = useCallback(async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${apiUrl}${fetchUrl}/${productId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                if (!data) {
+                    message.error("Products not found");
+                }
+                data.images.map(image => setImages((prevImages => [...prevImages, image])))
+                data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image, status: "done", url: `../../../../src/images/${image}` }]) })
+                form.setFieldsValue({
+                    title: data.title,
+                    size_options: data.size_options,
+                    color_options: data.color_options,
+                    desc: data.desc,
+                    current: data.price.current,
+                    discount: data.price.discount,
+                    categories: data.categories,
+                })
+            }
+            else {
+                const { error } = await response.json();
+                message.error(error);
+            }
+        } catch (error) {
+            if (message instanceof Error) {
+                message.error(error)
+            }
+        } finally {
+            setLoading(false);
+        }
+    }, [apiUrl]);
 
     //TODO REFACTOR 
     const fetchCategories = useCallback(async () => {
@@ -98,16 +141,18 @@ export const NewProduct = () => {
 
     }, [apiUrl]);
 
-    useEffect(() => { fetchCategories() }, [fetchCategories])
+    useEffect(() => { fetchCategories(), fetchProducts() }, [fetchCategories, fetchProducts])
+
 
     //TODO Refactor
     const onFinish = async (values) => {
         setLoading(true);
-        await onSubmitPhotos();
-        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: categories }
+        onSubmitPhotos;
+        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: categories, "deletedImagePaths": oldImages }
         try {
-            const response = await fetch(`${apiUrl}${fetchUrl}`, {
-                method: "POST",
+            console.log(data);
+            const response = await fetch(`${apiUrl}${updateUrl}/${productId}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "x-auth-token": token
@@ -115,11 +160,7 @@ export const NewProduct = () => {
                 body: JSON.stringify(data)
             });
             if (response.ok) {
-                //form.resetFields();
-                message.success("Product added succesfuly.");
-                const { _id } = await response.json();
-
-
+                navigate("/admin/productlist")
             } else {
                 const { error } = await response.json();
                 message.error(error);
@@ -272,13 +313,11 @@ export const NewProduct = () => {
                         })}
                     </Select>
                 </Form.Item>
-
                 <div>
                     <Upload
                         listType="picture-card"
                         fileList={fileList}
-                        onChange={handleDeletePhoto}
-                        
+                        onChange={handleChange}
                     >
                     </Upload>
                 </div>
@@ -288,7 +327,7 @@ export const NewProduct = () => {
                         multiple={true}
                         beforeUpload={true}
                         fileList={fileList}
-                        onChange={handleImageChange}
+                        onChange={handleChangePhoto}
                     >
                         <p className="ant-upload-drag-icon">
                             <InboxOutlined />
@@ -298,10 +337,8 @@ export const NewProduct = () => {
                             Support for a single or bulk upload.
                         </p>
                     </Dragger>
+                    <Button disabled={!fileList.some(file => file.originFileObj)} onClick={onSubmitPhotos} type='primary'>Upload Photos</Button>
                 </Form.Item>
-
-
-
 
 
                 <Button type="primary" htmlType="submit">
