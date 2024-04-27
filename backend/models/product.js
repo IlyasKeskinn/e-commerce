@@ -25,10 +25,13 @@ const productSchema = mongoose.Schema({
         default: Date.now()
     },
     images: { type: Array, required: true },
-    categories: [
+    categories:
         { type: Schema.Types.ObjectId, ref: "Categories", required: true }
+    ,
+    subcategories: [
+        { type: Schema.Types.ObjectId }
     ],
-    reviews: [reviewSchema]
+    reviews: [reviewSchema],
 });
 
 //define model
@@ -44,11 +47,12 @@ function validateProduct(product) {
         price: Joi.object().required(),
         addedDate: Joi.date(),
         images: Joi.array().required(),
-        categories: Joi.array().required(),
+        categories: Joi.string().required(),
         current: Joi.number(),
-        discount : Joi.number(),
-        categorylist : Joi.allow(),
-        deletedImagePaths : Joi.allow()
+        discount: Joi.number(),
+        categorylist: Joi.allow(),
+        deletedImagePaths: Joi.allow(),
+        subcategories: Joi.array(),
 
     })
     return schema.validate(product);

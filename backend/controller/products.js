@@ -40,10 +40,10 @@ exports.postProduct = async (req, res) => {
         const product = new Product(req.body)
         await product.save();
 
-        const selectedCategories = req.body.categories;
-
+        const selectedCategories = req.body.subcategories;
+        const mainCategoryId = req.body.categories
         for (const catId of selectedCategories) {
-            await updateCategoryWithProducts(catId, product._id)
+            await updateCategoryWithProducts(mainCategoryId, catId, product._id)
         }
         return res.json(product);
     } catch (error) {
@@ -52,35 +52,48 @@ exports.postProduct = async (req, res) => {
         }
     }
 }
-async function updateCategoryWithProducts(categoryId, productId) {
+async function updateCategoryWithProducts(mainCategoryId, categoryId, productId) {
     try {
-        const category = await Category.findById(categoryId);
+        const category = await Category.findById(mainCategoryId);
         if (!category) {
-            res.status(404).json({ error: "Category not found" });
+            console.log("Category not found");
+            return; // Function should not return response directly
         }
         const isProductAlreadyInCategory = category.products.includes(productId);
         if (!isProductAlreadyInCategory) {
             category.products.push(productId);
-            await category.save();
         } else {
             console.log("Product has already added.");
         }
+        const subCategory = category.subcategory.id(categoryId);
+        const isProductInSubcategory = subCategory.products.includes(productId);
+        if (!isProductInSubcategory) {
+            subCategory.products.push(productId);
+        } else {
+            console.log("Product has already added.");
+        }
+        await category.save();
     } catch (error) {
-
+        console.error("Error updating category with products:", error);
     }
 }
 
-async function updateCategoryDeleteProducts(categoryId, productId) {
+async function updateCategoryDeleteProducts(mainCategoryId, categoryId, productId) {
     try {
-        const category = await Category.findById(categoryId);
+        const category = await Category.findById(mainCategoryId);
         if (!category) {
-            res.status(404).json({ error: "Category not found" });
+            console.log("Category not found");
+            return; // Function should not return response directly
         }
-        const productIndex = category.products.indexOf(productId);
+        const productIndex = category.products.indexOf(mainCategoryId);
         if (productIndex !== -1) {
-            category.products.splice(productIndex, 1);
-            await category.save();
+            category.products.splice(productIndex, 1, productId);
         }
+        const subProductIndex = subProductIndex.indexOf(categoryId)
+        if (subProductIndex !== -1) {
+            category.subcategory.splice(subProductIndex, 1, productId);
+        }
+        await category.save();
     } catch (error) {
 
     }
@@ -105,12 +118,13 @@ exports.putUpdateProduct = async (req, res) => {
         deleteOldImages(req.body.deletedImagePaths);
 
         const allCategories = req.body.categorylist;
-        const selectedCategories = req.body.categories;
+        const selectedCategories = req.body.subcategories;
+        const mainCategoryId = req.body.categories;
         for (const catId of allCategories) {
             if (selectedCategories.includes(catId._id)) {
-                await updateCategoryWithProducts(catId._id, updatedProduct._id);
+                await updateCategoryWithProducts(mainCategoryId, catId._id, updatedProduct._id);
             } else {
-                await updateCategoryDeleteProducts(catId._id, updatedProduct._id);
+                await updateCategoryDeleteProducts(mainCategoryId, catId._id, updatedProduct._id);
             }
         }
         res.json(updatedProduct);

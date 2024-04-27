@@ -6,8 +6,9 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-const { TextArea } = Input;
 export const UpdateProduct = () => {
 
     //TODO REFACTOR
@@ -23,6 +24,9 @@ export const UpdateProduct = () => {
     const [oldImages, setOldImages] = useState([]);
     const [images, setImages] = useState([]);
     const productId = useParams().id;
+    const [subcategories, setSubcategories] = useState([]);
+    const [categoryId, setCategoryId] = useState("");
+
     const navigate = useNavigate();
 
     const normFile = (e) => {
@@ -39,7 +43,6 @@ export const UpdateProduct = () => {
 
     const onSubmitPhotos = async () => {
         setLoading(true)
-        console.log(fileList);
         const formy = new FormData();
         fileList.forEach(file => {
             formy.append("files", file.originFileObj);
@@ -90,6 +93,8 @@ export const UpdateProduct = () => {
                 }
                 data.images.map(image => setImages((prevImages => [...prevImages, image])))
                 data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image, status: "done", url: `../../../../src/images/${image}` }]) })
+                setCategoryId(data.categories);
+                form.setFieldValue("subcategories" , )
                 form.setFieldsValue({
                     title: data.title,
                     size_options: data.size_options,
@@ -98,6 +103,7 @@ export const UpdateProduct = () => {
                     current: data.price.current,
                     discount: data.price.discount,
                     categories: data.categories,
+                    subcategories : data.subcategories
                 })
             }
             else {
@@ -113,6 +119,24 @@ export const UpdateProduct = () => {
         }
     }, [apiUrl]);
 
+    function handleMainCategory(e) {
+        form.resetFields(["subcategories"]);
+        setToSubcategories(e);
+    }
+    function setToSubcategories(id) {
+        const selectedMainCategory = categories.find(category => category._id === id);
+        if (selectedMainCategory) {
+            selectedMainCategory.subcategory.forEach(subCat => {
+                setSubcategories(prevSub => [...prevSub, subCat]);
+            });
+        }
+    }
+
+    useEffect(() => {
+        if (categoryId) {
+            setToSubcategories(categoryId);
+        }
+    }, [categoryId]);
     //TODO REFACTOR 
     const fetchCategories = useCallback(async () => {
         setLoading(true);
@@ -141,16 +165,22 @@ export const UpdateProduct = () => {
 
     }, [apiUrl]);
 
-    useEffect(() => { fetchCategories(), fetchProducts() }, [fetchCategories, fetchProducts])
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchCategories();
+            await fetchProducts();
+        };
+        fetchData();
+    }, [fetchCategories, fetchProducts])
+
 
 
     //TODO Refactor
     const onFinish = async (values) => {
         setLoading(true);
         onSubmitPhotos;
-        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: categories, "deletedImagePaths": oldImages }
+        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: subcategories, "deletedImagePaths": oldImages }
         try {
-            console.log(data);
             const response = await fetch(`${apiUrl}${updateUrl}/${productId}`, {
                 method: "PUT",
                 headers: {
@@ -171,7 +201,6 @@ export const UpdateProduct = () => {
             setLoading(false);
         }
     }
-
     return (
         <Spin spinning={isLoading}>
             <Form encType="multipart/form-data" style={{ padding: "20px" }}
@@ -292,24 +321,42 @@ export const UpdateProduct = () => {
                     </Checkbox.Group>
                 </Form.Item>
 
-                <Form.Item name="desc" label="Product Description">
-                    <TextArea rows={4} />
+                <Form.Item name="desc" label="Product Description" rules={[{ required: true, type: "string", message: "Please enter description." }]}>
+                    <ReactQuill theme='snow' />
                 </Form.Item>
 
                 <Form.Item
                     name="categories"
-                    label="Select Category"
+                    label="Select Main Category"
                     rules={[
                         {
                             required: true,
-                            message: 'Please select!',
+                            message: 'Please select main category!',
+                        },
+                    ]}
+                >
+                    <Select onChange={handleMainCategory} placeholder="Please select a main category!">
+                        {categories.map((category) => {
+                            return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
+                        })}
+                    </Select>
+                </Form.Item>
+
+
+                <Form.Item
+                    name="subcategories"
+                    label="Select Subcategory"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please select subcategory!',
                             type: 'array',
                         },
                     ]}
                 >
-                    <Select mode="multiple" placeholder="Please select a category!">
-                        {categories.map((category) => {
-                            return <Option key={category._id} value={`${category._id}`}>{category.name}</Option>
+                    <Select disabled={subcategories.length <= 0} mode="multiple" placeholder="Please select a subcategory!">
+                        {subcategories.map((category) => {
+                            return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}
                     </Select>
                 </Form.Item>

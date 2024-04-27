@@ -92,6 +92,14 @@ const AdminLayout = ({ auth }) => {
             navigate("/admin/newCategory")
           }
         },
+        {
+          key: 12,
+          label: "Add Subcategory",
+          path: "/admin/newsubcategory",
+          onClick: () => {
+            navigate("/admin/newsubcategory")
+          }
+        },
       ]
     },
     {

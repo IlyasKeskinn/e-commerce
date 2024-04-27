@@ -19,8 +19,10 @@ import { NewCategory } from './pages/Admin/Category/NewCategory'
 import { CategoryUpdate } from './pages/Admin/Category/CategoryUpdate'
 import { ProductList } from './pages/Admin/Product/ProductList'
 import { NewProduct } from './pages/Admin/Product/NewProduct'
-import { UploadComponent } from "./pages/Admin/Product/CustomComponent"
 import { UpdateProduct } from './pages/Admin/Product/UpdateProduct'
+import { NewSubCategory } from './pages/Admin/Category/SubCategory/NewSubCategory';
+import { SubCategoryList } from './pages/Admin/Category/SubCategory/SubCategoryList'
+import { SubCategoryUpdate } from './pages/Admin/Category/SubCategory/SubCategoryUpdate'
 
 function App() {
 
@@ -49,10 +51,12 @@ function App() {
         { path: "admin", element: <Dashboard />, },
         { path: "admin/categorylist", element: <CategoryList />, },
         { path: "admin/newcategory", element: <NewCategory />, },
+        { path: "admin/newsubcategory/", element: <NewSubCategory /> },
+        { path: "admin/subcategorylist/:id", element: <SubCategoryList /> },
+        { path: "admin/updatesubcategory/:id", element: <SubCategoryUpdate/> },
         { path: "admin/updatecategory/:id", element: <CategoryUpdate />, },
         { path: "admin/productlist", element: <ProductList />, },
         { path: "admin/newproduct", element: <NewProduct />, },
-        { path: "admin/custom", element: <UploadComponent />, },
         { path: "admin/updateproduct/:id", element: <UpdateProduct /> },
 
 

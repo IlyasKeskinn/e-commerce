@@ -3,10 +3,11 @@ import {
     Form, Input, Select, Button, Row, Col, Upload, Checkbox, InputNumber,
     Spin, message
 } from "antd"
-import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-const { TextArea } = Input;
 export const NewProduct = () => {
 
     //TODO REFACTOR
@@ -18,6 +19,7 @@ export const NewProduct = () => {
     const [isLoading, setLoading] = useState(false)
     const token = localStorage.getItem("x-auth-token");
     const [categories, setCategories] = useState([]);
+    const [subcategories, setSubcategories] = useState([]);
     const [images, setImages] = useState([]);
 
     const normFile = (e) => {
@@ -34,7 +36,7 @@ export const NewProduct = () => {
 
 
     //TODO REFACTOR 
-    const handleImageChange = ({fileList : newFileList}) => {
+    const handleImageChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
     };
 
@@ -56,8 +58,8 @@ export const NewProduct = () => {
                 message.success("Photos uploaded successfully");
                 const data = await response.json();
                 if (data) {
-                    await data.forEach( file => {
-                         setImages(prevImages => [...prevImages, file.filename]);
+                    data.forEach(file => {
+                        setImages(prevImages => [...prevImages, file.filename]);
                     });
                 }
             }
@@ -103,8 +105,7 @@ export const NewProduct = () => {
     //TODO Refactor
     const onFinish = async (values) => {
         setLoading(true);
-        await onSubmitPhotos();
-        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: categories }
+        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: subcategories }
         try {
             const response = await fetch(`${apiUrl}${fetchUrl}`, {
                 method: "POST",
@@ -115,10 +116,9 @@ export const NewProduct = () => {
                 body: JSON.stringify(data)
             });
             if (response.ok) {
-                //form.resetFields();
+                form.resetFields();
                 message.success("Product added succesfuly.");
                 const { _id } = await response.json();
-
 
             } else {
                 const { error } = await response.json();
@@ -130,7 +130,17 @@ export const NewProduct = () => {
             setLoading(false);
         }
     }
-
+    function handleMainCategory(e) {
+        setSubcategories([]);
+        
+        form.resetFields(["subcategories"]);
+        const selectedMainCategory = categories.find(category => category._id === e);
+        if (selectedMainCategory) {
+            selectedMainCategory.subcategory.forEach(subCat => {
+                setSubcategories(prevSub => [...prevSub, subCat]);
+            });
+        }
+    }
     return (
         <Spin spinning={isLoading}>
             <Form encType="multipart/form-data" style={{ padding: "20px" }}
@@ -251,24 +261,43 @@ export const NewProduct = () => {
                     </Checkbox.Group>
                 </Form.Item>
 
-                <Form.Item name="desc" label="Product Description">
-                    <TextArea rows={4} />
-                </Form.Item>
 
+
+                <Form.Item name="desc" label="Product Description" rules={[{ required: true, type: "string", message: "Please enter description." }]}>
+                    <ReactQuill theme='snow' />
+                </Form.Item>
                 <Form.Item
                     name="categories"
-                    label="Select Category"
+                    label="Select Main Category"
                     rules={[
                         {
                             required: true,
-                            message: 'Please select!',
+                            message: 'Please select main category!',
+                        },
+                    ]}
+                >
+                    <Select onChange={handleMainCategory} placeholder="Please select a main category!">
+                        {categories.map((category) => {
+                            return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
+                        })}
+                    </Select>
+                </Form.Item>
+
+
+                <Form.Item
+                    name="subcategories"
+                    label="Select Subcategory"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please select subcategory!',
                             type: 'array',
                         },
                     ]}
                 >
-                    <Select mode="multiple" placeholder="Please select a category!">
-                        {categories.map((category) => {
-                            return <Option key={category._id} value={`${category._id}`}>{category.name}</Option>
+                    <Select disabled={subcategories.length <= 0  } mode="multiple" placeholder="Please select a subcategory!">
+                        {subcategories.map((category) => {
+                            return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}
                     </Select>
                 </Form.Item>
@@ -278,7 +307,7 @@ export const NewProduct = () => {
                         listType="picture-card"
                         fileList={fileList}
                         onChange={handleDeletePhoto}
-                        
+
                     >
                     </Upload>
                 </div>
@@ -298,6 +327,8 @@ export const NewProduct = () => {
                             Support for a single or bulk upload.
                         </p>
                     </Dragger>
+                    <Button disabled={!fileList.some(file => file.originFileObj)} onClick={onSubmitPhotos} type='primary'>Upload Photos</Button>
+
                 </Form.Item>
 
 
