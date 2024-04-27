@@ -4,6 +4,7 @@ import { MegaMenu } from "./MegaMenu";
 import "./Header.css";
 
 export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActive, setCartAsideActive, isAsideActice, setAsideActive }) => {
+
     return (
         <header id="header" className="header">
             <div className="container">
@@ -24,7 +25,7 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
                             <li className="navigation-item mega-menu-wrapper">
                                 <Link to={`/shop`} className="navigation-link btn btn-outlined-half">Shop</Link>
                                 <div className="mega-menu default-menu-wrapper">
-                                  <MegaMenu/>
+                                    <MegaMenu />
                                 </div>
                             </li>
                             <li className="navigation-item">
@@ -70,6 +71,5 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
                     <HeaderTools isAuthAsideActive={isAuthAsideActive} setAuthAsideActive={setAuthAsideActive} isCartAsideActive={isCartAsideActive} setCartAsideActive={setCartAsideActive} isAsideActice={isAsideActice} setAsideActive={setAsideActive} />
                 </div>
             </div>
-        </header>
-    );
+        </header>);
 }
