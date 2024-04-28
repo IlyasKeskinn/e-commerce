@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
-import Products from "../../Product/Products";
-
+import { Products } from "../../Product/Products";
+import useFetch from '../../../hooks/useFetch';
 export const ProductsArea = () => {
+    const { data, isLoading,error, } = useFetch("/product/getproducts", "GET")
+
+
+    if (isLoading) {
+        return (<div></div>);
+    }
     return (
         <section className=" my-5 d-flex justify-content-center align-items-center">
             <div className="container">
@@ -22,7 +28,7 @@ export const ProductsArea = () => {
                     </li>
 
                 </ul>
-                <Products />
+                <Products products={data} />
                 <div className="tab-content pt-2 ">
                     <div className="tab-pane fade active show" id="collections-tab-1" role="tabpanel"
                         aria-labelledby="collections-tab-1-trigger">

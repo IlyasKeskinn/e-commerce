@@ -4,15 +4,17 @@ const Joi = require("joi");
 
 //creating subcategory 
 const subCategorySchema = mongoose.Schema({
-    name : String,
+    name: String,
+    maincategory : {type : Schema.Types.ObjectId, ref : "Categories"},
     products: [{
         type: Schema.Types.ObjectId, ref: "Products"
     }]
+
 })
 //creating schema
 const categorySchema = mongoose.Schema({
     name: String,
-    subcategory : [subCategorySchema],
+    subcategory: [{type : Schema.Types.ObjectId, ref : "Subcategories"}],
     products: [{
         type: Schema.Types.ObjectId, ref: "Products"
     }]
@@ -20,14 +22,15 @@ const categorySchema = mongoose.Schema({
 
 //define model
 const Category = mongoose.model("Categories", categorySchema);
-const SubCategory = mongoose.model("SubCategoies", subCategorySchema)
+const Subcategory = mongoose.model("Subcategories", subCategorySchema)
 
 function validateCategory(category) {
     const schema = Joi.object({
         name: Joi.string().required().min(3).max(100),
-        subcategory : Joi.array()
+        subcategory: Joi.array(),
+        products : Joi.allow()
     })
     return schema.validate(category);
 }
 
-module.exports = { Category, validateCategory, SubCategory }
+module.exports = { Category, validateCategory, Subcategory }

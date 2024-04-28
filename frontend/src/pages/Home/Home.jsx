@@ -7,10 +7,12 @@ import { InstagramArea } from "../../components/Instagram/InstagramArea"
 import { ServicesPromotion } from "../../components/ServicePromotion/ServicePromotion";
 import "./Home.css"
 import  ProductSlider  from "../../components/Home/productSlider/ProductSlider";
+import React from "react";
 
 export const Home = () => {
+
     return (
-        <>
+        <React.Fragment>
 
             <Slider />
             <ShopCollection />
@@ -20,6 +22,6 @@ export const Home = () => {
             <InstagramArea />
             <ServicesPromotion />
             <ProductSlider/>
-        </>
+        </React.Fragment>
     );
 }

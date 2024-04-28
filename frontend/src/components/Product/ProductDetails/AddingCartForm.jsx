@@ -50,8 +50,8 @@ const AddingCartForm = (props) => {
                     <div className="swatch-list d-flex align-items-center" id="sizeSwatchList">
                         {props.product.size_options.map((size, index) => {
                             return (<div key={index}>
-                                <input type="radio" name={`size-${size}`} id={`size-${size}`} checked={selectedSize === size} onClick={() => { handleSizeChange(size) }} />
-                                <label className="swatch js-swatch text-uppercase" htmlFor={`size-${size}`}>{size}</label>
+                                <input type="radio" name={`size-${size}`} id={`size-${size}`}  checked={selectedSize === size} onChange={() => { handleSizeChange(size) }} />
+                                <label label={`true`} className="swatch js-swatch text-uppercase" htmlFor={`size-${size.toString()}`}>{size.toString()}</label>
                             </div>)
                         })}
                     </div>
@@ -62,8 +62,8 @@ const AddingCartForm = (props) => {
                     <div className="swatch-list d-flex align-items-center" id="colorSwatchList">
                         {props.product.color_options.map((color, index) => {
                             return (<div key={index}>
-                                <input type="radio" name={`swatch-color_${color}`} id={`swatch-color_${color}`} checked={selectedColor === color} onChange={() => { handleColorChange(color) }} />
-                                <label className="swatch swatch-color " htmlFor={`swatch-color_${color}`} style={{ color: color }} label></label>
+                                <input type="radio" name={`swatch-color_${color}`} id={`swatch-color_${color}`}  checked={selectedColor === color} onChange={() => { handleColorChange(color) }} />
+                                <label label={`true`} className="swatch swatch-color " htmlFor={`swatch-color_${color.toString()}`} style={{ color: color.toString() }}></label>
                             </div>)
                         })}
                     </div>

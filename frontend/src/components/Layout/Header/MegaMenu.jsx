@@ -1,54 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import {SubMenuItem} from './SubMenuItem';
+import { Link } from 'react-router-dom';
+import useFetch from '../../../hooks/useFetch';
 
 export const MegaMenu = () => {
-    const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = "/category/getCategories";
-    const [categories, setCategories] = useState([]);
-    const [isLoading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            setLoading(true)
-            try {
-                const response = await fetch(`${apiUrl}${fetchUrl}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
-                if (response.ok) {
-                    console.log(response);
-                    const data = await response.json();
-                    setCategories(data);
-                }
-                else {
-                    const { error } = await response.json();
-                    console.log(error);
-                }
-            } catch (error) {
-                if (message instanceof Error) {
-                    console.log(error);
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchCategories();
-    }, [apiUrl]);
+    const {data, isLoading, error} = useFetch("/category/getCategories");
     //TODO REFACTOR CODE 
     if (isLoading) {
         return <div></div>
     } else {
         return (<div className="container mega-menu-items">
-            {categories.map((category => {
+            {data.map((category => {
                 return (
-                    <div className="col">
+                    <div key={category._id} className="col">
                         <ul className="default-menu-content">
                             <li className="sub-menu__item">
-                                <a href="#" className="menu-link btn btn-outlined-half">
+                                <Link  className="menu-link btn btn-outlined-half">
                                     <h4 className="mega-menu-title">{category.name}</h4>
-                                </a>
+                                </Link>
                             </li>
                             {category.subcategory.map((subCat) => { return (<SubMenuItem key={subCat._id} menuItem={subCat} />);})}
                         </ul>

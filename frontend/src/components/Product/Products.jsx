@@ -4,23 +4,17 @@ import ProductCard from "./ProductCard"
 import "./Products.css"
 import { compose } from "redux";
 
-export const Products = (props) => {
-    //TODO loading component
-    if (!props.products) {
-        return (
-            <div>
-                <p>Loading....</p>
-            </div>
-        );
-    }
+export const Products = ({products}) => {
+    
+ 
     return (
         <section className="products-area my-5 d-flex justify-content-center align-items-center">
             <div className="container">
                 <div className="row">
                     {
-                        props.products.map((product) => {
+                        products.map((product) => {
                             return (
-                                <ProductCard key={product.id} product={product} />
+                                <ProductCard key={product._id} product={product} />
                             );
                         })
                     }
@@ -30,12 +24,12 @@ export const Products = (props) => {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        products: state.products
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         products: state.products
+//     }
+// }
 
-export default compose(
-    connect(mapStateToProps)
-)(Products)
+// export default compose(
+//     connect(mapStateToProps)
+// )(Products)

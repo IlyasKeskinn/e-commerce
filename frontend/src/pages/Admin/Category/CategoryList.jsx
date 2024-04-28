@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Popconfirm, Space, Table, Button, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import useFetch from '../../../hooks/useFetch';
 
 export const CategoryList = () => {
     //TODO REFACTOR
     const navigate = useNavigate();
     const [dataSource, setDataSource] = useState([]);
-    const [isLoading, setLoading] = useState(false);
-    const apiUrl = import.meta.env.VITE_BASE_API_URL;
     const fetchUrl = "/category/getCategories";
     const deleteUrl = "/category/deletecategory";
     const token = localStorage.getItem("x-auth-token");
@@ -33,39 +32,17 @@ export const CategoryList = () => {
                     >
                         <Button danger>Delete</Button>
                     </Popconfirm>
-                    <Button type='primary' onClick={()=>{navigate(`/admin/subcategorylist/${record._id}`)}}>Show subcategories</Button>
                 </Space>
             )
         }
     ]
 
-    const fetchCategories = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}${fetchUrl}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-auth-token": token
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setDataSource(data);
-            }
-            else {
-                const { error } = await response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            if (message instanceof Error) {
-                message.error(error)
-            }
-        } finally {
-            setLoading(false);
-        }
-
-    }, [apiUrl]);
+    const {data, error, isLoading} = useFetch(fetchUrl);
+    setDataSource(data);
+    
+    if (error) {
+        message.error(error)
+    }
 
     const deleteCategory = async (categoryId) => {
         try {

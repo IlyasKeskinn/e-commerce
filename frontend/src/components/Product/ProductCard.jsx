@@ -1,48 +1,57 @@
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { ReviewRate } from "../Reviews/ReviewRate";
 import { ReviewsStars } from "../Reviews/ReviewsStars";
 import { addCartLocalStorage, updateCartTotal } from "../../actions/cartAction";
-import { connect } from "react-redux";
 import uuid from 'react-uuid';
-import "./ProductCard.css"
+import "./ProductCard.css";
+import {message} from'antd';
 
+const ProductCard = ({ product, dispatch }) => {
 
-const ProductCard = (props) => {
-
+    const discount = product.discount ? product.discount : 0;
+    let newPrice = product.price.current;
+    if (discount !== 0) {
+        newPrice = product.price.current - (product.price.current * discount) / 100
+    }
 
 
     const addCart = (e) => {
         e.preventDefault();
         const cartItem = {
             cartId: uuid(),
-            id: props.product.id,
-            name: props.product.product_name,
-            price: props.product.price,
-            img: props.product.img,
-            selectedColor: props.product.color_options[0] || null,
-            selectedSize: props.product.size_options[0] || mull,
+            id: product._id,
+            name: product.title,
+            price: newPrice,
+            img: product.images[0],
+            selectedColor: product.color_options[0] || null,
+            selectedSize: product.size_options[0] || mull,
         }
-        props.dispatch(addCartLocalStorage(cartItem, 1))
-        props.dispatch(updateCartTotal())
+        dispatch(addCartLocalStorage(cartItem, 1));
+        dispatch(updateCartTotal());
+        message.success("Product add to cart.")
     }
 
+    //TODO REFACTOR
+    if (!product.images) {
+        return <div></div>
+    }
     return (
         <div className="product-card">
             <div className="pc-img__wrapper">
-                <Link to={`product/${props.product.id}`} className="product-link">
-                    <img src={`./img/product/${props.product.img}`} alt="" className="pc__img "></img>
+                <Link to={`product/${product._id}`} className="product-link">
+                    <img src={`../src/images/${product.images[0]}`} alt={`${product.images[0]}`} className="pc__img "></img>
                 </Link>
                 <button data-id="${product.id}" className="pc__addcart button btn-white w-50" id="addToCart" onClick={(e) => { addCart(e) }}>Add Cart</button>
             </div>
             <div className="pc-info position-relative mt-3 p-1">
-                <p className="text-secondary pc__category">{props.product.category}</p>
-                <Link to={`product/${props.product.id}`}>
+                <Link to={`product/${product._id}`}>
                     <h6 className="pc__title">
-                        <a href="#" data-id="${product.id}" className="product-link">{props.product.product_name}</a>
+                        <a href="#" className="product-link">{product.title}</a>
                     </h6>
                 </Link>
                 <div className="d-flex product-card__price">
-                    <span className="money price">${props.product.price}</span>
+                    <span className="money price">${newPrice.toFixed(2)}</span>
                 </div>
                 <ReviewsStars />
                 <ReviewRate />
@@ -55,8 +64,8 @@ const ProductCard = (props) => {
                 </button>
             </div>
         </div>
+
     );
 }
-
 
 export default connect()(ProductCard);

@@ -1,4 +1,5 @@
-export const ProductMeta = () => {
+export const ProductMeta = ({data}) => {
+    //burada kaldım
     return (
         <div className="product-single__metainfo my-5">
             <div className="meta-item">
@@ -11,7 +12,7 @@ export const ProductMeta = () => {
             </div>
             <div className="meta-item">
                 <label className="text-secondary">TAGS: </label>
-                <span className="fw-norlam">biker, black, bomber, leather</span>
+                <span className="fw-norlam">{data}</span>
             </div>
         </div>
     )
