@@ -1,39 +1,42 @@
 import { useState, useEffect } from "react"
 
-const useFetch = (url, method="GET") => {
+const useFetch = (url, method = "GET", { token } = {}, {trigger} = {}) => {
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState("")
     const [options, setOptions] = useState(null);
-    const apiUrl =  import.meta.env.VITE_BASE_API_URL;
+    const apiUrl = import.meta.env.VITE_BASE_API_URL;
     const fetchUrl = `${apiUrl}${url}`;
 
 
     const postData = (data) => {
         setOptions({
-            "method" : "POST",
+            "method": "POST",
             "headers": {
-                "Content-type" : "application/json"
+                "Content-type": "application/json",
+                "x-auth-token" : token
             },
-            "body" : JSON.stringify({data})
+            "body": JSON.stringify(data)
         })
     }
 
     const updateData = (data) => {
         setOptions({
-            "method" : "PUT",
+            "method": "PUT",
             "headers": {
-                "Content-type" : "application/json"
+                "Content-type": "application/json"
             },
-            "body" : JSON.stringify({data})
+            "body": JSON.stringify({ data })
         })
     }
-    
+
+
     useEffect(() => {
         const fetchData = async (options) => {
             setLoading(true);
             try {
-                const response = await fetch(fetchUrl,{...options});
+                console.log(fetchUrl);
+                const response = await fetch(fetchUrl, { ...options });
                 if (!response.ok) {
                     throw new Error(response.statusText)
                 }
@@ -41,21 +44,21 @@ const useFetch = (url, method="GET") => {
                 setData(data);
             } catch (error) {
                 setLoading(false);
-                setError(error.message);
-            }finally{
+                setError(error);
+            } finally {
                 setLoading(false)
             }
         };
-        if (method === "GET") {
+        if (method === "GET" || trigger) {
             fetchData();
         }
-        if (method ==="POST" && options) {
+        if (method === "POST" && options) {
             fetchData(options);
         }
-        if (method ==="PUT" && options) {
+        if (method === "PUT" && options) {
             fetchData(options);
         }
-    }, [fetchUrl,method,options]);
+    }, [fetchUrl, method, options, trigger]);
 
     return {
         data,

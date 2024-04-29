@@ -6,7 +6,7 @@ const isAdmin = require("../middlewares/isAdmin");
 
 
 router.get("/getProducts" , productController.getProducts );
-router.get("/getProducts/:id" ,productController.getProdcutById);
+router.get("/getProduct/:id" ,productController.getProdcutById);
 
 router.post("/postProduct",isAuth,isAdmin, productController.postProduct);
 router.put("/updateProduct/:id", isAuth,isAdmin,productController.putUpdateProduct);

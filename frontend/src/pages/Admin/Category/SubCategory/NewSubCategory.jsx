@@ -1,80 +1,54 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Form, Input, Button, Spin, Select, message } from "antd"
+import useFetch from '../../../../hooks/useFetch';
 
 export const NewSubCategory = () => {
 
-    //TODO REFACTOR
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = "/category/getCategories/subcategory";
-    const getMainCategoryUrl = "/category/getcategories";
-    const [form] = Form.useForm();
-    const [isLoading, setLoading] = useState(false)
+    const fetchUrl = "/category/getcategories";
+    const postURL = "/category/post_subcategory"
     const token = localStorage.getItem("x-auth-token");
-    const [mainCategory, setMainCategory] = useState([]);
+
+    const [upload, setUpload] = useState(false);
+    const { data, isLoading, error } = useFetch(fetchUrl);
+
+    if (error) {
+        message.error(error)
+    }
+    const [form] = Form.useForm();
 
 
     const onFinish = async (values) => {
-        setLoading(true);
-        const mainCategories = values.maincategories;
-        mainCategories.map(async categoryId => {
-            try {
-                const response = await fetch(`${apiUrl}${fetchUrl}/${categoryId}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-auth-token": token
-                    },
-                    body: JSON.stringify({name : values.subcategoryname})
-                });
-                if (response.ok) {
-                    form.resetFields();
-                    message.success("Category added succesfuly.");
-                } else {
-                    const { error } = await response.json();
-                    message.error(error);
-                }
-            } catch (error) {
-                message.error(error)
-            } finally {
-                setLoading(false);
+        setUpload(true);
+        try {
+            const response = await fetch(`${apiUrl}${postURL}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-auth-token": token
+                },
+                body: JSON.stringify({ name: values.subcategoryName, maincategory: values.category })
+            });
+            if (response.ok) {
+                form.setFieldsValue({ subcategoryName: "" })
+                message.success("Category added succesfuly.");
+            } else {
+                const { error } = await response.json();
+                message.error(error);
             }
-        })
+        } catch (error) {
+            if (error instanceof Error) {
+                message.error(error.name)
+            }
+        } finally {
+            setUpload(false)
+        }
 
     }
 
 
-    const fetchMainCategories = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}${getMainCategoryUrl}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-auth-token": token
-                }
-            })
-            if (response.ok) {
-                const data = await response.json();
-                if (data) {
-                    setMainCategory(data)
-                } else {
-                    form.setFieldsValue({
-                        name: "Category Name"
-                    })
-                }
-            } else {
-                const { error } = response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            message.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }, [apiUrl])
 
 
-    useEffect(() => { fetchMainCategories() }, [fetchMainCategories])
 
 
     return (
@@ -87,34 +61,30 @@ export const NewSubCategory = () => {
                 form={form}
             >
                 <Form.Item
-                    name="maincategories"
+                    name="category"
                     label="Select Main Category"
                     rules={[
                         {
                             required: true,
-                            message: 'Please select a main category!',
-                            type: 'array',
+                            message: 'Please select main category!',
                         },
                     ]}
                 >
-                    <Select mode="multiple" placeholder="Please select a category!">
-                        {mainCategory.map((category) => {
-                            return <Option key={category._id} value={`${category._id}`}>{category.name}</Option>
+                    <Select placeholder="Please select a main category!">
+                        {data.map((category) => {
+                            return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}
                     </Select>
                 </Form.Item>
                 <Form.Item
                     label="Subcategory Name"
-                    name="subcategoryname"
+                    name="subcategoryName"
                     rules={[{ required: true, message: 'Please input category name!' }]}>
                     <Input />
                 </Form.Item>
-
                 <Button type="primary" htmlType="submit">
                     Submit
                 </Button>
-
-
             </Form>
         </Spin>
     )

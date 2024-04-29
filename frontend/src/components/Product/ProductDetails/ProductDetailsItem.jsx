@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductGallery } from './ProductGallery'
 import { ReviewRate } from '../../Reviews/ReviewRate';
 import { ReviewsStars } from '../../Reviews/ReviewsStars';
@@ -8,22 +8,29 @@ import { ProductMeta } from './ProductMeta'
 import { ProductTabs } from './ProductTabs'
 import useFetch from '../../../hooks/useFetch';
 import { Link } from 'react-router-dom';
+import { ProductDetailSkeleton } from '../../Skeltons/ProductDetailSkeleton/ProductDetailSkeleton';
 
 
 export const ProductDetailsItem = ({ productId }) => {
-    const { data, isLoading, error } = useFetch(`/product/getproducts/${productId}`);
-   
+    const { data, isLoading, error } = useFetch(`/product/getproduct/${productId}`);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
+    const [newPrice, setNewPrice] = useState(10);
 
-    if (isLoading || !data.images) {
-        return (<div></div>);
-    }
-    const discount = data.discount ? data.discount : 0;
-    let newPrice = data.price.current;
-    if (discount !== 0) {
-        newPrice = data.price.current - (data.price.current * discount) / 100
+    useEffect(() => {
+        if (!isLoading && data.price) {
+            const discount = data.discount ? data.discount : 0;
+            let price = data.price.current;
+            if (discount !== 0) {
+                price = price - (price * discount) / 100;
+            }
+            setNewPrice(price);
+        }
+    }, [data, isLoading]);
+    
+    if (isLoading || !data || !data.images) {
+        return <ProductDetailSkeleton />
     }
     return (
         <section className="product-single d-flex flex-wrap justify-content-center align-items-center">
@@ -34,8 +41,8 @@ export const ProductDetailsItem = ({ productId }) => {
                         <div className="product-info__wrapper">
                             <div className="d-flex justify-content-between align-items-center my-5">
                                 <div className="breadcrumb">
-                                    <Link to={`/`} className={`btn btn-outlined-half text-uppercase`}>Home</Link>
-                                    <Link to={`/`} className={`btn btn-outlined-half text-uppercase`}>/{data.categories.name}</Link>
+                                    <Link to={`/`} className={`btn btn-outlined-half text-uppercase`}>Home /</Link>
+                                    <Link to={`/`} className={`btn btn-outlined-half text-uppercase`}> {data.categories.name}</Link>
                                 </div>
                             </div>
                             <h1 className="product-single__name text-uppercase fw-normal mt-5">
@@ -54,9 +61,9 @@ export const ProductDetailsItem = ({ productId }) => {
                                     omnis aperiam. Fugit!
                                 </p>
                             </div>
-                            <AddingCartForm product={data} />
+                            <AddingCartForm product={data} newPrice={newPrice} />
                             <ProductLinks />
-                            <ProductMeta data={data.subcategories} />
+                            <ProductMeta data={data.subcategory} />
                         </div>
                     </div>
                 </div>

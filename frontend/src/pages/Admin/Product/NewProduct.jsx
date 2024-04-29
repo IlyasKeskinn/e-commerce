@@ -7,19 +7,27 @@ import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import TextArea from 'antd/es/input/TextArea';
+import useFetch from '../../../hooks/useFetch';
 
 export const NewProduct = () => {
 
     //TODO REFACTOR
     const [fileList, setFileList] = useState([]);
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = "/product/postproduct";
     const fetchCategoriesUrl = "/category/getCategories";
+    const fetchUrl = "/product/postproduct";
+    const token = localStorage.getItem("x-auth-token");
+
+    const { data, error } = useFetch(fetchCategoriesUrl);
+    if (error) {
+        message.error(error)
+    }
+
     const [form] = Form.useForm();
     const [isLoading, setLoading] = useState(false)
-    const token = localStorage.getItem("x-auth-token");
-    const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
+    const [category, setCategory] = useState(data);
     const [images, setImages] = useState([]);
 
     const normFile = (e) => {
@@ -35,7 +43,6 @@ export const NewProduct = () => {
     };
 
 
-    //TODO REFACTOR 
     const handleImageChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
     };
@@ -69,43 +76,22 @@ export const NewProduct = () => {
             setLoading(false);
         }
     }
-
-
-
-    //TODO REFACTOR 
-    const fetchCategories = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}${fetchCategoriesUrl}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
+    function handleMainCategory(e) {
+        setCategory(e);
+        setSubcategories([]);
+        form.resetFields(["subcategories"]);
+        const selectedMainCategory = data.filter(category => category._id === e);
+        if (selectedMainCategory[0].subcategory) {
+            selectedMainCategory[0].subcategory.forEach(subCat => {
+                setSubcategories(prevSub => [...prevSub, subCat]);
             });
-            if (response.ok) {
-                const data = await response.json();
-                setCategories(data);
-            }
-            else {
-                const { error } = await response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            if (message instanceof Error) {
-                message.error(error)
-            }
-        } finally {
-            setLoading(false);
         }
+    }
 
-    }, [apiUrl]);
 
-    useEffect(() => { fetchCategories() }, [fetchCategories])
-
-    //TODO Refactor
     const onFinish = async (values) => {
         setLoading(true);
-        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: subcategories }
+        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }}
         try {
             const response = await fetch(`${apiUrl}${fetchUrl}`, {
                 method: "POST",
@@ -116,10 +102,8 @@ export const NewProduct = () => {
                 body: JSON.stringify(data)
             });
             if (response.ok) {
-                form.resetFields();
+                //form.resetFields();
                 message.success("Product added succesfuly.");
-                const { _id } = await response.json();
-
             } else {
                 const { error } = await response.json();
                 message.error(error);
@@ -130,17 +114,7 @@ export const NewProduct = () => {
             setLoading(false);
         }
     }
-    function handleMainCategory(e) {
-        setSubcategories([]);
-        
-        form.resetFields(["subcategories"]);
-        const selectedMainCategory = categories.find(category => category._id === e);
-        if (selectedMainCategory) {
-            selectedMainCategory.subcategory.forEach(subCat => {
-                setSubcategories(prevSub => [...prevSub, subCat]);
-            });
-        }
-    }
+
     return (
         <Spin spinning={isLoading}>
             <Form encType="multipart/form-data" style={{ padding: "20px" }}
@@ -266,6 +240,9 @@ export const NewProduct = () => {
                 <Form.Item name="desc" label="Product Description" rules={[{ required: true, type: "string", message: "Please enter description." }]}>
                     <ReactQuill theme='snow' />
                 </Form.Item>
+                <Form.Item name="shortDesc" label="Product Slogan" rules={[{ required: true, type: "string", message: "Please enter product slogan." }]}>
+                    <TextArea />
+                </Form.Item>
                 <Form.Item
                     name="categories"
                     label="Select Main Category"
@@ -277,7 +254,7 @@ export const NewProduct = () => {
                     ]}
                 >
                     <Select onChange={handleMainCategory} placeholder="Please select a main category!">
-                        {categories.map((category) => {
+                        {data.map((category) => {
                             return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}
                     </Select>
@@ -295,7 +272,7 @@ export const NewProduct = () => {
                         },
                     ]}
                 >
-                    <Select disabled={subcategories.length <= 0  } mode="multiple" placeholder="Please select a subcategory!">
+                    <Select disabled={subcategories.length <= 0} mode="multiple" placeholder="Please select a subcategory!">
                         {subcategories.map((category) => {
                             return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}

@@ -21,6 +21,8 @@ const AddingCartForm = (props) => {
             setQuantity(prevQuantity => prevQuantity + 1);
         }
     }
+
+
     const decrementQuantity = () => {
         if (quantity > 1) {
             setQuantity(prevQuantity => prevQuantity - 1);
@@ -31,16 +33,17 @@ const AddingCartForm = (props) => {
         e.preventDefault();
         const cartItem = {
             cartId: uuid(),
-            id: props.product.id,
-            name: props.product.product_name,
-            price: props.product.price,
+            id: props.product._id,
+            name: props.product.title,
+            price: props.newPrice,
             img: props.product.img,
             selectedColor: selectedColor || props.product.color_options[0],
             selectedSize: selectedSize || props.product.size_options[0],
         }
-        props.dispatch(addCartLocalStorage(cartItem,quantity));
+        props.dispatch(addCartLocalStorage(cartItem, quantity));
         props.dispatch(updateCartTotal());
     }
+
 
     return (
         <form onSubmit={handleAddingCart} name="addtocart-form my-5">
@@ -50,7 +53,7 @@ const AddingCartForm = (props) => {
                     <div className="swatch-list d-flex align-items-center" id="sizeSwatchList">
                         {props.product.size_options.map((size, index) => {
                             return (<div key={index}>
-                                <input type="radio" name={`size-${size}`} id={`size-${size}`}  checked={selectedSize === size} onChange={() => { handleSizeChange(size) }} />
+                                <input type="radio" name={`size-${size}`} id={`size-${size}`} checked={selectedSize === size} onChange={() => { handleSizeChange(size) }} />
                                 <label label={`true`} className="swatch js-swatch text-uppercase" htmlFor={`size-${size.toString()}`}>{size.toString()}</label>
                             </div>)
                         })}
@@ -62,7 +65,7 @@ const AddingCartForm = (props) => {
                     <div className="swatch-list d-flex align-items-center" id="colorSwatchList">
                         {props.product.color_options.map((color, index) => {
                             return (<div key={index}>
-                                <input type="radio" name={`swatch-color_${color}`} id={`swatch-color_${color}`}  checked={selectedColor === color} onChange={() => { handleColorChange(color) }} />
+                                <input type="radio" name={`swatch-color_${color}`} id={`swatch-color_${color}`} checked={selectedColor === color} onChange={() => { handleColorChange(color) }} />
                                 <label label={`true`} className="swatch swatch-color " htmlFor={`swatch-color_${color.toString()}`} style={{ color: color.toString() }}></label>
                             </div>)
                         })}

@@ -248,9 +248,9 @@
 
     .product-singe__imgwrapper {
         order: 0;
-
+        max-height: 620px !important;
     }
-
+   
     .product-singe__imgwrapper {
         height: 70% !important;
     }
@@ -262,21 +262,25 @@
     .product-thumb {
         order: 1 !important;
         width: 100%;
+        max-height: 100px !important;
     }
    
 
     .gallery-thumbs .swiper-slide img {
         width: 100%;
+      
     }
 }
 
 @media (max-width : 576px) {
     .product-singe__imgwrapper {
         width: 100vw !important;
+        height: 520px !important;
     }
 
     .product-thumb {
         width: 100vw !important;
+        max-height: 100px !important;
     }
 
     .gallery-thumbs img {

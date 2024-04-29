@@ -42,9 +42,11 @@ const ProductCard = ({ product, dispatch }) => {
                 <Link to={`product/${product._id}`} className="product-link">
                     <img src={`../src/images/${product.images[0]}`} alt={`${product.images[0]}`} className="pc__img "></img>
                 </Link>
-                <button data-id="${product.id}" className="pc__addcart button btn-white w-50" id="addToCart" onClick={(e) => { addCart(e) }}>Add Cart</button>
+                <button className="pc__addcart button btn-white" id="addToCart" onClick={(e) => { addCart(e) }}>Add Cart</button>
             </div>
             <div className="pc-info position-relative mt-3 p-1">
+            <p class="text-secondary pc__category">Dressers</p>
+
                 <Link to={`product/${product._id}`}>
                     <h6 className="pc__title">
                         <a href="#" className="product-link">{product.title}</a>

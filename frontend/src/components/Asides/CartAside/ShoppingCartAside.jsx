@@ -25,7 +25,7 @@ const ShoppingCartAside = ({ cart, isCartAsideActive, setCartAsideActive, setAsi
                         :
                         <div className="aside-content">
                             <div className="cart-drawer-item-list">
-                                {Array.from(cart.cartItems).map((product) => { return <AsideCartItem key={product.id} product={product} /> })}
+                                {Array.from(cart.cartItems).map((product) => {  return <AsideCartItem key={product.cartId} product={product} /> })}
                             </div>
 
                             <div className="cart-drawer-actions">

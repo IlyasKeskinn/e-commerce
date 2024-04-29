@@ -1,21 +1,36 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Form, Input, Button, Spin, message } from "antd"
 import { useNavigate, useParams } from 'react-router-dom';
+import useFetch from '../../../hooks/useFetch';
 
 export const CategoryUpdate = () => {
-    //TODO REFACTOR
-    const baseApi = import.meta.env.VITE_BASE_API_URL;
-    const getItemsUrl = "/category/getcategory";
     const categoryId = useParams().id;
+
+    const baseApi = import.meta.env.VITE_BASE_API_URL;
     const putUrl = "/category/updateCategory";
-    const [isLoading, setLoading] = useState(false);
+    const getItemsUrl = `/category/getcategory/${categoryId}`;
     const token = localStorage.getItem("x-auth-token");
+
+    const [upload, setUpload] = useState(false);
     const [form] = Form.useForm();
+
+    const { data, isLoading, error } = useFetch(getItemsUrl);
+
     const navigate = useNavigate();
+
+    if (error) {
+        message.error(error);
+    }
+
+    useEffect(() => {
+        if (data) {
+            form.setFieldsValue({ name: data.name });
+        }
+    }, [data, form]);
 
 
     const onFinish = async (values) => {
-        setLoading(true);
+        setUpload(true);
 
         try {
             const response = await fetch(`${baseApi}${putUrl}/${categoryId}`, {
@@ -29,47 +44,18 @@ export const CategoryUpdate = () => {
             if (response.ok) {
                 navigate("/admin/categorylist");
             } else {
-                const {error} = await response.json();
+                const { error } = await response.json();
                 message.error(error);
             }
         } catch (error) {
             message.error(error);
+
+        } finally {
+            setUpload(false)
         }
     }
 
-    const fetchCategories = useCallback(async () => {
-        setLoading(true);
 
-        try {
-            const response = await fetch(`${baseApi}${getItemsUrl}/${categoryId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            })
-            if (response.ok) {
-                const data = await response.json();
-                if (data) {
-                    form.setFieldsValue({
-                        name: data.name
-                    })
-                } else {
-                    form.setFieldsValue({
-                        name: "Category Name"
-                    })
-                }
-            } else {
-                const { error } = response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            message.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }, [baseApi])
-
-    useEffect(() => { fetchCategories() }, [fetchCategories])
 
     return (
         <Spin spinning={isLoading}>
@@ -79,6 +65,7 @@ export const CategoryUpdate = () => {
                 autoComplete='off'
                 onFinish={onFinish}
                 form={form}
+
             >
                 <Form.Item
                     label="Category Name"
@@ -87,11 +74,9 @@ export const CategoryUpdate = () => {
                     <Input />
                 </Form.Item>
 
-                <Button type="primary" htmlType="submit">
+                <Button disabled={upload} type="primary" htmlType="submit">
                     Submit
                 </Button>
-
-
             </Form>
         </Spin>
     )

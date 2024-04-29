@@ -1,84 +1,58 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Form, Input, Button, Spin, message } from "antd"
-import { useNavigate, useParams ,useSearchParams} from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import useFetch from '../../../../hooks/useFetch';
 
 export const SubCategoryUpdate = () => {
-    //TODO REFACTOR
+    const categoryId = useParams().id;
+
     const baseApi = import.meta.env.VITE_BASE_API_URL;
-    const getItemsUrl = "/category/getsubcategory";
-    const subId = useParams().id;
-    const [searchParams] = useSearchParams();
-    const mainId = searchParams.get("mainid");
-    const putUrl = "/category/getcategories/subcategory/update";
-    const [isLoading, setLoading] = useState(false);
+    const getItemsURL = `/category/get_subcategory/${categoryId}`;
+    const updateURL = `/category/update_subcategory/${categoryId}`;
     const token = localStorage.getItem("x-auth-token");
-    const [form] = Form.useForm();
+
     const navigate = useNavigate();
 
+    const [upload, setUpload] = useState(false);
+    const [form] = Form.useForm();
+
+    const { data, isLoading, error } = useFetch(getItemsURL);
+
+    useEffect(() => {
+        if (data && data.name) {
+            form.setFieldsValue({ name: data.name })
+        } else {
+            form.setFieldsValue({ name: "" })
+        }
+    }, [data])
 
     const onFinish = async (values) => {
-        setLoading(true);
-        const data = {"id" : subId, name : values.name}
-        console.log(data);
+        setUpload(true);
         try {
-            const response = await fetch(`${baseApi}${putUrl}/${mainId}`, {
+            const response = await fetch(`${baseApi}${updateURL}`, {
                 method: "PUT",
                 headers: {
                     "Content-type": "application/json",
                     "x-auth-token": token
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(values)
             });
             if (response.ok) {
-                navigate("/admin/categorylist");
+                navigate(`/admin/subcategorylist/${data.maincategory}`);
             } else {
-                const {error} = await response.json();
+                const { error } = await response.json();
                 message.error(error);
             }
         } catch (error) {
             if (message instanceof Error) {
-                console.log(error);
                 message.error(error.message);
             }
+        } finally {
+            setUpload(false);
         }
     }
 
-    const fetchCategories = useCallback(async () => {
-        setLoading(true);
-        const data = {"subCategoryId" : subId }
-        try {
-            console.log(`${baseApi}${getItemsUrl}/${mainId}`,);
-            const response = await fetch(`${baseApi}${getItemsUrl}/${mainId}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-auth-token": token
-                },
-                body : JSON.stringify(data)
-            })
-            if (response.ok) {
-                const data = await response.json();
-                if (data) {
-                    form.setFieldsValue({
-                        name: data.name
-                    })
-                } else {
-                    form.setFieldsValue({
-                        name: "Category Name"
-                    })
-                }
-            } else {
-                const { error } = response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            message.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }, [baseApi, getItemsUrl, mainId, token, subId, form])
 
-    useEffect(() => { fetchCategories() }, [fetchCategories])
 
     return (
         <Spin spinning={isLoading}>
@@ -95,12 +69,9 @@ export const SubCategoryUpdate = () => {
                     rules={[{ required: true, message: 'Please input category name!' }]}>
                     <Input />
                 </Form.Item>
-
-                <Button type="primary" htmlType="submit">
+                <Button disabled={upload} type="primary" htmlType="submit">
                     Submit
                 </Button>
-
-
             </Form>
         </Spin>
     )

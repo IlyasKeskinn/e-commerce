@@ -6,28 +6,80 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
+const { TextArea } = Input;
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import useFetch from '../../../hooks/useFetch';
 
 export const UpdateProduct = () => {
-
-    //TODO REFACTOR
-    const [fileList, setFileList] = useState([]);
-    const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = "/product/getproducts";
-    const fetchCategoriesUrl = "/category/getCategories";
-    const updateUrl = "/product/updateProduct";
-    const [form] = Form.useForm();
-    const [isLoading, setLoading] = useState(false)
-    const token = localStorage.getItem("x-auth-token");
-    const [categories, setCategories] = useState([]);
-    const [oldImages, setOldImages] = useState([]);
-    const [images, setImages] = useState([]);
+    const navigate = useNavigate();
     const productId = useParams().id;
+
+    const apiUrl = import.meta.env.VITE_BASE_API_URL;
+    const fetchUrl = `/product/getproducts/${productId}`;
+    const updateUrl = "/product/updateProduct";
+    const token = localStorage.getItem("x-auth-token");
+
+    const [oldImages, setOldImages] = useState([]);
+    const [fileList, setFileList] = useState([]);
+    const [images, setImages] = useState([]);
+
+    const [form] = Form.useForm();
+    const [isUpload, setUpload] = useState(false)
+    const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
     const [categoryId, setCategoryId] = useState("");
 
-    const navigate = useNavigate();
+    const { data, isLoading, error } = useFetch(fetchUrl);
+
+
+    const fetchCategories = useCallback(async () => {
+        setUpload(true);
+        try {
+            const response = await fetch(`${apiUrl}/category/getCategories`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setCategories(data);
+            }
+            else {
+                const { error } = await response.json();
+                message.error(error);
+            }
+        } catch (error) {
+            if (message instanceof Error) {
+                message.error(error)
+            }
+        } finally {
+            setUpload(false);
+        }
+
+    }, [apiUrl]);
+
+
+    useEffect(() => {
+        if (data && data.title) {
+            data.images.map(image => setImages((prevImages => [...prevImages, image])));
+            data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image, status: "done", url: `../../../../src/images/${image}` }]) });
+            setCategoryId(data.categories._id);
+            data.subcategories.map((subcat) => { setSubcategories((prevSub) => [...prevSub, subcat]) });
+            form.setFieldsValue({
+                title: data.title,
+                size_options: data.size_options,
+                color_options: data.color_options,
+                desc: data.desc,
+                current: data.price.current,
+                discount: data.price.discount,
+                categories: data.categories._id,
+                subcategories: data.subcategories.map((subcat) => { return (subcat._id); }),
+                shortDesc: data.shortDesc
+            })
+        } fetchCategories();
+    }, [data, fetchCategories])
 
     const normFile = (e) => {
         if (Array.isArray(e)) {
@@ -36,13 +88,14 @@ export const UpdateProduct = () => {
         return e?.fileList;
 
     };
-    //TODO REFACTOR 
+
+
     const handleChangePhoto = ({ fileList: newFileList }) => {
         setFileList(newFileList)
     };
 
     const onSubmitPhotos = async () => {
-        setLoading(true)
+        setUpload(true)
         const formy = new FormData();
         fileList.forEach(file => {
             formy.append("files", file.originFileObj);
@@ -66,7 +119,7 @@ export const UpdateProduct = () => {
         } catch (error) {
             message.error(error);
         } finally {
-            setLoading(false);
+            setUpload(false);
         }
     }
     const handleChange = ({ fileList: newFileList }) => {
@@ -76,109 +129,33 @@ export const UpdateProduct = () => {
     };
 
 
-
-    const fetchProducts = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}${fetchUrl}/${productId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                if (!data) {
-                    message.error("Products not found");
-                }
-                data.images.map(image => setImages((prevImages => [...prevImages, image])))
-                data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image, status: "done", url: `../../../../src/images/${image}` }]) })
-                setCategoryId(data.categories);
-                form.setFieldValue("subcategories" , )
-                form.setFieldsValue({
-                    title: data.title,
-                    size_options: data.size_options,
-                    color_options: data.color_options,
-                    desc: data.desc,
-                    current: data.price.current,
-                    discount: data.price.discount,
-                    categories: data.categories,
-                    subcategories : data.subcategories
-                })
-            }
-            else {
-                const { error } = await response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            if (message instanceof Error) {
-                message.error(error)
-            }
-        } finally {
-            setLoading(false);
-        }
-    }, [apiUrl]);
-
     function handleMainCategory(e) {
+        setCategoryId(e);
+        setSubcategories([]);
         form.resetFields(["subcategories"]);
-        setToSubcategories(e);
-    }
-    function setToSubcategories(id) {
-        const selectedMainCategory = categories.find(category => category._id === id);
-        if (selectedMainCategory) {
-            selectedMainCategory.subcategory.forEach(subCat => {
+        const selectedMainCategory = categories.filter(category => category._id === e);
+        if (selectedMainCategory[0].subcategory) {
+            selectedMainCategory[0].subcategory.forEach(subCat => {
                 setSubcategories(prevSub => [...prevSub, subCat]);
             });
         }
     }
 
-    useEffect(() => {
-        if (categoryId) {
-            setToSubcategories(categoryId);
-        }
-    }, [categoryId]);
-    //TODO REFACTOR 
-    const fetchCategories = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}${fetchCategoriesUrl}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
+    function handleSubCategory() {
+        const selectedMainCategory = categories.filter(category => category._id === categoryId);
+        setSubcategories([]);
+        if (selectedMainCategory[0].subcategory) {
+            selectedMainCategory[0].subcategory.forEach(subCat => {
+                setSubcategories(prevSub => [...prevSub, subCat]);
             });
-            if (response.ok) {
-                const data = await response.json();
-                setCategories(data);
-            }
-            else {
-                const { error } = await response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            if (message instanceof Error) {
-                message.error(error)
-            }
-        } finally {
-            setLoading(false);
         }
-
-    }, [apiUrl]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            await fetchCategories();
-            await fetchProducts();
-        };
-        fetchData();
-    }, [fetchCategories, fetchProducts])
+    }
 
 
 
     //TODO Refactor
     const onFinish = async (values) => {
-        setLoading(true);
-        onSubmitPhotos;
+        setUpload(true);
         const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }, categorylist: subcategories, "deletedImagePaths": oldImages }
         try {
             const response = await fetch(`${apiUrl}${updateUrl}/${productId}`, {
@@ -198,7 +175,7 @@ export const UpdateProduct = () => {
         } catch (error) {
             message.error(error)
         } finally {
-            setLoading(false);
+            setUpload(false);
         }
     }
     return (
@@ -324,7 +301,9 @@ export const UpdateProduct = () => {
                 <Form.Item name="desc" label="Product Description" rules={[{ required: true, type: "string", message: "Please enter description." }]}>
                     <ReactQuill theme='snow' />
                 </Form.Item>
-
+                <Form.Item name="shortDesc" label="Product Slogan" rules={[{ required: true, type: "string", message: "Please enter product slogan." }]}>
+                    <TextArea />
+                </Form.Item>
                 <Form.Item
                     name="categories"
                     label="Select Main Category"
@@ -335,7 +314,7 @@ export const UpdateProduct = () => {
                         },
                     ]}
                 >
-                    <Select onChange={handleMainCategory} placeholder="Please select a main category!">
+                    <Select onChange={handleMainCategory} disabled={categories.length <= 0} placeholder="Please select a main category!">
                         {categories.map((category) => {
                             return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}
@@ -354,9 +333,9 @@ export const UpdateProduct = () => {
                         },
                     ]}
                 >
-                    <Select disabled={subcategories.length <= 0} mode="multiple" placeholder="Please select a subcategory!">
+                    <Select onClick={() => handleSubCategory()} mode="multiple" placeholder="Please select a subcategory!">
                         {subcategories.map((category) => {
-                            return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
+                            return <Select.Option  key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}
                     </Select>
                 </Form.Item>
@@ -384,18 +363,19 @@ export const UpdateProduct = () => {
                             Support for a single or bulk upload.
                         </p>
                     </Dragger>
-                    <Button disabled={!fileList.some(file => file.originFileObj)} onClick={onSubmitPhotos} type='primary'>Upload Photos</Button>
+                    <Button disabled={!fileList.some(file => file.originFileObj) || isUpload} onClick={onSubmitPhotos} type='primary'>Upload Photos</Button>
                 </Form.Item>
 
 
-                <Button type="primary" htmlType="submit">
+                <Button disabled={isUpload} type="primary" htmlType="submit">
                     Submit
                 </Button>
 
             </Form>
         </Spin >
 
-    )
+    );
 }
+
 
 

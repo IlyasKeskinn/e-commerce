@@ -5,12 +5,10 @@ const { Category, validateCategory} = require("../models/category");
 
 exports.getCategories = async (req, res) => {
     try {
-        const categories = await Category.find().populate("products");
-        console.log(categories);
+        const categories = await Category.find().populate("products").populate("subcategory");
         res.status(200).json(categories)
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error);
             res.status(500).json({ error: error.name });
         }
     }
@@ -19,7 +17,7 @@ exports.getCategories = async (req, res) => {
 exports.getCategory = async (req, res) => {
     const categoryId = req.params.id;
     try {
-        const category = await Category.findById(categoryId);
+        const category = await Category.findById(categoryId).populate("subcategory")
         if (!category) {
             res.status(404).json({ error: "Category not found" });
         }
@@ -36,10 +34,7 @@ exports.postCategory = async (req, res) => {
     if (error) {
         return res.status(400).json(error.details[0].message);
     }
-    const category = new Category({
-        name: req.body.name,
-        products: req.body.products
-    })
+    const category = new Category(req.body)
     try {
         await category.save();
         res.status(200).json(category)
@@ -71,7 +66,6 @@ exports.putUpdateCategory = async (req, res) => {
         });
         res.status(200).json(updatedCategory);
     } catch (error) {
-        console.log(error);
         if (error instanceof Error) {
             res.status(500).json({ error: error.name });
         }

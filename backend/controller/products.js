@@ -17,7 +17,7 @@ exports.getProducts = async (req, res) => {
 exports.getProdcutById = async (req, res) => {
     const productId = req.params.id;
     try {
-        const product = await Product.findById(productId)
+        const product = await Product.findById(productId).populate({path : "categories", select : "name"}).populate({path : "subcategories", select :"name"})
         if (!product) {
             res.status(404).json({ error: "Product not found" });
         }
@@ -61,6 +61,7 @@ exports.putUpdateProduct = async (req, res) => {
         }
 
         const updatedProduct = await Product.findOneAndUpdate({ _id: productId }, req.body, { new: true });
+        deleteOldImages(req.body.deletedImagePaths);
 
         return res.json(updatedProduct);
     } catch (error) {
@@ -73,10 +74,12 @@ exports.putUpdateProduct = async (req, res) => {
 
 
 exports.deleteProduct = async (req, res) => {
+
     try {
         const deletedItem = await Product.findOneAndDelete({ "_id": req.params.id });
         res.json(deletedItem);
     } catch (error) {
+        console.log(error);
         if (error instanceof Error) {
             res.status(500).json(error.message);
         }

@@ -31,15 +31,17 @@ const productSchema = mongoose.Schema({
 }, { timestamps: true });
 
 productSchema.pre('save', async function (next) {
-    const category = await Category.findById(this.categories);
     try {
+        const category = await Category.findById(this.categories);
         if (category && !category.products.includes(this._id)) {
-            await Category.findByIdAndUpdate(this.categories, { $push: { products: this._id } });
+            category.products.push(this._id)
+            await category.save();
         }
         this.subcategories.forEach(async subCat => {
             const subCategory = await Subcategory.findById(subCat);
             if (subCategory && !subCategory.products.includes(this._id)) {
-                await Subcategory.findByIdAndUpdate(subCat, { $push: { products: this._id } });
+                subCategory.products.push(this._id)
+                await subCategory.save();
             }
         });
         next();
@@ -54,7 +56,7 @@ productSchema.post('findOneAndUpdate', async function (doc, next) {
     const prorductId = doc.id;
     try {
         await updateCategory(mainCategoryId, prorductId);
-        await updateSubcategory(subcategories,prorductId);
+        await updateSubcategory(subcategories, prorductId);
         next();
     } catch (error) {
         next(error);
@@ -64,10 +66,10 @@ productSchema.post('findOneAndUpdate', async function (doc, next) {
 productSchema.post('findOneAndDelete', async function (doc, next) {
     try {
         const productId = doc.id;
-        
+
         await deleteCategory(productId);
         await deleteSubcategory(productId);
-    
+
 
         next();
     } catch (error) {
@@ -76,7 +78,6 @@ productSchema.post('findOneAndDelete', async function (doc, next) {
 })
 
 async function updateCategory(mainCategoryId, productId) {
-
     const category = await Category.findById(mainCategoryId);
     const allCategories = await Category.find();
     if (!category) {
@@ -99,7 +100,6 @@ async function updateCategory(mainCategoryId, productId) {
             }
         }
     }
-
 }
 async function deleteCategory(productId) {
     const allCategories = await Category.find();
@@ -150,7 +150,7 @@ async function deleteSubcategory(productId) {
     for (const cat of allCategories) {
         const catIndex = cat.products.indexOf(productId);
         if (catIndex !== -1) {
-            cat.prodcuts.splice(catIndex, 1);
+            cat.products.splice(catIndex, 1);
             await cat.save();
         }
     }

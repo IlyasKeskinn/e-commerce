@@ -1,16 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Popconfirm, Space, Table, Button, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
+import useFetch from '../../../hooks/useFetch'
 export const ProductList = () => {
     //TODO REFACTOR
     const navigate = useNavigate();
-    const [dataSource, setDataSource] = useState([]);
-    const [isLoading, setLoading] = useState(false);
-    const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = "/product/getproducts";
+    const fetchUrl = `/product/getproducts`;
     const deleteUrl = "/product/deleteproduct";
     const token = localStorage.getItem("x-auth-token");
+    const [trigger, setTrigger] = useState(false);
+    const {data, isLoading, error } = useFetch(fetchUrl,"GET",{},{trigger});
+    const apiUrl = import.meta.env.VITE_BASE_API_URL;
+
+    if (error) {
+        message.error(error.message)
+    }
     const columns = [
         {
             title: "Image",
@@ -40,7 +44,7 @@ export const ProductList = () => {
                     <Popconfirm
                         title="Delete the product!"
                         description="Are you sure to delete this product?"
-                        onConfirm={() => deleteProduct(record._id)}
+                        onConfirm={() => deleteItem(record._id)}
                         okText="Yes"
                         cancelText="No"
                     >
@@ -51,36 +55,10 @@ export const ProductList = () => {
         }
     ]
 
-    const fetchProducts = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}${fetchUrl}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setDataSource(data);
-            }
-            else {
-                const { error } = await response.json();
-                message.error(error);
-            }
-        } catch (error) {
-            if (message instanceof Error) {
-                message.error(error)
-            }
-        } finally {
-            setLoading(false);
-        }
 
-    }, [apiUrl]);
-
-    const deleteProduct = async (productId) => {
+    const deleteItem = async (id) => {
         try {
-            const response = await fetch(`${apiUrl}${deleteUrl}/${productId}`, {
+            const response = await fetch(`${apiUrl}${deleteUrl}/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -88,26 +66,23 @@ export const ProductList = () => {
                 }
             });
             if (response.ok) {
-                message.success("Category deleted successfully.")
-                fetchProducts();
+                message.success("Deleted successfully.");
+                setTrigger(prevTrigger => !prevTrigger);
             }
             else {
                 const { error } = await response.json();
                 message.error(error);
             }
         } catch (error) {
-            if (message instanceof Error) {
-                message.error(error)
-            }
+            console.log(error);
         }
-
     }
 
-    useEffect(() => { fetchProducts() }, [fetchProducts])
+
 
     return (
         <div>
-            <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={dataSource} loading={isLoading} rowKey={(record) => record._id} />
+            <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={data} loading={isLoading} rowKey={(record) => record._id} />
         </div>
     )
 }

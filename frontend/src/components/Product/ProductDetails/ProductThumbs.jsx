@@ -34,8 +34,8 @@ export const ProductThumbs = ({ activeImage, setActiveImage, productImg }) => {
                             <img src={`../src/images/${img}`} style={{ height: 104, width: 104 }}
                                 className={`img-fluid gallery-thumbs__img ${activeImage == img ? "active" : ""}`}
                                 alt=""
-                                onClick={()=> {setActiveImage(img)}}
-                                >
+                                onClick={() => { setActiveImage(img) }}
+                            >
                             </img>
                         </SwiperSlide>
                     );

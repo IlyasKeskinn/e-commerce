@@ -1,38 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Input, Button, Spin, message } from "antd"
+import useFetch from '../../../hooks/useFetch';
 export const NewCategory = () => {
 
     //TODO REFACTOR
-    const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = "/category/postCategory";
+    const fetchUrl = "/category/postcategory";
     const [form] = Form.useForm();
-    const [isLoading, setLoading] = useState(false)
     const token = localStorage.getItem("x-auth-token");
-
+    const { data, isLoading, error, postData } = useFetch(fetchUrl, "POST", { token });
 
     const onFinish = async (values) => {
-        setLoading(true);
 
-        try {
-            const response = await fetch(`${apiUrl}${fetchUrl}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-auth-token": token
-                },
-                body: JSON.stringify(values)
-            });
-            if (response.ok) {
-                form.resetFields();
-                message.success("Category added succesfuly.");
-            } else {
-                const { error } = await response.json();
-                message.error(error);
-            }
-        } catch (error) {
+        postData(values);
+        if (data.name) {
+            message.success("Category added.")
+            form.resetFields();
+        }
+        if (error) {
             message.error(error)
-        }finally{
-            setLoading(false);
         }
     }
 
@@ -56,8 +41,6 @@ export const NewCategory = () => {
                 <Button type="primary" htmlType="submit">
                     Submit
                 </Button>
-
-
             </Form>
         </Spin>
     )

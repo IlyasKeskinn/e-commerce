@@ -10,6 +10,8 @@ export const CategoryList = () => {
     const fetchUrl = "/category/getCategories";
     const deleteUrl = "/category/deletecategory";
     const token = localStorage.getItem("x-auth-token");
+    const [trigger, setTrigger] = useState(true);
+    const apiUrl = import.meta.env.VITE_BASE_API_URL;
     const columns = [
         {
             title: "Category",
@@ -22,31 +24,32 @@ export const CategoryList = () => {
             key: "action",
             render: (_, record) => (
                 <Space size={'large'}>
-                    <Button onClick={()=> {navigate(`/admin/updatecategory/${record._id}`)}}>Update</Button>
+                    <Button onClick={() => { navigate(`/admin/updatecategory/${record._id}`) }}>Update</Button>
                     <Popconfirm
                         title="Delete the category"
                         description="Are you sure to delete this category?"
-                        onConfirm={() => deleteCategory(record._id)}
+                        onConfirm={() => deleteItem(record._id)}
                         okText="Yes"
                         cancelText="No"
                     >
                         <Button danger>Delete</Button>
                     </Popconfirm>
+                    <Button type='dashed' onClick={() => { navigate(`/admin/subcategorylist/${record._id}`) }}>See Subcategory</Button>
                 </Space>
             )
         }
     ]
 
-    const {data, error, isLoading} = useFetch(fetchUrl);
-    setDataSource(data);
-    
+    const { data, isLoading, error } = useFetch(fetchUrl, "GET", {}, { trigger });
+
     if (error) {
         message.error(error)
     }
 
-    const deleteCategory = async (categoryId) => {
+
+    const deleteItem = async (id) => {
         try {
-            const response = await fetch(`${apiUrl}${deleteUrl}/${categoryId}`, {
+            const response = await fetch(`${apiUrl}${deleteUrl}/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -54,26 +57,22 @@ export const CategoryList = () => {
                 }
             });
             if (response.ok) {
-                message.success("Category deleted successfully.")
-                fetchCategories();
+                message.success("Deleted successfully.");
+                setTrigger(prevTrigger => !prevTrigger);
             }
             else {
                 const { error } = await response.json();
                 message.error(error);
             }
         } catch (error) {
-            if (message instanceof Error) {
-                message.error(error)
-            }
+            message.error(error);
         }
-
     }
 
-    useEffect(() => { fetchCategories() }, [fetchCategories])
 
     return (
         <div>
-            <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={dataSource} loading={isLoading} rowKey={(record) => record._id} />
+            <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={data} loading={isLoading} rowKey={(record) => record._id} />
         </div>
     )
 }

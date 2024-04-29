@@ -29,15 +29,13 @@ exports.get_subcategory = async (req, res) => {
 
 exports.post_subcategory = async (req, res) => {
   
-    const subcategory = new Subcategory({
-        name: req.body.name,
-        products: req.body.products
-    })
+    const subcategory = new Subcategory(req.body)
     try {
         await subcategory.save();
         res.status(200).json(subcategory)
     } catch (error) {
         if (error instanceof Error) {
+            console.log(error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -54,7 +52,7 @@ exports.put_Updatesubcategory = async (req, res) => {
             res.status(404).json({ error: "Subcategory not found" });
         }
 
-        const updatedsubcategory = await subcategory.findByIdAndUpdate(subcategoryId, updates, {
+        const updatedsubcategory = await Subcategory.findOneAndUpdate({"_id" : subcategoryId}, updates, {
             new: true
         });
         res.status(200).json(updatedsubcategory);
@@ -72,7 +70,7 @@ exports.delete_subcategory = async (req, res) => {
         if (!subcategory) {
             res.status(404).json({ error: "Subcategory not found" });
         }
-        const deletedsubcategory = await subcategory.findOneAndDelete({ "_id": subcategoryId });
+        const deletedsubcategory = await Subcategory.findOneAndDelete({ "_id": subcategoryId });
         res.status(200).json(deletedsubcategory);
     } catch (error) {
         if (error instanceof Error) {
