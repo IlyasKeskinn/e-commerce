@@ -12,7 +12,7 @@ export const cartReducer = (state = cartState, action) => {
         case "ADD_CART":
             return {
                 ...state,
-                cartItems : [...state.cartItems , action.cartItem]
+                cartItems: [...state.cartItems, action.cartItem]
             }
         case "REMOVE_CART":
             return {
@@ -20,19 +20,20 @@ export const cartReducer = (state = cartState, action) => {
                 cartItems: state.cartItems.filter((cartItem) => cartItem.cartId !== action.id)
             }
         case "UPDATE_CART":
-            return state.map((cartItem) => {
-                if (action.id === cartItem.id && action.selectedColor === cartItem.selectedColor && action.selectedSize === cartItem.selectedSize) {
-                    return {
-                        ...state,
-                        cartItems: [
+            return {
+                ...state,
+                cartItems: state.cartItems.map((cartItem) => {
+                    if (action.id === cartItem.cartId) {
+                        return {
                             ...cartItem,
                             ...action.updates
-                        ]
+                        };
+                    } else {
+                        return cartItem;
                     }
-                } else {
-                    return cartItem
-                }
-            })
+                })
+            };
+
         case "UPDATE_TOTAL":
             return {
                 ...state,

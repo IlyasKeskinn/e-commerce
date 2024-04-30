@@ -1,6 +1,6 @@
 import React from 'react'
 import { CheckoutSteps } from '../CheckoutSteps/CheckoutSteps'
-import ProductTile  from '../../Product/ProductTile'
+import ProductTile from '../../Product/ProductTile'
 import { connect } from 'react-redux'
 
 const Cart = ({ cart }) => {
@@ -9,7 +9,7 @@ const Cart = ({ cart }) => {
             <div className="container cart-container">
                 {cart.cartItems.length <= 0
                     ?
-                    <div className="p-5 m-5 h"  style={{height : 500}}>
+                    <div className="p-5 m-5 h" style={{ height: 500 }}>
                         <p className="lead text-uppercase text-secondary text-capitalize fw-normal">There are no items in your cart, go ahead and add items to your cart!</p>
                     </div>
                     :
@@ -29,7 +29,7 @@ const Cart = ({ cart }) => {
                                             <th></th>
                                         </thead>
                                         <tbody className="cart-item-list">
-                                            {Array.from(cart.cartItems).map((cartItem) => { return <ProductTile key={cartItem.id} product = {cartItem}/>})}
+                                            {cart.cartItems.map((cartItem) => <ProductTile key={cartItem.cartId} product={cartItem} />)}
                                         </tbody>
                                     </table>
                                     <div className="checkout-buttons d-flex my-5 justify-content-between align-items-center">

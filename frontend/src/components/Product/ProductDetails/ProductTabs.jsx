@@ -3,7 +3,7 @@ import { NavItem } from "../../NavTabs/NavItem"
 import { ReviewForm } from "../../Reviews/ReviewForm"
 import { ReviewsStars } from "../../Reviews/ReviewsStars"
 
-export const ProductTabs = () => {
+export const ProductTabs = ({desc}) => {
     const [activeTabs, setActiveTabs] = useState(0);
 
     return (
@@ -15,59 +15,7 @@ export const ProductTabs = () => {
             </ul>
             <div className="tabcontent ">
                 <div className={`tab-pane fade ${activeTabs === 0 ? "active" : ""} show`}>
-                    <div className="product-single__description">
-                        <h3 className="text-uppercase fw-normal">
-                            Sed do eiusmod tempor incididunt ut labore
-                        </h3>
-                        <p className="my-5">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                            inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                        </p>
-                        <div className="product-single_descrow my-5">
-                            <div className="col-6">
-                                <h3 className="text-uppercase fw-normal my-5">
-                                    Why choose product?
-                                </h3>
-                                <ul className="product-single_desList">
-                                    <li className="product-single_desListItem">
-                                        Creat by cotton fibric with soft and smooth
-                                    </li>
-                                    <li className="product-single_desListItem">
-                                        Simple, Configurable (e.g. size, color, etc.), bundled
-                                    </li>
-                                    <li className="product-single_desListItem">
-                                        Downloadable/Digital Products, Virtual Products
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="col-6">
-                                <h3 className="text-uppercase fw-normal my-5">
-                                    Sample Number List
-                                </h3>
-                                <ol className="product-single_desList">
-                                    <li className="product-single_desListItem">
-                                        Create Store-specific attrittbutes on the fly
-                                    </li>
-                                    <li className="product-single_desListItem">
-                                        Simple, Configurable (e.g. size, color, etc.), bundled
-                                    </li>
-                                    <li className="product-single_desListItem">
-                                        Downloadable/Digital Products, Virtual Products
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                        <h3 className="text-uppercase fw-normal mt-5">Lining</h3>
-                        <p className="content ">
-                            100% Polyester, Main: 100% Polyester.
-                        </p>
-                    </div>
+                    <div dangerouslySetInnerHTML={{__html : desc}} className="product-single__description"/>
                 </div>
                 <div className={`tab-pane fade ${activeTabs === 1 ? "active" : ""} show`}>
                     <div className="product-single__additionalInformation">

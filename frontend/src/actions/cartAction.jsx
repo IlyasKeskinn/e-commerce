@@ -93,18 +93,27 @@ export const deleteCartLocalStorage = (id) => {
 }
 
 
-export const updateCart = (product, updates) => (
+export const updateCart = (cartId, updates) => (
     {
         type: "UPDATE_CART",
-        id: product.id,
-        selectedColor: product.selectedColor,
-        selectedSize: product.selectedSize,
+        id: cartId,
         updates
     }
 )
 
-export const updateCartLocalStorage = (product, updates) => {
+export const updateCartLocalStorage = (cartId, updates) => {
     return (dispatch) => {
+        let cart = [];
+        cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+        cart.cartItems.forEach((cartOwnItem, index) => {
+            if (cartOwnItem.cartId === cartId) {
+                cart.cartItems.splice(index, 1, updates);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                dispatch(updateCart(cartId, updates));
+                updateCartTotal();
+                dispatch(setCart(cart));
+            }
+        });
 
     }
 }

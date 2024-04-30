@@ -13,9 +13,6 @@ const AddingCartForm = (props) => {
     const handleColorChange = (color) => {
         setColor(color)
     }
-    const handeleQantity = (e) => {
-        setQuantity(parseInt(10))
-    }
     const incrementQunatity = () => {
         if (quantity < 100) {
             setQuantity(prevQuantity => prevQuantity + 1);
@@ -36,7 +33,7 @@ const AddingCartForm = (props) => {
             id: props.product._id,
             name: props.product.title,
             price: props.newPrice,
-            img: props.product.img,
+            img: props.product.images[0],
             selectedColor: selectedColor || props.product.color_options[0],
             selectedSize: selectedSize || props.product.size_options[0],
         }
@@ -74,7 +71,7 @@ const AddingCartForm = (props) => {
             </div>
             <div className="product-single__addcart d-flex align-items-center ">
                 <div className="quantity-control position-relative">
-                    <input type="number" name="quantity" className="quantity-control__number text-center" onChange={handeleQantity}
+                    <input type="number" name="quantity" className="quantity-control__number text-center"
                         value={quantity} min="1" />
                     <a className="quantity-control__reduce" onClick={() => decrementQuantity()} >-</a>
                     <a className="quantity-control__increment" onClick={() => incrementQunatity()}>+</a>

@@ -129,7 +129,10 @@
     max-width: 900px;
 }
 
-
+.product-single__short-desc{
+    overflow: hidden;
+    max-height: 100px;
+}
 
 .product-single__tabs .tabcontent {
     margin: 50px 0;

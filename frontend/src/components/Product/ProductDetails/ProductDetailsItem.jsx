@@ -55,10 +55,9 @@ export const ProductDetailsItem = ({ productId }) => {
                             <div className="product-single__price my-5">
                                 <span className="current_price">${newPrice.toFixed(2)}</span>
                             </div>
-                            <div className="product-single__short-desc my-5">
+                            <div className="product-single__short-desc  my-5">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora a veritatis iusto
-                                    omnis aperiam. Fugit!
+                                {data.shortDesc}
                                 </p>
                             </div>
                             <AddingCartForm product={data} newPrice={newPrice} />
@@ -67,7 +66,7 @@ export const ProductDetailsItem = ({ productId }) => {
                         </div>
                     </div>
                 </div>
-                <ProductTabs />
+                <ProductTabs desc={data.desc} />
             </div>
         </section>
     )
