@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Category, validateCategory} = require("../models/category");
+const { Category, validateCategory } = require("../models/category");
 
 
 
@@ -30,11 +30,14 @@ exports.getCategory = async (req, res) => {
 }
 
 exports.postCategory = async (req, res) => {
-    const { error } = validateCategory(req.body);
+    const seo_link = slugField(req.body.title);
+    const body = { ...req.body, "seo_link": seo_link }
+
+    const { error } = validateCategory(body);
     if (error) {
         return res.status(400).json(error.details[0].message);
     }
-    const category = new Category(req.body)
+    const category = new Category(body)
     try {
         await category.save();
         res.status(200).json(category)
@@ -47,8 +50,10 @@ exports.postCategory = async (req, res) => {
 
 exports.putUpdateCategory = async (req, res) => {
     const categoryId = req.params.id;
-    const updates = req.body
-    const { error } = validateCategory(updates)
+    const seo_link = slugField(req.body.title);
+    const body = { ...req.body, "seo_link": seo_link }
+    
+    const { error } = validateCategory(body)
 
     if (error) {
         res.status(400).json(error.details[0].message);
@@ -61,7 +66,7 @@ exports.putUpdateCategory = async (req, res) => {
             res.status(404).json({ error: "Category not found" });
         }
 
-        const updatedCategory = await Category.findByIdAndUpdate(categoryId, updates, {
+        const updatedCategory = await Category.findByIdAndUpdate(categoryId, body, {
             new: true
         });
         res.status(200).json(updatedCategory);

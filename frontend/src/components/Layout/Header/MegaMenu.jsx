@@ -9,7 +9,7 @@ export const MegaMenu = ({data}) => {
                 <div key={category._id} className="col">
                     <ul className="default-menu-content">
                         <li className="sub-menu__item">
-                            <Link className="menu-link btn btn-outlined-half">
+                            <Link to={`/shop/${category._id}`} className="menu-link btn btn-outlined-half">
                                 <h4 className="mega-menu-title">{category.name}</h4>
                             </Link>
                         </li>

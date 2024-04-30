@@ -1,6 +1,6 @@
 const { Product, Comment, validateProduct } = require("../models/product");
 const { mongoose } = require("mongoose");
-const { Subcategory } = require("../models/category");
+const slugField = require("../helpers/slugField");
 const deleteOldImages = require("../helpers/deletePhoto");
 exports.getProducts = async (req, res) => {
     try {
@@ -17,7 +17,7 @@ exports.getProducts = async (req, res) => {
 exports.getProdcutById = async (req, res) => {
     const productId = req.params.id;
     try {
-        const product = await Product.findById(productId).populate({path : "categories", select : "name"}).populate({path : "subcategories", select :"name"})
+        const product = await Product.findById(productId).populate({ path: "categories", select: "name" }).populate({ path: "subcategories", select: "name" })
         if (!product) {
             res.status(404).json({ error: "Product not found" });
         }
@@ -30,14 +30,15 @@ exports.getProdcutById = async (req, res) => {
 }
 exports.postProduct = async (req, res) => {
 
-
-    const { error } = validateProduct(req.body);
+    const seo_link = slugField(req.body.title);
+    const body = { ...req.body, "seo_link": seo_link }
+    const { error } = validateProduct(body);
 
     if (error) {
         return res.status(400).json({ error: error.details[0].message });
     }
     try {
-        const product = new Product(req.body)
+        const product = new Product(body)
         await product.save();
 
         return res.json(product);
@@ -49,18 +50,20 @@ exports.postProduct = async (req, res) => {
 }
 exports.putUpdateProduct = async (req, res) => {
     const productId = req.params.id;
+    const seo_link = slugField(req.body.title);
+    const body = { ...req.body, "seo_link": seo_link }
     try {
         const selectedProduct = await Product.findById(productId);
         if (!selectedProduct) {
             return res.status(404).json({ error: "Product not found" });
         }
 
-        const { error } = validateProduct(req.body);
+        const { error } = validateProduct(body);
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
 
-        const updatedProduct = await Product.findOneAndUpdate({ _id: productId }, req.body, { new: true });
+        const updatedProduct = await Product.findOneAndUpdate({ _id: productId }, body, { new: true });
         deleteOldImages(req.body.deletedImagePaths);
 
         return res.json(updatedProduct);

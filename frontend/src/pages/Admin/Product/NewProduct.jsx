@@ -102,7 +102,7 @@ export const NewProduct = () => {
                 body: JSON.stringify(data)
             });
             if (response.ok) {
-                //form.resetFields();
+                form.resetFields();
                 message.success("Product added succesfuly.");
             } else {
                 const { error } = await response.json();

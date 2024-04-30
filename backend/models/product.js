@@ -14,6 +14,7 @@ const reviewSchema = mongoose.Schema({
 //creating product schema
 const productSchema = mongoose.Schema({
     title: { type: String, required: true },
+    seo_link: { type: String, required: true },
     color_options: { type: Array, required: true },
     size_options: { type: Array, required: true },
     desc: { type: String, required: true },
@@ -165,6 +166,7 @@ const Comment = mongoose.model("Reviews", reviewSchema);
 function validateProduct(product) {
     const schema = Joi.object({
         title: Joi.string().required().min(3).max(100),
+        seo_link: Joi.string().min(3).max(100).required(),
         color_options: Joi.array().required(),
         size_options: Joi.array().required(),
         desc: Joi.string().required().min(10),

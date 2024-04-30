@@ -33,7 +33,7 @@ function App() {
       children: [
         { path: "/", element: <Home /> },
         { path: "home", element: <Home /> },
-        { path: "shop", element: <Shop /> },
+        { path: "shop/:id", element: <Shop /> },
         { path: "cart", element: <ShopingCart /> },
         { path: "checkout", element: <ShopCheckout /> },
         { path: "complete", element: <ShopComplete /> },

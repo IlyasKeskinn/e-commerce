@@ -4,7 +4,7 @@ import {
     Spin, message
 } from "antd"
 import { useNavigate, useParams } from 'react-router-dom';
-import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
+import {InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 import ReactQuill from 'react-quill';
@@ -16,7 +16,7 @@ export const UpdateProduct = () => {
     const productId = useParams().id;
 
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
-    const fetchUrl = `/product/getproducts/${productId}`;
+    const fetchUrl = `/product/getproduct/${productId}`;
     const updateUrl = "/product/updateProduct";
     const token = localStorage.getItem("x-auth-token");
 
@@ -32,7 +32,9 @@ export const UpdateProduct = () => {
 
     const { data, isLoading, error } = useFetch(fetchUrl);
 
-
+    if (error) {
+        message.error(error);
+    }
     const fetchCategories = useCallback(async () => {
         setUpload(true);
         try {

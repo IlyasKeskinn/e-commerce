@@ -5,7 +5,7 @@ export const Banner = () => {
             <div className="container shop-banner-container h-md-100">
                 <div >
                     <div className="shop-banner-row  position-relative">
-                        <div className="background-img" style={{backgroundImage : `url(./img/shoplist/shop_banner_2.png)`}} ></div>
+                        <div className="background-img" style={{backgroundImage : `url(../img/shoplist/shop_banner_2.png)`}} ></div>
                         <div className="shop-banner-content container">
                             <h3 className="shop-banner-title text-center text-uppercase fw-500">
                                 <strong>Shirts</strong>
