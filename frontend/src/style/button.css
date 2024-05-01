@@ -13,7 +13,6 @@
     width: 0;
     background-color: currentColor;
     position: absolute;
-    transition: all 0.3s ease-out;
 }
 
 .btn-outlined-half:hover::after {

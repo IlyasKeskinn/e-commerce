@@ -2,7 +2,7 @@ import React from 'react'
 import { Skeleton } from "antd";
 import { ProductsSkelton } from './ProductsSkeleton';
 
-export const ShopContentSkeleton = () => {
+export const ShopContentSkeleton = ({viewItem}) => {
     return (
         <section className="shop-main d-flex justify-content-center align-items-center">
             <div className="container">
@@ -44,11 +44,10 @@ export const ShopContentSkeleton = () => {
                         </div>
                     </div>
                 </div>
-                <ProductsSkelton />
+                <ProductsSkelton viewItem={viewItem} />
                 <div className="pagination d-flex justify-content-center align-items-center">
                     <div className="container d-flex flex-column justify-content-center align-items-center">
                         <div style={{ width: "320px", marginTop: "50px" }}>
-                            <Skeleton.Input block={true} active={true} size={'small'} />
                         </div>
 
                     </div>

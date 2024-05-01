@@ -9,6 +9,7 @@
 .nav-link:hover {
     color: var(--black);
 }
+
 .nav-link.active {
     color: var(--black);
 }
@@ -48,18 +49,30 @@
 
 
 .row {
-
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 25px;
 }
+
+.row-4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.row-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.row-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
 
 /* responsive*/
 
 @media (max-width: 992px) {
     .products-area .row {
-        grid-template-columns: 1fr 1fr 1fr ;
+        grid-template-columns: 1fr 1fr 1fr;
     }
+
     .nav-link {
         font-size: 1.4rem;
         color: var(--light-gray);
@@ -67,10 +80,12 @@
         transition: all 0.3s ease-out;
     }
 }
+
 @media (max-width: 767px) {
     .products-area .row {
-        grid-template-columns: 1fr 1fr ;
+        grid-template-columns: 1fr 1fr;
     }
+
     .nav-link {
         font-size: 1.2rem;
         color: var(--light-gray);

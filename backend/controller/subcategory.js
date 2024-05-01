@@ -24,18 +24,61 @@ exports.get_subcategory = async (req, res) => {
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ error: error.message });
-        } 
+        }
     }
 }
 
 exports.getSubcategoryWithSeo = async (req, res) => {
     const seo_link = req.params.seo_link;
+    const page = req.query.page || 1;
+    const sort = req.query.sort || "DEFAULT";
+    const pageSize = 8;
     try {
-        const category = await Subcategory.findOne({ "seo_link": seo_link }).populate({path: "maincategory" , select :"name seo_link"}).populate("products")
+        let categoryQuery =  Subcategory.findOne({ "seo_link": seo_link }).populate({ path: "maincategory", select: "name seo_link" });
+
+        switch (sort) {
+            case "A-Z":
+                categoryQuery.populate({ path: "products", options: { sort: { title: 1 } } });
+                break;
+            case "Z-A":
+                categoryQuery.populate({ path: "products", options: { sort: { title: -1 } } });
+                break;
+            case "LOW-HIGH":
+                categoryQuery.populate({ path: "products", options: { sort: { price: 1 } } });
+                break;
+            case "HIGH-LOW":
+                categoryQuery.populate({ path: "products", options: { sort: { price: -1 } } });
+                break;
+            default:
+                categoryQuery.populate({ path: "products" });
+                break;
+        }
+
+        const category = await categoryQuery.exec();
         if (!category) {
             res.status(404).json({ error: "Category not found" });
         }
-        res.status(200).json(category);
+
+        const products = category.products;
+
+        const totalProducts = products.length;
+
+        const startIndex = (page - 1) * pageSize;
+
+        const endIndex = (startIndex + pageSize);
+
+        const productsForPage = products.slice(startIndex, endIndex);
+
+        const categoryData = { "name": category.name, "seo_link": category.seo_link, "maincategory": category.maincategory }
+
+        res.status(200).json(
+            {
+                category: categoryData,
+                page: parseInt(page),
+                productsForPage: productsForPage,
+                totalProducts: totalProducts
+            }
+        );
     } catch (error) {
         if (error instanceof Error) {
             console.log(error);

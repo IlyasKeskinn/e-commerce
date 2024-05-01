@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Banner } from "../../components/Banner/Banner";
 import { ShopContents } from "../../components/Shop/ShopContents";
@@ -8,18 +8,57 @@ import { AllProductsSkeleton } from "../../components/Skeltons/AllProductsSkelet
 
 export const Allproducts = () => {
     const seo_link = useParams().seo_link;
-    let fetchURL = `/category/get_category_with_seo/${seo_link}`
+    const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [sort, setSort] = useState("DEFAULT");
+    const [viewItem, setViewItem] = useState(4);
+    const fetchURL = `/category/get_category_with_seo/${seo_link}`;
 
-    const { data, isLoading, error } = useFetch(`${fetchURL}`);
-    if (isLoading || !data.products || !data.subcategory) {
-        return <AllProductsSkeleton />
+    const { data, isLoading, error } = useFetch(`${fetchURL}?page=${page}&sort=${sort}`);
+
+
+    useEffect(() => {
+        if (!isLoading && data && data.productsForPage) {
+            const prd = data.productsForPage
+            setProducts(prevPrd => [...prevPrd, ...prd])
+        }
+    }, [isLoading, data, seo_link])
+    useEffect(() => {
+        setProducts([]);
+        setPage(1);
+    }, [seo_link, sort])
+
+    const handleSorting = (sortMethod) => {
+        setSort(sortMethod);
     }
-    const maincat = { "name": data.name, "seo_link": data.seo_link }
+    const handleView = (viewNumber) => {
+        setViewItem(viewNumber);
+    }
 
+    const loadMore = () => {
+        setPage(prevPage => prevPage + 1);
+    };
     return (
         <React.Fragment>
-            <Banner mainCategory={data.name} subcategories={data.subcategory} />
-            <ShopContents maincat={maincat} products={data.products} />
+            {isLoading && <AllProductsSkeleton viewItem={viewItem}/>}
+            {error && <div>Error: {error}</div>}
+            {!isLoading && data && data.productsForPage &&
+                <React.Fragment>
+                    <Banner mainCategory={data.category.name} subcategories={data.category.subcategory} />
+                    <ShopContents
+                        productLen={products.length}
+                        totalProducts={data.totalProducts}
+                        maincat={{ "name": data.category.name, "seo_link": data.category.seo_link }}
+                        products={products}
+                        loadMore={loadMore}
+                        handleSorting={handleSorting}
+                        sort={sort}
+                        handleView={handleView}
+                        viewItem={viewItem}
+                    />
+                </React.Fragment>
+            }
         </React.Fragment>
     );
 }
+

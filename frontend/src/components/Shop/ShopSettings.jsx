@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
-export const ShopSettings = ({ maincat, subcat }) => {
+export const ShopSettings = ({ maincat, subcat, handleSorting, sort, handleView }) => {
+    const handleChange = (e) => {
+        handleSorting(e.target.value);
+    }
+    const handleViewSettings = (e) => {
+        handleView(e.target.value);
+    }
     return (
         <div className="shop-settings d-flex justify-content-between align-items-center my-3">
             <div className="breadcrumb">
@@ -9,23 +15,19 @@ export const ShopSettings = ({ maincat, subcat }) => {
                 {subcat ? <Link to={`/shop/${subcat.seo_link}`} className="btn btn-outlined-half text-uppercase">/{subcat.name}</Link> : ""}
             </div>
             <div className="shop-asc d-flex justify-content-center align-items-center">
-                <select name="shopasc" id="shopAscSelect" className="shop-asc__select fw-normal text-uppercase">
-                    <option value="0">Default Sorting</option>
-                    <option value="1">Featured</option>
-                    <option value="2">Best Selling</option>
-                    <option value="3">Alphabetically, A-Z</option>
-                    <option value="4">Alphabetically, Z-A</option>
-                    <option value="5">Price, low to high</option>
-                    <option value="6">Price, high to low</option>
-                    <option value="7">Date, old to new</option>
-                    <option value="8">Date, new to old</option>
+                <select value={sort} onChange={handleChange} name="shopasc" id="shopAscSelect" className="shop-asc__select fw-normal text-uppercase">
+                    <option value="DEFAULT">Default Sorting</option>
+                    <option value="A-Z">Alphabetically, A-Z</option>
+                    <option value="Z-A">Alphabetically, Z-A</option>
+                    <option value="LOW-HIGH">Price, low to high</option>
+                    <option value="HIGH-LOW">Price, high to low</option>
                 </select>
                 <div className="shop-asc__seperator mx-3"></div>
                 <div className="shop-asc__viewsettings">
                     <span className="fw-600 text-uppercase">View</span>
-                    <button className="btn btn-outlined-half fw-normal text-uppercase">2</button>
-                    <button className="btn btn-outlined-half fw-normal text-uppercase">3</button>
-                    <button className="btn btn-outlined-half fw-normal text-uppercase">4</button>
+                    <button onClick={(e) => handleViewSettings(e)} value={2} className="btn btn-outlined-half fw-normal text-uppercase">2</button>
+                    <button onClick={(e) => handleViewSettings(e)} value={3} className="btn btn-outlined-half fw-normal text-uppercase">3</button>
+                    <button onClick={(e) => handleViewSettings(e)} value={4} className="btn btn-outlined-half fw-normal text-uppercase">4</button>
                 </div>
                 <div className="shop-asc__seperator mx-3"></div>
                 <div className="shop-asc__filter">
