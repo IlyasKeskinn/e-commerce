@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 import { ProductDetailSkeleton } from '../../Skeltons/ProductDetailSkeleton/ProductDetailSkeleton';
 
 
-export const ProductDetailsItem = ({ productId }) => {
-    const { data, isLoading, error } = useFetch(`/product/getproduct/${productId}`);
+export const ProductDetailsItem = ({ seo_link }) => {
+    const { data, isLoading, error } = useFetch(`/product/getProductBySeo/${seo_link}`);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
@@ -28,6 +28,8 @@ export const ProductDetailsItem = ({ productId }) => {
             setNewPrice(price);
         }
     }, [data, isLoading]);
+
+    console.log(data);
     
     if (isLoading || !data || !data.images) {
         return <ProductDetailSkeleton />

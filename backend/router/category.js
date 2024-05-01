@@ -13,6 +13,7 @@ const isAdmin = require("../middlewares/isAdmin");
 //main category
 router.get("/getCategories", categoryController.getCategories);
 router.get("/getCategory/:id", categoryController.getCategory);
+router.get("/get_category_with_seo/:seo_link", categoryController.getCategoryWithSeo);
 router.post("/postCategory", isAuth, isAdmin, categoryController.postCategory);
 router.put("/updateCategory/:id", isAuth, isAdmin, categoryController.putUpdateCategory);
 router.delete("/deleteCategory/:id", isAuth, isAdmin, categoryController.deleteCategory);
@@ -24,6 +25,7 @@ router.delete("/delete_subcategory/:id", subcategoryController.delete_subcategor
 router.put("/update_subcategory/:id", subcategoryController.put_Updatesubcategory);
 router.get("/get_subcategories", subcategoryController.get_subcategories);
 router.get("/get_subcategory/:id", subcategoryController.get_subcategory);
+router.get("/get_subcategory_withSeo/:seo_link", subcategoryController.getSubcategoryWithSeo);
 
 
 

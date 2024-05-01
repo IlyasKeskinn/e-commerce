@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
+import { Allproducts } from './pages/Shop/Allproducts'
 import { Shop } from './pages/Shop/Shop'
 import { ShopingCart } from './pages/ShopingCart/ShopingCart'
 import { ShopCheckout } from './pages/ShopCheckout/ShopCheckout'
@@ -33,12 +34,13 @@ function App() {
       children: [
         { path: "/", element: <Home /> },
         { path: "home", element: <Home /> },
-        { path: "shop/:id", element: <Shop /> },
+        { path: "allproducts/:seo_link", element: <Allproducts /> },
+        { path: "shop/:seo_link", element: <Shop /> },
         { path: "cart", element: <ShopingCart /> },
         { path: "checkout", element: <ShopCheckout /> },
         { path: "complete", element: <ShopComplete /> },
         { path: "login_register", element: <Auth /> },
-        { path: "/product/:id", element: <ProductDetails /> },
+        { path: "/product/:seo_link", element: <ProductDetails /> },
         {
           path: "account", element: <AccountLayout />,
           children: [

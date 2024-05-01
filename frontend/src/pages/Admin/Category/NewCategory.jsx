@@ -3,18 +3,16 @@ import { Form, Input, Button, Spin, message } from "antd"
 import useFetch from '../../../hooks/useFetch';
 export const NewCategory = () => {
 
-    //TODO REFACTOR
     const fetchUrl = "/category/postcategory";
     const [form] = Form.useForm();
     const token = localStorage.getItem("x-auth-token");
     const { data, isLoading, error, postData } = useFetch(fetchUrl, "POST", { token });
 
     const onFinish = async (values) => {
-
         postData(values);
-        if (data.name) {
-            message.success("Category added.")
+        if (data) {
             form.resetFields();
+            message.success("Category added.")
         }
         if (error) {
             message.error(error)

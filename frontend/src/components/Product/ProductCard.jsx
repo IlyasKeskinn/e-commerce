@@ -12,7 +12,7 @@ const ProductCard = ({ product, dispatch }) => {
     const discount = product.discount ? product.discount : 0;
     let newPrice = product.price.current;
     if (discount !== 0) {
-        newPrice = product.price.current - (product.price.current * discount) / 100
+        newPrice = (product.price.current - (product.price.current * discount) / 100).toFixed(2);
     }
 
 
@@ -39,15 +39,15 @@ const ProductCard = ({ product, dispatch }) => {
     return (
         <div className="product-card">
             <div className="pc-img__wrapper">
-                <Link to={`product/${product._id}`} className="product-link">
+                <Link to={`/product/${product.seo_link}`} className="product-link">
                     <img src={`../src/images/${product.images[0]}`} alt={`${product.images[0]}`} className="pc__img "></img>
                 </Link>
                 <button className="pc__addcart button btn-white" id="addToCart" onClick={(e) => { addCart(e) }}>Add Cart</button>
             </div>
             <div className="pc-info position-relative mt-3 p-1">
-            <p class="text-secondary pc__category">Dressers</p>
+            <p className="text-secondary pc__category">{product.subcategories[0].name}</p>
 
-                <Link to={`product/${product._id}`}>
+                <Link to={`/product/${product._id}`}>
                     <h6 className="pc__title">
                         <a href="#" className="product-link">{product.title}</a>
                     </h6>

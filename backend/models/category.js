@@ -5,6 +5,7 @@ const Joi = require("joi");
 //creating subcategory 
 const subCategorySchema = mongoose.Schema({
     name: String,
+    seo_link :String,
     maincategory: { type: Schema.Types.ObjectId, ref: "Categories" },
     products: [{
         type: Schema.Types.ObjectId, ref: "Products"
@@ -15,6 +16,7 @@ const subCategorySchema = mongoose.Schema({
 const categorySchema = mongoose.Schema({
     name: String,
     subcategory: [{ type: Schema.Types.ObjectId, ref: "Subcategories" }],
+    seo_link :String,
     products: [{
         type: Schema.Types.ObjectId, ref: "Products"
     }]
@@ -101,7 +103,8 @@ function validateCategory(category) {
     const schema = Joi.object({
         name: Joi.string().required().min(3).max(100),
         subcategory: Joi.array(),
-        products: Joi.allow()
+        products: Joi.allow(),
+        seo_link : Joi.string().min(2).max(100).required()
     })
     return schema.validate(category);
 }

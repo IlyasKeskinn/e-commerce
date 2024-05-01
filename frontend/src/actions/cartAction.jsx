@@ -132,12 +132,12 @@ export const updateCartTotal = () => {
         let total = 0;
         if (localCart.cartItems.length > 0) {
             productsPrices = Object.values(localCart.cartItems).map((item) => { return (item.amount * item.price) });
-            subTotal = productsPrices.reduce((prevValue, currentValue) => prevValue + currentValue);
-            total = subTotal + 10
+            subTotal = productsPrices.reduce((prevValue, currentValue) => prevValue + currentValue,0);
+            total = (subTotal + 10)
         }
         localCart.total = {
-            sub_total: subTotal,
-            total: total
+            sub_total: subTotal.toFixed(2),
+            total: total.toFixed(2)
         };
 
         localStorage.setItem("cart", JSON.stringify(localCart));

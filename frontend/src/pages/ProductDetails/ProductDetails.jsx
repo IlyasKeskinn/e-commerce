@@ -5,9 +5,9 @@ import './ProductDetails.css'
 
 
 export const ProductDetails = () => {
-    const id = useParams().id;
+    const seo_link = useParams().seo_link;
     return (
-        <ProductDetailsItem productId={id} />)
+        <ProductDetailsItem seo_link={seo_link} />)
 }
 
 

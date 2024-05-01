@@ -4,7 +4,7 @@ const slugField = require("../helpers/slugField");
 const deleteOldImages = require("../helpers/deletePhoto");
 exports.getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().populate("categories").populate("subcategories");
         res.json(products);
     } catch (error) {
         if (error instanceof Error) {
@@ -18,6 +18,20 @@ exports.getProdcutById = async (req, res) => {
     const productId = req.params.id;
     try {
         const product = await Product.findById(productId).populate({ path: "categories", select: "name" }).populate({ path: "subcategories", select: "name" })
+        if (!product) {
+            res.status(404).json({ error: "Product not found" });
+        }
+        res.status(201).json(product);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
+    }
+}
+exports.getProdcutBySeo = async (req, res) => {
+    const seo_link = req.params.seo_link;
+    try {
+        const product = await Product.findOne({"seo_link" : seo_link}).populate({ path: "categories", select: "name" }).populate({ path: "subcategories", select: "name" })
         if (!product) {
             res.status(404).json({ error: "Product not found" });
         }

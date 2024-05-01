@@ -20,6 +20,7 @@ const ProductTile = ({ dispatch, product }) => {
         selectedColor: product.selectedColor,
         selectedSize: product.selectedSize,
     }
+    console.log(cartItem);
     const incrementQunatity = () => {
         if (quantity < 100) {
             const newQuantity = quantity + 1;
@@ -59,7 +60,7 @@ const ProductTile = ({ dispatch, product }) => {
                     </p>
                 </div>
             </td>
-            <td> <span className="shopping-cart__product-price text-secondary">${product.price}</span>
+            <td> <span className="shopping-cart__product-price text-secondary">${product.price.toFixed(2)}</span>
             </td>
             <td>
                 <div className="quantity-control position-relative">
@@ -69,7 +70,7 @@ const ProductTile = ({ dispatch, product }) => {
                 </div>
             </td>
             <td>
-                <span className="shopping-cart__subtotal ">${product.price * product.amount}</span>
+                <span className="shopping-cart__subtotal ">${(product.price * product.amount).toFixed(2)}</span>
             </td>
             <td>
                 <a href="#" className="remove-cart" onClick={(e) => { handleRemove(e) }} >

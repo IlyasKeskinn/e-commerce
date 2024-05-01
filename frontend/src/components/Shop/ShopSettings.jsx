@@ -1,10 +1,12 @@
-export const ShopSettings = () => {
+import { Link } from "react-router-dom";
+export const ShopSettings = ({ maincat, subcat }) => {
     return (
         <div className="shop-settings d-flex justify-content-between align-items-center my-3">
             <div className="breadcrumb">
-                <a href="#" className="btn btn-outlined-half text-uppercase">Home</a>
+                <Link to={"/"} href="#" className="btn btn-outlined-half text-uppercase">Home</Link>
                 <span className="fw-normal">/</span>
-                <a href="#" className="btn btn-outlined-half text-uppercase">Shirts</a>
+                {maincat ? <Link to={`/allproducts/${maincat.seo_link}`} className="btn btn-outlined-half text-uppercase">{maincat.name}</Link> : ""}
+                {subcat ? <Link to={`/shop/${subcat.seo_link}`} className="btn btn-outlined-half text-uppercase">/{subcat.name}</Link> : ""}
             </div>
             <div className="shop-asc d-flex justify-content-center align-items-center">
                 <select name="shopasc" id="shopAscSelect" className="shop-asc__select fw-normal text-uppercase">
