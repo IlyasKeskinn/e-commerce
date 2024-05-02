@@ -182,6 +182,9 @@
     border-bottom: solid 1px rgba(240, 240, 240, 0.7);
 }
 
+.product-singe__reviews .review-list li .ant-rate .ant-rate-star{
+    border-bottom: none !important;
+}
 .product-singe__reviews .review-list .review-info{
     display: flex !important; 
     justify-content: space-between;

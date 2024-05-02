@@ -17,7 +17,13 @@ exports.getProducts = async (req, res) => {
 exports.getProdcutById = async (req, res) => {
     const productId = req.params.id;
     try {
-        const product = await Product.findById(productId).populate({ path: "categories", select: "name" }).populate({ path: "subcategories", select: "name" })
+        const product = await Product.findById(productId)
+            .populate({ path: "categories", select: "name" })
+            .populate({ path: "subcategories", select: "name" })
+            .populate({
+                path: "reviews",
+            });
+
         if (!product) {
             res.status(404).json({ error: "Product not found" });
         }
@@ -31,7 +37,7 @@ exports.getProdcutById = async (req, res) => {
 exports.getProdcutBySeo = async (req, res) => {
     const seo_link = req.params.seo_link;
     try {
-        const product = await Product.findOne({"seo_link" : seo_link}).populate({ path: "categories", select: "name" }).populate({ path: "subcategories", select: "name" })
+        const product = await Product.findOne({ "seo_link": seo_link }).populate({ path: "categories", select: "name" }).populate({ path: "subcategories", select: "name" })
         if (!product) {
             res.status(404).json({ error: "Product not found" });
         }
@@ -108,7 +114,6 @@ exports.deleteProduct = async (req, res) => {
 
 exports.putProductComment = async (req, res) => {
     const productId = req.params.id;
-
     try {
         const product = await Product.findById(productId);
 
@@ -123,9 +128,9 @@ exports.putProductComment = async (req, res) => {
         const updatedProduct = await product.save();
 
         res.status(200).json(updatedProduct);
-
     } catch (error) {
         if (error instanceof Error) {
+            console.log(error);
             res.status(500).json(error.message);
         }
     }

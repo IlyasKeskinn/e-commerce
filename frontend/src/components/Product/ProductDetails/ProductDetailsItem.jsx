@@ -12,43 +12,44 @@ import { ProductDetailSkeleton } from '../../Skeltons/ProductDetailSkeleton/Prod
 
 
 export const ProductDetailsItem = ({ seo_link }) => {
-    const { data, isLoading, error } = useFetch(`/product/getProductBySeo/${seo_link}`);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
+    const productFetchURL = `/product/getProductBySeo/`;
+    const product = useFetch(`${productFetchURL}${seo_link}`);
     const [newPrice, setNewPrice] = useState(10);
 
     useEffect(() => {
-        if (!isLoading && data.price) {
-            const discount = data.discount ? data.discount : 0;
-            let price = data.price.current;
+        if (!product.isLoading && product.data.price) {
+            const discount = product.data.discount ? product.data.discount : 0;
+            let price = product.data.price.current;
             if (discount !== 0) {
                 price = price - (price * discount) / 100;
             }
             setNewPrice(price);
         }
-    }, [data, isLoading]);
+    }, [product.data, product.isLoading]);
 
-    console.log(data);
-    
-    if (isLoading || !data || !data.images) {
+    console.log(product.data);
+
+    if (product.isLoading || !product.data || !product.data.images) {
         return <ProductDetailSkeleton />
     }
     return (
         <section className="product-single d-flex flex-wrap justify-content-center align-items-center">
             <div className="container product-single-wrapper">
                 <div className="product-row d-flex justify-content-between ">
-                    <ProductGallery images={data.images} />
+                    <ProductGallery images={product.data.images} />
                     <div className="col-5 ">
                         <div className="product-info__wrapper">
                             <div className="d-flex justify-content-between align-items-center my-5">
                                 <div className="breadcrumb">
                                     <Link to={`/`} className={`btn btn-outlined-half text-uppercase`}>Home /</Link>
-                                    <Link to={`/`} className={`btn btn-outlined-half text-uppercase`}> {data.categories.name}</Link>
+                                    <Link to={`/`} className={`btn btn-outlined-half text-uppercase`}> {product.data.categories.name}</Link>
                                 </div>
                             </div>
                             <h1 className="product-single__name text-uppercase fw-normal mt-5">
-                                {data.title}
+                                {product.data.title}
                             </h1>
                             <div className="product-card__review d-flex align-items-center ">
                                 <ReviewsStars />
@@ -59,16 +60,16 @@ export const ProductDetailsItem = ({ seo_link }) => {
                             </div>
                             <div className="product-single__short-desc  my-5">
                                 <p>
-                                {data.shortDesc}
+                                    {product.data.shortDesc}
                                 </p>
                             </div>
-                            <AddingCartForm product={data} newPrice={newPrice} />
+                            <AddingCartForm product={product.data} newPrice={newPrice} />
                             <ProductLinks />
-                            <ProductMeta data={data.subcategory} />
+                            <ProductMeta data={product.data.subcategory} />
                         </div>
                     </div>
                 </div>
-                <ProductTabs desc={data.desc} />
+                <ProductTabs reviews={product.data.reviews} productId={product.data._id} desc={product.data.desc} />
             </div>
         </section>
     )

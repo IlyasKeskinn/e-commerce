@@ -4,8 +4,9 @@ import { ReviewRate } from "../Reviews/ReviewRate";
 import { ReviewsStars } from "../Reviews/ReviewsStars";
 import { addCartLocalStorage, updateCartTotal } from "../../actions/cartAction";
 import uuid from 'react-uuid';
+import { message } from 'antd';
+import { ShoppingOutlined } from '@ant-design/icons';
 import "./ProductCard.css";
-import {message} from'antd';
 
 const ProductCard = ({ product, dispatch }) => {
 
@@ -42,10 +43,10 @@ const ProductCard = ({ product, dispatch }) => {
                 <Link to={`/product/${product.seo_link}`} className="product-link">
                     <img src={`../src/images/${product.images[0]}`} alt={`${product.images[0]}`} className="pc__img "></img>
                 </Link>
-                <button className="pc__addcart button btn-white" id="addToCart" onClick={(e) => { addCart(e) }}>Add Cart</button>
+                <button className="pc__addcart button btn-white" id="addToCart" onClick={(e) => { addCart(e) }}><ShoppingOutlined /> Add Cart</button>
             </div>
             <div className="pc-info position-relative mt-3 p-1">
-            <p className="text-secondary pc__category">{product.subcategories[0].name}</p>
+                <p className="text-secondary pc__category">{product.subcategories[0].name}</p>
 
                 <Link to={`/product/${product._id}`}>
                     <h6 className="pc__title">

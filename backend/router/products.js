@@ -15,7 +15,7 @@ router.delete("/deleteProduct/:id" ,isAuth,isAdmin ,productController.deleteProd
 
 //product comments
 
-router.put("/getProducts/comment/:id", productController.putProductComment);
+router.put("/getProduct/comment/:id", productController.putProductComment);
 
 router.put("/getproduct/comment/update/:id", productController.putUpdateProdcutComment)
 

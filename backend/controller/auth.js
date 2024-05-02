@@ -55,7 +55,7 @@ exports.postLogin = async (req, res) => {
         res.setHeader("Access-Control-Expose-Headers", "x-auth-token");
 
         res.status(201).header({ "x-auth-token": token }).json(
-            { email: user.email, userName: user.userName, role: user.userRole }
+            { _id : user._id, email: user.email, userName: user.userName, role: user.userRole }
         )
 
     } catch (error) {

@@ -1,72 +1,60 @@
 import { useState } from "react"
 import { NavItem } from "../../NavTabs/NavItem"
 import { ReviewForm } from "../../Reviews/ReviewForm"
-import { ReviewsStars } from "../../Reviews/ReviewsStars"
+import { Comments } from "./Comments";
 
-export const ProductTabs = ({desc}) => {
+
+
+export const ProductTabs = ({ desc , productId,reviews}) => {
     const [activeTabs, setActiveTabs] = useState(0);
+    const tabs = [
+        { id: 0, text: "Description" },
+        { id: 1, text: "Comments" }
+    ];
+
+    const [activeReviewTab, setActiveReview] = useState(0);
+    const reviewTabs = [
+        { id: 0, text: `Comments ( ${reviews.length} )` },
+        { id: 1, text: "Write a comment" }
+    ];
 
     return (
         <div className="product-single__tabs">
             <ul className="nav nav-tabs" id="myTabs1">
-                <NavItem navText="Description" navId="descriptionTabs"  tabIndex={0} isActive={activeTabs === 0} setActiveTabs={setActiveTabs} />
-                <NavItem navText="Additional Information" navId="additionalInformationTabs"  tabIndex={1} isActive={activeTabs === 1} setActiveTabs={setActiveTabs} />
-                <NavItem navText="Reviews" navId="reviewsTabs"  tabIndex={2} isActive={activeTabs === 2} setActiveTabs={setActiveTabs} />
+                {tabs.map((tab) => {
+                    return <NavItem key={tab.id} navText={tab.text} navId={tab.id} isActive={activeTabs === tab.id} setActiveTabs={setActiveTabs} />
+                })}
             </ul>
             <div className="tabcontent ">
-                <div className={`tab-pane fade ${activeTabs === 0 ? "active" : ""} show`}>
-                    <div dangerouslySetInnerHTML={{__html : desc}} className="product-single__description"/>
-                </div>
-                <div className={`tab-pane fade ${activeTabs === 1 ? "active" : ""} show`}>
-                    <div className="product-single__additionalInformation">
-                        <div className="item">
-                            <label className="fw-normal">Weight</label>
-                            <span>1.25 kg</span>
-                        </div>
-                        <div className="item">
-                            <label className="fw-normal">Dimensions</label>
-                            <span>90 x 60 x 90 cm</span>
-                        </div>
-                        <div className="item">
-                            <label className="fw-normal">Size</label>
-                            <span>XS, S, M, L, XL</span>
-                        </div>
-                        <div className="item">
-                            <label className="fw-normal">Color</label>
-                            <span>Black, Orange, White</span>
-                        </div>
-                        <div className="item">
-                            <label className="fw-normal">Storage</label>
-                            <span>Relaxed fit shirt-style dress with a rugged</span>
-                        </div>
-                    </div>
-                </div>
-                <div className={`tab-pane fade ${activeTabs === 2 ? "active" : ""} show`} >
-                    <div className="product-singe__reviews">
-                        <h3 className="text-uppercase fw-normal my-5">
-                            Reviews
-                        </h3>
-                        <ul className="review-list">
-                        </ul>
-                        <div className="review-form">
-                            <form action="get">
-                                <div className="review-form__info">
-                                    <h5 className="text-capitalize fw-normal">Write a review</h5>
-                                    <p className="text-capitalize text-secondary">
-                                        Your email address will not be published. Required fields are marked *
-                                    </p>
+                {tabs.map((tab => (
+                    <div  key={tab.id} className={`tab-pane fade  ${activeTabs === tab.id ? "active" : ""} show`}>
+                        {tab.id === 0
+                            ?
+                            (<div dangerouslySetInnerHTML={{ __html: desc }} className="product-single__description" />)
+                            :
+                            (
+                                <div className="product-singe__reviews ">
+                                    <ul className="d-flex justify-content-end">
+                                        {reviewTabs.map((reviewTab) => {
+                                            return <NavItem key={reviewTab.id} navText={reviewTab.text} navId={reviewTab.id} isActive={activeReviewTab === reviewTab.id} setActiveReview={setActiveReview} />
+                                        })}
+                                    </ul>
+                                    {reviewTabs.map((reviewTab) => (
+                                        <div key={reviewTab.id} className={`tab-pane fade ${activeReviewTab === reviewTab.id ? "active" : ""} show`}>
+                                           { reviewTab.id === 0
+                                            ?
+                                            <Comments  reviews={reviews}/>
+                                            :
+                                            <ReviewForm productId={productId} />}
+                                        </div>
+                                    ))
+                                    }
                                 </div>
-                                <div className="select-star-rating">
-                                    <span className="fw-normal text-capitalize">Your Rating : </span>
-                                    <ReviewsStars />
-                                </div>
-                                <ReviewForm />
-                            </form>
-                        </div>
+                            )
+                        }
                     </div>
-                </div>
-            </div>
-        </div>
-
+                )))}
+            </div >
+        </div >
     )
 }

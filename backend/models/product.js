@@ -7,7 +7,8 @@ const { Category, Subcategory } = require("./category");
 const reviewSchema = mongoose.Schema({
     rating: { type: Number, required: true },
     reviewText: { type: String, required: true },
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+    userName: { type: String, required: true },
 
 }, { timestamps: true })
 
