@@ -1,4 +1,4 @@
-const { mongoose, Schema, disconnect } = require("mongoose");
+const { mongoose, Schema } = require("mongoose");
 const Joi = require("joi");
 const { Category, Subcategory } = require("./category");
 

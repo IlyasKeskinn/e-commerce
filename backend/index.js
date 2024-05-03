@@ -19,10 +19,12 @@ const uploadRoutes = require("./middlewares/photoUpload");
 const productRoutes = require("./router/products");
 const categoryRoutes = require("./router/category");
 const authRoutes = require("./router/auth");
+const sliderRoutes = require("./router/slider");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);
 app.use("/auth", authRoutes);
+app.use("/slider", sliderRoutes);
 app.use("/upload", uploadRoutes);
 
 
