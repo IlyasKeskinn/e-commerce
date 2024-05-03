@@ -13,7 +13,7 @@ import { AccountAdress } from './pages/Account/AccountAddress'
 import { AccountDetails } from './pages/Account/AccountDetails'
 import { AccountOrders } from './pages/Account/AccountOrders'
 import { DefaultLayout } from './layout/DefaultLayout'
-import {ProductDetails} from './pages/ProductDetails/ProductDetails'
+import { ProductDetails } from './pages/ProductDetails/ProductDetails'
 import { Dashboard } from './pages/Admin/Dashboard'
 import { CategoryList } from './pages/Admin/Category/CategoryList'
 import { NewCategory } from './pages/Admin/Category/NewCategory'
@@ -24,6 +24,9 @@ import { UpdateProduct } from './pages/Admin/Product/UpdateProduct'
 import { NewSubCategory } from './pages/Admin/Category/SubCategory/NewSubCategory';
 import { SubCategoryList } from './pages/Admin/Category/SubCategory/SubCategoryList'
 import { SubCategoryUpdate } from './pages/Admin/Category/SubCategory/SubCategoryUpdate'
+import {SliderList} from './pages/Admin/Slider/SliderList'
+// import {NewSlider} from './pages/Admin/Slider/NewSlider'
+// import {UpddateSlider} from './pages/Admin/Slider/UpdateSlider'
 
 function App() {
 
@@ -56,10 +59,13 @@ function App() {
         { path: "admin/newsubcategory/", element: <NewSubCategory /> },
         { path: "admin/updatecategory/:id", element: <CategoryUpdate />, },
         { path: "admin/subcategorylist/:id", element: <SubCategoryList /> },
-        { path: "admin/updatesubcategory/:id", element: <SubCategoryUpdate/> },
+        { path: "admin/updatesubcategory/:id", element: <SubCategoryUpdate /> },
         { path: "admin/productlist", element: <ProductList />, },
         { path: "admin/newproduct", element: <NewProduct />, },
         { path: "admin/updateproduct/:id", element: <UpdateProduct /> },
+        { path: "admin/sliderlist", element: <SliderList /> },
+        // { path: "admin/newslider", element: <NewSlider /> },
+        // { path: "admin/updateslider/:id", element: <UpddateSlider /> },
 
 
 

@@ -1,7 +1,7 @@
 
 import { Layout, Menu } from 'antd';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { DashboardOutlined, AppstoreOutlined, LaptopOutlined, UserOutlined, ShoppingCartOutlined, RollbackOutlined } from '@ant-design/icons';
+import { DashboardOutlined, AppstoreOutlined,SlidersOutlined, LaptopOutlined, UserOutlined, ShoppingCartOutlined, RollbackOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -93,11 +93,35 @@ const AdminLayout = ({ auth }) => {
           }
         },
         {
-          key: 12,
+          key: 11,
           label: "Add Subcategory",
           path: "/admin/newsubcategory",
           onClick: () => {
             navigate("/admin/newsubcategory")
+          }
+        },
+      ]
+    },
+    {
+      key: 12,
+      icon: <SlidersOutlined />,
+      label: "Slider",
+      path: "/",
+      children: [
+        {
+          key: 13,
+          label: "Slider List",
+          path: "/admin/categoryList",
+          onClick: () => {
+            navigate("/admin/sliderlist")
+          }
+        },
+        {
+          key: 14,
+          label: "New Slider",
+          path: "/admin/categoryList",
+          onClick: () => {
+            navigate("/admin/newslider")
           }
         },
       ]
@@ -129,6 +153,7 @@ const AdminLayout = ({ auth }) => {
         window.location.href = "/";
       }
     },
+
   ]
 
   const getActiveKeys = () => {
