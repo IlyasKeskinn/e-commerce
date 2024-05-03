@@ -13,9 +13,9 @@ export const SliderList = () => {
     const columns = [
         {
             title: "Image",
-            dataIndex: "images",
-            key: "image",
-            render: (img) => <img src={`../src/images/${img}}`} alt="Image" width={100} />,
+            dataIndex: "img",
+            key: "img",
+            render: (img) => <img src={`../src/images/${img}`} alt="Image" width={100} />,
         },
         {
             title: "Slider",

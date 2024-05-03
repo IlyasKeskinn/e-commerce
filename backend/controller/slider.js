@@ -37,6 +37,7 @@ exports.postSlider = async (req, res) => {
         res.status(200).json({ newSlider });
     } catch (error) {
         if (error instanceof Error) {
+            console.log(error);
             res.status(500).json({ "error": error.message });
         }
     }

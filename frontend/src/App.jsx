@@ -25,7 +25,7 @@ import { NewSubCategory } from './pages/Admin/Category/SubCategory/NewSubCategor
 import { SubCategoryList } from './pages/Admin/Category/SubCategory/SubCategoryList'
 import { SubCategoryUpdate } from './pages/Admin/Category/SubCategory/SubCategoryUpdate'
 import {SliderList} from './pages/Admin/Slider/SliderList'
-// import {NewSlider} from './pages/Admin/Slider/NewSlider'
+import {NewSlider} from './pages/Admin/Slider/NewSlider'
 // import {UpddateSlider} from './pages/Admin/Slider/UpdateSlider'
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
         { path: "admin/newproduct", element: <NewProduct />, },
         { path: "admin/updateproduct/:id", element: <UpdateProduct /> },
         { path: "admin/sliderlist", element: <SliderList /> },
-        // { path: "admin/newslider", element: <NewSlider /> },
+        { path: "admin/newslider", element: <NewSlider /> },
         // { path: "admin/updateslider/:id", element: <UpddateSlider /> },
 
 

@@ -103,6 +103,7 @@ export const NewProduct = () => {
             });
             if (response.ok) {
                 form.resetFields();
+                setFileList([]);
                 message.success("Product added succesfuly.");
             } else {
                 const { error } = await response.json();
