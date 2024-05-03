@@ -20,10 +20,12 @@ const productRoutes = require("./router/products");
 const categoryRoutes = require("./router/category");
 const authRoutes = require("./router/auth");
 const sliderRoutes = require("./router/slider");
+const userRoutes = require("./router/user");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 app.use("/slider", sliderRoutes);
 app.use("/upload", uploadRoutes);
 

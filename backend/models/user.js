@@ -1,7 +1,15 @@
-const mongoose = require("mongoose");
+const { mongoose, Schema } = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 
+const addressSchema = mongoose.Schema({
+    userId: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+    title: { type: String, required: true },
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    postal_code: { type: Number, required: true },
+})
 
 //create user schema
 const userSchema = mongoose.Schema({
@@ -9,17 +17,18 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     userRole: { type: String, default: "user", enum: ["user", "admin"] },
-    avatar: { type: String }
+    avatar: { type: String },
+    addressSchema: [addressSchema],
 })
 
 userSchema.methods.createAuthToken = function () {
     //TODO secret keys env
-    return jwt.sign({_id : this._id, role : this.userRole, email : this.email} ,"mySecretKey")
+    return jwt.sign({ _id: this._id, role: this.userRole, email: this.email }, "mySecretKey")
 }
 
 //define model 
 const User = mongoose.model("Users", userSchema);
-
+const Address = mongoose.model("Address", addressSchema);
 //validate users 
 
 function validateUser(user) {
@@ -35,4 +44,4 @@ function validateUser(user) {
 
 
 
-module.exports = {User , validateUser}
+module.exports = { User, validateUser, Address }

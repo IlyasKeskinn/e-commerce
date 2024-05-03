@@ -23,7 +23,7 @@ export const Shop = () => {
     }, [isLoading, data, seo_link])
     useEffect(() => {
         setProducts([]);
-    }, [sort])
+    }, [seo_link, sort])
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
     };
