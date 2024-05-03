@@ -2,24 +2,20 @@ import { Rate, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
-export const ReviewForm = ({ productId }) => {
+export const ReviewForm = ({ isLoading, onSubmit, data }) => {
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
-    const postReviewURL = `/product/getProduct/comment/${productId}`
-    const token = localStorage.getItem("x-auth-token") ? JSON.parse(localStorage.getItem("x-auth-token")) : "";
 
-    
     const [comment, setComment] = useState("");
     const [rate, setRate] = useState(3);
     const [validationError, setValidationError] = useState("");
-    
-    const { data, isLoading, error, updateData } = useFetch(postReviewURL, "PUT", token );
+
     const handleInput = (e) => {
         setComment(e.target.value);
     }
     const handleValue = (e) => {
         setRate(e);
     }
-    const onSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         if (!comment) {
@@ -31,25 +27,22 @@ export const ReviewForm = ({ productId }) => {
             return;
         }
         setValidationError("");
-        const formData = { "user": user.user._id, "userName" : user.user.userName, "rating": rate, "reviewText": comment }
-        updateData(formData);
+        const formData = { "user": user.user._id, "userName": user.user.userName, "rating": rate, "reviewText": comment }
+        onSubmit(formData);
     }
     useEffect(() => {
         if (data && data._id) {
-            message.success("Comment added successfully.");
             setComment("");
             setRate(3);
         }
-        if (error) {
-            message.error(error);
-        }
-    }, [data,error]);
+    }, [data])
+
     return (
         <div className="review-form">
             {!user.user ?
                 <p>Please <Link style={{ color: "blue" }} to={"/login_register"}>login</Link> to leave a comment.</p>
                 :
-                <form onSubmit={onSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="review-form__info">
                         <h5 className="text-capitalize fw-normal">Write a review</h5>
                     </div>

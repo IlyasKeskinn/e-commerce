@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { NavItem } from "../../NavTabs/NavItem"
 import { ReviewForm } from "../../Reviews/ReviewForm"
-import { Comments } from "./Comments";
+import { Comments } from "../../Reviews/Comments";
+import { AddReview } from "../../Reviews/AddReview";
 
 
 
@@ -45,7 +46,7 @@ export const ProductTabs = ({ desc , productId,reviews, handleUpdateComment}) =>
                                             ?
                                             <Comments handleUpdateComment={handleUpdateComment} productId={productId} reviews={reviews}/>
                                             :
-                                            <ReviewForm productId={productId} />}
+                                            <AddReview productId={productId} />}
                                         </div>
                                     ))
                                     }

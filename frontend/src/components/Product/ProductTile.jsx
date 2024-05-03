@@ -20,7 +20,6 @@ const ProductTile = ({ dispatch, product }) => {
         selectedColor: product.selectedColor,
         selectedSize: product.selectedSize,
     }
-    console.log(cartItem);
     const incrementQunatity = () => {
         if (quantity < 100) {
             const newQuantity = quantity + 1;

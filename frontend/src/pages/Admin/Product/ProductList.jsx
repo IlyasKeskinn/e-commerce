@@ -74,7 +74,7 @@ export const ProductList = () => {
                 message.error(error);
             }
         } catch (error) {
-            console.log(error);
+            message.error(error);
         }
     }
 

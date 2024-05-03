@@ -102,7 +102,6 @@ exports.deleteProduct = async (req, res) => {
         const deletedItem = await Product.findOneAndDelete({ "_id": req.params.id });
         res.json(deletedItem);
     } catch (error) {
-        console.log(error);
         if (error instanceof Error) {
             res.status(500).json(error.message);
         }
@@ -130,7 +129,6 @@ exports.putProductComment = async (req, res) => {
         res.status(200).json(updatedProduct);
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error);
             res.status(500).json(error.message);
         }
     }
@@ -163,7 +161,7 @@ exports.deleteProductComment = async (req, res) => {
 
 exports.putUpdateProdcutComment = async (req, res) => {
     const productId = req.params.id;
-    const commentId = req.body.id;
+    const commentId = req.body._id;
     const updates = req.body;
     try {
         const product = await Product.findById(productId);

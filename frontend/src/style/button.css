@@ -112,6 +112,19 @@
     color: var(--black);
 }
 
+.btn-outlined-danger {
+    background-color: #fff;
+    border: 1px solid #ee9595;
+    color: #333;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.btn-outlined-danger:hover {
+    background-color: #ffe8e8;
+    border: 1px solid #ed8a8a;
+    color: #333;
+}
+
+
 .btn-white {
     background-color: var(--bg-white);
     border: 1px solid var(--bg-white);
