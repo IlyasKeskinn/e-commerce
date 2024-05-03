@@ -38,7 +38,8 @@ export const UpddateSlider = () => {
                 title: sliderData.data.title,
                 sub_title: sliderData.data.sub_title,
                 desc: sliderData.data.desc,
-                topic: sliderData.data.topic
+                topic: sliderData.data.topic,
+                slider_url : sliderData.data.slider_url
             })
         }
     }, [sliderData.data])
@@ -94,7 +95,7 @@ export const UpddateSlider = () => {
         if (file.fileList.length >= 2) {
             setFileList([file.fileList[1]]);
         }
-        else{
+        else {
             setFileList([file.fileList[0]]);
 
         }
@@ -129,8 +130,7 @@ export const UpddateSlider = () => {
                 </Form.Item>
                 <Form.Item
                     label="Slider Subtitle"
-                    name="sub_title"
-                    rules={[{ required: true, message: 'Please input subtitle!' }]}>
+                    name="sub_title">
                     <Input />
                 </Form.Item>
                 <Form.Item
@@ -139,9 +139,14 @@ export const UpddateSlider = () => {
                     rules={[{ max: 50, message: 'Maximum 50!' }]}>
                     <Input />
                 </Form.Item>
+                <Form.Item
+                    label="Slider URl"
+                    name="slider_url"
+                    rules={[{ max:200, message: 'Maximum 200!' }]}>
+                    <Input />
+                </Form.Item>
 
                 <Form.Item name="desc" label="Slider Description" rules={[
-                    { required: true, type: "string", message: "Please enter product slogan." },
                     { max: 100, message: "Maximum 100!" }
                 ]}>
                     <TextArea />

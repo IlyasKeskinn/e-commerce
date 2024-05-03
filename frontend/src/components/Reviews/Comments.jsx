@@ -32,7 +32,7 @@ export const Comments = ({ reviews, productId, handleUpdateComment }) => {
                     {reviews.map((review) => {
                         return (
                             <li className='my-5' key={review._id}>
-                                {editComment === review._id ? <UpdateReview handleUpdateComment={handleUpdateComment} productId={productId} handleCommentEdit={handleCommentEdit} review={review} /> :
+                                {editComment === review._id ? <UpdateReview  handleUpdateComment={handleUpdateComment} productId={productId} handleCommentEdit={handleCommentEdit} review={review} /> :
                                     <div >
                                         <div className="comment-info d-flex my-5 justify-content-between">
                                             <div className="comment-rating-user">

@@ -100,7 +100,13 @@ export const NewSlider = () => {
                 <Form.Item
                     label="Slider Subtitle"
                     name="sub_title"
-                    rules={[{ required: true, message: 'Please input subtitle!' }]}>
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    label="Slider URL"
+                    name="slider_url"
+                    rules={[{ max:200, message: 'Maximum 200!' }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item
@@ -111,7 +117,6 @@ export const NewSlider = () => {
                 </Form.Item>
 
                 <Form.Item name="desc" label="Slider Description" rules={[
-                    { required: true, type: "string", message: "Please enter product slogan." },
                     { max: 100, message: "Maximum 100!" }
                 ]}>
                     <TextArea />

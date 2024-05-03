@@ -45,6 +45,10 @@ export const UpdateReview = ({productId ,review = { review } ,handleCommentEdit,
             message.error(error);
         }
     }, [data, error]);
+    const cancelOnClick = (e) => {
+        e.preventDefault();
+        handleCommentEdit("")
+    }
     return (
         <div className="review-form">
             {<form onSubmit={handleSubmit}>
@@ -67,7 +71,7 @@ export const UpdateReview = ({productId ,review = { review } ,handleCommentEdit,
                             Submit
                         </button>
                         <div className='ms-5'>
-                            <a id="addComment" type="submit"
+                            <a onClick={(e) => {cancelOnClick(e)}} id="addComment" type="submit"
                                 className={`text-uppercase btn btn-outlined-half w-100 ${isLoading ? "disabled" : ""}`}>
                                 Cancel
                             </a>
