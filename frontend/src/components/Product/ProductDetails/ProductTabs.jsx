@@ -5,7 +5,7 @@ import { Comments } from "./Comments";
 
 
 
-export const ProductTabs = ({ desc , productId,reviews}) => {
+export const ProductTabs = ({ desc , productId,reviews, handleUpdateComment}) => {
     const [activeTabs, setActiveTabs] = useState(0);
     const tabs = [
         { id: 0, text: "Description" },
@@ -43,7 +43,7 @@ export const ProductTabs = ({ desc , productId,reviews}) => {
                                         <div key={reviewTab.id} className={`tab-pane fade ${activeReviewTab === reviewTab.id ? "active" : ""} show`}>
                                            { reviewTab.id === 0
                                             ?
-                                            <Comments  reviews={reviews}/>
+                                            <Comments handleUpdateComment={handleUpdateComment} productId={productId} reviews={reviews}/>
                                             :
                                             <ReviewForm productId={productId} />}
                                         </div>

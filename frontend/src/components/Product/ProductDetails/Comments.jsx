@@ -1,7 +1,9 @@
 import React from 'react'
 import { Rate } from 'antd';
+import { CommentOperations } from './CommentOperations';
 
-export const Comments = ({ reviews }) => {
+export const Comments = ({ reviews,productId ,handleUpdateComment}) => {
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
     const notFoundComment = "It seems there are no reviews for this product yet. Your input could greatly benefit other shoppers. Sharing your thoughts on the product's quality, comfort, fit, or price can help others make an informed purchasing decision."
     const date = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
@@ -32,10 +34,13 @@ export const Comments = ({ reviews }) => {
                                         </div>
                                         <div className="comment-date">
                                             <p>{date(review.createdAt)}</p>
+                                            {user.user && user.user._id === review.user &&
+                                               <CommentOperations handleUpdateComment={handleUpdateComment} reviewId={review._id} productId={productId} />
+                                            }
                                         </div>
                                     </div>
                                     <div className="comment-text my-5">
-                                        <p className='text-capitalize'>{review.reviewText}</p>
+                                        <p className='first-letter-uppercase'>{review.reviewText}</p>
                                     </div>
                                 </div>
                             </li>

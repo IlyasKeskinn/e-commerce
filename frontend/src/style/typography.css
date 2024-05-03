@@ -67,6 +67,9 @@
     text-align: start;
 }
 
+.first-letter-uppercase::first-letter {
+    text-transform: uppercase;
+}
 
 /* title */
 

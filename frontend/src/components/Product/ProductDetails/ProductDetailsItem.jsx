@@ -18,6 +18,7 @@ export const ProductDetailsItem = ({ seo_link }) => {
     const productFetchURL = `/product/getProductBySeo/`;
     const product = useFetch(`${productFetchURL}${seo_link}`);
     const [newPrice, setNewPrice] = useState(10);
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         if (!product.isLoading && product.data.price) {
@@ -27,10 +28,14 @@ export const ProductDetailsItem = ({ seo_link }) => {
                 price = price - (price * discount) / 100;
             }
             setNewPrice(price);
+            setComments(product.data.reviews)
         }
     }, [product.data, product.isLoading]);
 
-    console.log(product.data);
+    const handleUpdateComment = (commentId) => {
+        const updatedComment = comments.filter((comment) => comment._id !== commentId);
+        setComments(updatedComment);
+    }
 
     if (product.isLoading || !product.data || !product.data.images) {
         return <ProductDetailSkeleton />
@@ -69,7 +74,7 @@ export const ProductDetailsItem = ({ seo_link }) => {
                         </div>
                     </div>
                 </div>
-                <ProductTabs reviews={product.data.reviews} productId={product.data._id} desc={product.data.desc} />
+                <ProductTabs reviews={comments} handleUpdateComment={handleUpdateComment} productId={product.data._id} desc={product.data.desc} />
             </div>
         </section>
     )

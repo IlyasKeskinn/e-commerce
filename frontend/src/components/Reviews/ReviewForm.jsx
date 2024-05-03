@@ -5,7 +5,7 @@ import useFetch from '../../hooks/useFetch';
 export const ReviewForm = ({ productId }) => {
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
     const postReviewURL = `/product/getProduct/comment/${productId}`
-    const token = localStorage.getItem("x-auth-token");
+    const token = localStorage.getItem("x-auth-token") ? JSON.parse(localStorage.getItem("x-auth-token")) : "";
 
     
     const [comment, setComment] = useState("");
@@ -44,10 +44,9 @@ export const ReviewForm = ({ productId }) => {
             message.error(error);
         }
     }, [data,error]);
-    
     return (
         <div className="review-form">
-            {!user && !user.user ?
+            {!user.user ?
                 <p>Please <Link style={{ color: "blue" }} to={"/login_register"}>login</Link> to leave a comment.</p>
                 :
                 <form onSubmit={onSubmit}>
@@ -74,7 +73,6 @@ export const ReviewForm = ({ productId }) => {
                     </div>
                 </form>
             }
-
         </div>
     )
 }

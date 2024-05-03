@@ -19,6 +19,6 @@ router.put("/getProduct/comment/:id", productController.putProductComment);
 
 router.put("/getproduct/comment/update/:id", productController.putUpdateProdcutComment)
 
-router.delete("/getproduct/removecomment/:id", productController.deleteProductComment);
+router.put("/getproduct/removecomment/:id", productController.deleteProductComment);
 
 module.exports = router;
