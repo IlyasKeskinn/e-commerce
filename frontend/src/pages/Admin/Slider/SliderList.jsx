@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Popconfirm, Space, Table, Button, message } from 'antd';
 import useFetch from '../../../hooks/useFetch'
+import { useNavigate } from 'react-router-dom';
 export const SliderList = () => {
 
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
@@ -9,6 +10,7 @@ export const SliderList = () => {
     const token = localStorage.getItem("x-auth-token");
     const [trigger, setTrigger] = useState(false);
     const { data, isLoading, error } = useFetch(fetchUrl, "GET", {}, { trigger });
+    const navigate = useNavigate();
 
     const columns = [
         {
