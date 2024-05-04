@@ -129,17 +129,43 @@ input[type=checkbox]:checked~span {
 .checkbox-label-text {
     margin-left: 20px;
 }
+.select-container {
+    position: relative;
+    width: 100%;
+}
+
+.chevron-down {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--black);
+    cursor: pointer;
+}
+
 
 select {
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    padding: 0 1em 0 0;
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    cursor: pointer;
-    line-height: inherit;
+    width: 100%;
+    background: none;
+    color: var(--black);
+    font-size: 1.2rem;
+    padding: 20px 10px 20px 10px;
+    display: block;
+    border-radius: 0;
+    border: 1px solid var(--gray);
+    appearance: none; /* Remove default appearance */
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Chrome, Safari, Opera */
+}
+
+select:focus {
+    outline: none;
+    border: 1px solid var(--black);
+    transition: all 0.1s ease-out;
 }
 
 /* radio inputs */

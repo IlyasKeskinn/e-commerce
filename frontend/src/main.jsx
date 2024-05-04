@@ -21,7 +21,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = configureAppStore(composeEnhancers(applyMiddleware(thunk)))
 
 
-store.dispatch(getProductsFromData());
 store.dispatch(setCartLocalStorage());
 store.dispatch(getAuthUser());
 

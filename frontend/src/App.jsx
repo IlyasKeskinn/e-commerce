@@ -24,9 +24,11 @@ import { UpdateProduct } from './pages/Admin/Product/UpdateProduct'
 import { NewSubCategory } from './pages/Admin/Category/SubCategory/NewSubCategory';
 import { SubCategoryList } from './pages/Admin/Category/SubCategory/SubCategoryList'
 import { SubCategoryUpdate } from './pages/Admin/Category/SubCategory/SubCategoryUpdate'
-import {SliderList} from './pages/Admin/Slider/SliderList'
-import {NewSlider} from './pages/Admin/Slider/NewSlider'
-import {UpddateSlider} from './pages/Admin/Slider/UpdateSlider'
+import { SliderList } from './pages/Admin/Slider/SliderList'
+import { NewSlider } from './pages/Admin/Slider/NewSlider'
+import { UpddateSlider } from './pages/Admin/Slider/UpdateSlider'
+import { AddAdressForm } from './pages/Account/AddAddress'
+import { EditAddress } from './pages/Account/EditAddress'
 
 function App() {
 
@@ -50,7 +52,10 @@ function App() {
             { path: "dashboard", element: <AccountDashboard /> },
             { path: "address", element: <AccountAdress /> },
             { path: "details", element: <AccountDetails /> },
-            { path: "orders", element: <AccountOrders /> }
+            { path: "orders", element: <AccountOrders /> },
+            { path: "newaddress", element: <AddAdressForm /> },
+            { path: "editaddress/:id", element: <EditAddress /> }
+
           ]
         },
         { path: "admin", element: <Dashboard />, },
@@ -66,7 +71,6 @@ function App() {
         { path: "admin/sliderlist", element: <SliderList /> },
         { path: "admin/newslider", element: <NewSlider /> },
         { path: "admin/updateslider/:id", element: <UpddateSlider /> },
-
 
 
         { path: "*", element: <NotFound /> }

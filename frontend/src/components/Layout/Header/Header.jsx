@@ -16,7 +16,7 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
             <header id="header" className="header">
                 <div className="container">
                     <div className="header-wrapper">
-                        <Link to={"/"}>
+                        <Link to={"/home"}>
                             <div className="logo">
                                 <a href="index.html">
                                     <h1>Zephyra</h1>
@@ -30,7 +30,7 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
                                     </li>
                                 </Link>
                                 <li className="navigation-item mega-menu-wrapper">
-                                    <Link to={`/shop`} className="navigation-link btn btn-outlined-half">Shop</Link>
+                                    <div to={`/shop`} className="navigation-link btn btn-outlined-half">Shop</div>
                                     <div className="mega-menu default-menu-wrapper">
                                         <MegaMenu data={data} />
                                     </div>

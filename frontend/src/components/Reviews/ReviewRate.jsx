@@ -1,7 +1,7 @@
-export const ReviewRate = () => {
+export const ReviewRate = ({reviews}) => {
     return (
         <span className="reviews-note text-lowercase text-secondary">
-            8k+ reviews
+            {reviews} Reviews
         </span>
     )
 }

@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { NavItem } from "../../NavTabs/NavItem"
-import { ReviewForm } from "../../Reviews/ReviewForm"
 import { Comments } from "../../Reviews/Comments";
 import { AddReview } from "../../Reviews/AddReview";
 

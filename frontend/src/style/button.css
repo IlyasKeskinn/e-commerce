@@ -3,6 +3,7 @@
     font-size: 1.4rem;
     text-transform: uppercase;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .btn-outlined-half:after {

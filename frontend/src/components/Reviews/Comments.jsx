@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Rate } from 'antd';
 import { CommentOperations } from './CommentOperations';
-import { ReviewForm } from './ReviewForm';
 import { UpdateReview } from './UpdateReviewForm';
 
 export const Comments = ({ reviews, productId, handleUpdateComment }) => {

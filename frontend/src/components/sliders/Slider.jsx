@@ -1,7 +1,6 @@
 import { SliderItem } from "./SliderItem";
 import { SliderControl } from "./SliderControl"
 import { SliderBackgrounds } from "./SliderBackground";
-import sliderItems from "../../../data/slider.json"
 import { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import "./Slider.css"
@@ -44,7 +43,7 @@ export const Slider = () => {
                             return <SliderItem key={slideItem._id} slideItem={slideItem} activeIndex={activeIndex} index={index} />
                         })}
                     </div>
-                    <SliderControl totalSlides={sliderItems.length} activeIndex={activeIndex} showSlide={showSlide} />
+                    <SliderControl totalSlides={data.length} activeIndex={activeIndex} showSlide={showSlide} />
                 </div>
             </div>
         );

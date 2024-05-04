@@ -5,10 +5,15 @@ const jwt = require("jsonwebtoken");
 const addressSchema = mongoose.Schema({
     userId: { type: Schema.Types.ObjectId, ref: "Users", required: true },
     title: { type: String, required: true },
+    name: { type: String, required: true },
+    surname: { type: String, required: true },
+    phone: { type: String, required: true },
     address: { type: String, required: true },
     city: { type: String, required: true },
-    state: { type: String, required: true },
-    postal_code: { type: Number, required: true },
+    district: { type: String, required: true },
+    town: { type: String, required: true },
+    neighbourhood: { type: String, required: true },
+    postal_code: { type: String, required: true },
 })
 
 //create user schema
@@ -18,7 +23,7 @@ const userSchema = mongoose.Schema({
     password: { type: String, required: true },
     userRole: { type: String, default: "user", enum: ["user", "admin"] },
     avatar: { type: String },
-    addressSchema: [addressSchema],
+    user_address: [addressSchema],
 })
 
 userSchema.methods.createAuthToken = function () {

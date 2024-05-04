@@ -49,7 +49,7 @@ const ProductCard = ({ product, dispatch }) => {
                 <p className="text-secondary pc__category">{product.subcategories[0].name}</p>
 
                 <Link to={`/product/${product._id}`}>
-                    <h6 className="pc__title">
+                    <h6 className="pc__title truncate">
                         <a href="#" className="product-link">{product.title}</a>
                     </h6>
                 </Link>
@@ -57,7 +57,7 @@ const ProductCard = ({ product, dispatch }) => {
                     <span className="money price">${newPrice.toFixed(2)}</span>
                 </div>
                 <ReviewsStars />
-                <ReviewRate />
+                <ReviewRate reviews={product.reviews.length} />
                 <button className="pc__btn d-flex align-items-center justify-content center" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                         className="bi bi-heart" viewBox="0 0 16 16">
