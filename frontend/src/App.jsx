@@ -19,6 +19,8 @@ import { CategoryList } from './pages/Admin/Category/CategoryList'
 import { NewCategory } from './pages/Admin/Category/NewCategory'
 import { CategoryUpdate } from './pages/Admin/Category/CategoryUpdate'
 import { ProductList } from './pages/Admin/Product/ProductList'
+import { AddLimitedProducts } from './pages/Admin/Product/AddLimitedProducts'
+import { LimitedProducts } from './pages/Admin/Product/LimitedProducts'
 import { NewProduct } from './pages/Admin/Product/NewProduct'
 import { UpdateProduct } from './pages/Admin/Product/UpdateProduct'
 import { NewSubCategory } from './pages/Admin/Category/SubCategory/NewSubCategory';
@@ -68,6 +70,8 @@ function App() {
         { path: "admin/productlist", element: <ProductList />, },
         { path: "admin/newproduct", element: <NewProduct />, },
         { path: "admin/updateproduct/:id", element: <UpdateProduct /> },
+        { path: "admin/addlimitedproducts", element: <AddLimitedProducts /> },
+        { path: "admin/limitedproducts", element: <LimitedProducts /> },
         { path: "admin/sliderlist", element: <SliderList /> },
         { path: "admin/newslider", element: <NewSlider /> },
         { path: "admin/updateslider/:id", element: <UpddateSlider /> },

@@ -68,6 +68,22 @@ const AdminLayout = ({ auth }) => {
             navigate("/admin/newproduct")
           },
         },
+        {
+          key: 15,
+          label: "Add Limited Products",
+          path: "/admin/addlimitedproducts",
+          onClick: () => {
+            navigate("/admin/addlimitedproducts")
+          },
+        },
+        {
+          key: 17,
+          label: "Limited Products",
+          path: "/admin/limitedproducts",
+          onClick: () => {
+            navigate("/admin/limitedproducts")
+          },
+        },
       ]
     },
     {
@@ -105,7 +121,7 @@ const AdminLayout = ({ auth }) => {
     {
       key: 12,
       icon: <SlidersOutlined />,
-      label: "Slider",
+      label: "Custom",
       path: "/",
       children: [
         {

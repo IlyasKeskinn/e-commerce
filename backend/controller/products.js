@@ -1,4 +1,4 @@
-const { Product, Comment, validateProduct } = require("../models/product");
+const { Product, Comment, LimitedProducts, validateProduct } = require("../models/product");
 const { mongoose } = require("mongoose");
 const slugField = require("../helpers/slugField");
 const deleteOldImages = require("../helpers/deletePhoto");
@@ -186,3 +186,50 @@ exports.putUpdateProdcutComment = async (req, res) => {
 }
 
 
+exports.getLimitedProducts = async (req, res) => {
+    try {
+        const limitedProducts = await LimitedProducts.find().populate("product");
+        res.status(200).json(limitedProducts);
+    } catch (error) {
+        console.log(error);
+        if (error instanceof Error) {
+            res.status(500).json({ "error": error.message })
+        }
+    }
+}
+
+exports.postLimitedProducts = async (req, res) => {
+    try {
+        const productBody = req.body;
+
+        const newProduct = new LimitedProducts(productBody);
+
+        await newProduct.save();
+
+        res.status(200).json(newProduct);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ "error": error.message });
+        }
+    }
+}
+
+exports.deleteLimitedProducts = async (req,res) => {
+    try {
+        const productId = req.params.id;
+        console.log(productId);
+
+        const limitedProduct = await LimitedProducts.findById(productId);
+
+        if (!limitedProduct) {
+            res.status(404).json({"error": "Limited product not found!"});
+        }
+
+        const deletedProduct = await LimitedProducts.findOneAndDelete({"_id" : productId});
+        res.status(200).json(deletedProduct);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({"error" : error.message});
+        }
+    }
+}

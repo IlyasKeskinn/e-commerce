@@ -2,6 +2,12 @@ const { mongoose, Schema } = require("mongoose");
 const Joi = require("joi");
 const { Category, Subcategory } = require("./category");
 
+//creating limited product schema
+const limitedProductSchema = mongoose.Schema({
+    product: {type: Schema.Types.ObjectId, ref: "Products"}
+})
+
+
 //creating reviews schema 
 
 const reviewSchema = mongoose.Schema({
@@ -11,6 +17,7 @@ const reviewSchema = mongoose.Schema({
     userName: { type: String, required: true },
 
 }, { timestamps: true })
+
 
 //creating product schema
 const productSchema = mongoose.Schema({
@@ -31,6 +38,7 @@ const productSchema = mongoose.Schema({
     subcategories: [{ type: Schema.Types.ObjectId, ref: "Subcategories" }],
     reviews: [reviewSchema],
 }, { timestamps: true });
+
 
 productSchema.pre('save', async function (next) {
     try {
@@ -161,6 +169,7 @@ async function deleteSubcategory(productId) {
 
 
 //define model
+const LimitedProducts = mongoose.model("LimitedProducts", limitedProductSchema);
 const Product = mongoose.model("Products", productSchema);
 const Comment = mongoose.model("Reviews", reviewSchema);
 
@@ -186,5 +195,5 @@ function validateProduct(product) {
 }
 
 
-module.exports = { Product, Comment, validateProduct };
+module.exports = { Product, Comment, LimitedProducts, validateProduct };
 
