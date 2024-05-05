@@ -39,7 +39,6 @@ subCategorySchema.pre("save", async function (next) {
 subCategorySchema.post("findOneAndUpdate", async function (doc, next) {
     try {
         const subCatId = doc.id;
-        console.log(this._update.$set.maincategory);
         const mainCategoryId = this._update.$set.maincategory;
         await updateSubcategory(mainCategoryId, subCatId);
         next();

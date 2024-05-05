@@ -34,6 +34,9 @@ import { EditAddress } from './pages/Account/EditAddress'
 import { AboutPage } from './pages/About/AboutPage'
 import { About } from './pages/Admin/SiteSettings/About'
 import { DealCollection } from './pages/Admin/Collection/DealCollection/DealCollection'
+import { Contact } from './pages/Contact/Contact'
+import { ConctactMessages } from './pages/Admin/Feedbacks/ConctactMessages'
+import { ContactDetails } from './pages/Admin/Feedbacks/ContactDetails'
 
 function App() {
 
@@ -52,6 +55,7 @@ function App() {
         { path: "login_register", element: <Auth /> },
         { path: "/product/:seo_link", element: <ProductDetails /> },
         { path: "about", element: <AboutPage /> },
+        { path: "contact", element: <Contact/> },
         {
           path: "account", element: <AccountLayout />,
           children: [
@@ -81,6 +85,8 @@ function App() {
         { path: "admin/updateslider/:id", element: <UpddateSlider /> },
         { path: "admin/settings/about", element: <About /> },
         { path: "admin/collections/deal_collection", element: <DealCollection /> },
+        { path: "admin/feedbacks/contacts", element: <ConctactMessages /> },
+        { path: "admin/feedbacks/update_contacts/:id", element: <ContactDetails /> },
 
 
         { path: "*", element: <NotFound /> }

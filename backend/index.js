@@ -23,6 +23,7 @@ const sliderRoutes = require("./router/slider");
 const collectionRoutes = require("./router/siteSettings/collection");
 const userRoutes = require("./router/user");
 const settingsRoutes = require("./router/siteSettings/siteSettings");
+const contactRoutes = require("./router/contact");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);
@@ -30,6 +31,7 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/settings", settingsRoutes);
 app.use("/slider", sliderRoutes);
+app.use("/contact/", contactRoutes);
 app.use("/collection", collectionRoutes)
 app.use("/upload", uploadRoutes);
 

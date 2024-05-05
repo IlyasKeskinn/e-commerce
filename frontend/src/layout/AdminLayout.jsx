@@ -7,7 +7,9 @@ import {
   SettingOutlined, LaptopOutlined,
   UserOutlined, ShoppingCartOutlined,
   RollbackOutlined, ClusterOutlined,
-  HourglassOutlined
+  HourglassOutlined, ContactsOutlined,
+  UserSwitchOutlined
+
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
@@ -178,6 +180,31 @@ const AdminLayout = ({ auth }) => {
           path: "/admin/collections/deal_collection",
           onClick: () => {
             navigate("/admin/collections/deal_collection")
+          }
+        }
+      ]
+    },
+    {
+      key: 22,
+      icon: <UserSwitchOutlined />,
+      label: "Feedbacks",
+      children: [
+        {
+          key: 23,
+          icon: <ContactsOutlined />,
+          label: "Contacts",
+          path: "/admin/feedbacks/contacts",
+          onClick: () => {
+            navigate("/admin/feedbacks/contacts")
+          }
+        },
+        {
+          key: 24,
+          icon: <ContactsOutlined />,
+          label: "Reviews",
+          path: "/admin/feedbacks/contacts",
+          onClick: () => {
+            navigate("/admin/feedbacks/contacts")
           }
         }
       ]

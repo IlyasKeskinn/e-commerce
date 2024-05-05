@@ -33,41 +33,10 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
                                     </div>
                                 </li>
                                 <li className="navigation-item">
-                                    <a href="#" className="navigation-link btn btn-outlined-half">Pages</a>
-                                    <div className="default-menu-wrapper">
-                                        <ul className="default-menu-content">
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">My Account</a>
-                                            </li>
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">Login / Register</a>
-                                            </li>
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">Store Locator</a>
-                                            </li>
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">Lookbook</a>
-                                            </li>
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">Faq</a>
-                                            </li>
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">Term</a>
-                                            </li>
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">404 Errors</a>
-                                            </li>
-                                            <li className="sub-menu__item">
-                                                <a href="#" className="menu-link btn btn-outlined-half">Comming Soon</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className="navigation-item">
                                     <Link to={"/about"} href="#" className="navigation-link btn btn-outlined-half">About</Link>
                                 </li>
                                 <li className="navigation-item">
-                                    <a href="#" className="navigation-link btn btn-outlined-half">Contact</a>
+                                    <Link to={`/contact`} className="navigation-link btn btn-outlined-half">Contact</Link>
                                 </li>
                             </ul>
                         </nav>

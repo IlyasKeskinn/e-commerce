@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import "./Account.css"
 import { Popconfirm, Skeleton, message } from "antd";
 import { Link } from "react-router-dom";
+import "./Account.css"
 
 export const AccountAdress = () => {
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : [];

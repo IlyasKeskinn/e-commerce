@@ -1,11 +1,17 @@
-import React from 'react'
 
-export const TextArea = ({validationError}) => {
+
+export const TextArea = ({ validationError = {}, inputText, labelText, handleInput = {}, value = "" }) => {
+    const onChange = (e) => {
+        handleInput(e.target.value)
+    }
     return (
         <div className="group">
-            <textarea className={`${validationError ? "input-danger" : ""}`} value={comment} onChange={handleInput} style={{ width: "100%", }} type="text" id="commentText" name="commentText"
-            ></textarea>
-            <label htmlFor="commentText" className="custom-label">Your Review </label>
+            <textarea className={`${validationError ? "input-danger" : ""}`} value={value} onChange={onChange} style={{ width: "100%", }}
+                type="text"
+                id={`${inputText}`}
+                name={`${inputText}`}>
+            </textarea>
+            <label id={`${inputText}`} className="custom-label">{labelText}</label>
             {validationError && <div>{validationError}</div>}
         </div>
     )
