@@ -33,6 +33,7 @@ import { AddAdressForm } from './pages/Account/AddAddress'
 import { EditAddress } from './pages/Account/EditAddress'
 import { AboutPage } from './pages/About/AboutPage'
 import { About } from './pages/Admin/SiteSettings/About'
+import { DealCollection } from './pages/Admin/Collection/DealCollection/DealCollection'
 
 function App() {
 
@@ -79,6 +80,7 @@ function App() {
         { path: "admin/newslider", element: <NewSlider /> },
         { path: "admin/updateslider/:id", element: <UpddateSlider /> },
         { path: "admin/settings/about", element: <About /> },
+        { path: "admin/collections/deal_collection", element: <DealCollection /> },
 
 
         { path: "*", element: <NotFound /> }

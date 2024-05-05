@@ -6,7 +6,8 @@ import {
   AppstoreOutlined, SlidersOutlined,
   SettingOutlined, LaptopOutlined,
   UserOutlined, ShoppingCartOutlined,
-  RollbackOutlined
+  RollbackOutlined, ClusterOutlined,
+  HourglassOutlined
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
@@ -161,6 +162,22 @@ const AdminLayout = ({ auth }) => {
           path: "/admin/settings/about",
           onClick: () => {
             navigate("/admin/settings/about")
+          }
+        }
+      ]
+    },
+    {
+      key: 20,
+      icon: <ClusterOutlined />,
+      label: "Collection",
+      children: [
+        {
+          key: 21,
+          icon: <HourglassOutlined />,
+          label: "Deal Collection",
+          path: "/admin/collections/deal_collection",
+          onClick: () => {
+            navigate("/admin/collections/deal_collection")
           }
         }
       ]
