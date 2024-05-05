@@ -31,6 +31,8 @@ import { NewSlider } from './pages/Admin/Slider/NewSlider'
 import { UpddateSlider } from './pages/Admin/Slider/UpdateSlider'
 import { AddAdressForm } from './pages/Account/AddAddress'
 import { EditAddress } from './pages/Account/EditAddress'
+import { AboutPage } from './pages/About/AboutPage'
+import { About } from './pages/Admin/SiteSettings/About'
 
 function App() {
 
@@ -48,6 +50,7 @@ function App() {
         { path: "complete", element: <ShopComplete /> },
         { path: "login_register", element: <Auth /> },
         { path: "/product/:seo_link", element: <ProductDetails /> },
+        { path: "about", element: <AboutPage /> },
         {
           path: "account", element: <AccountLayout />,
           children: [
@@ -75,6 +78,7 @@ function App() {
         { path: "admin/sliderlist", element: <SliderList /> },
         { path: "admin/newslider", element: <NewSlider /> },
         { path: "admin/updateslider/:id", element: <UpddateSlider /> },
+        { path: "admin/settings/about", element: <About /> },
 
 
         { path: "*", element: <NotFound /> }

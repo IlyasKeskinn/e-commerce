@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.16",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@reduxjs/toolkit": "^2.2.3",
     "antd": "^5.16.4",
     "bootstrap-icons": "^1.11.3",
@@ -23,6 +26,7 @@
     "react-uuid": "^2.0.0",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
+    "styled-components": "^6.1.9",
     "swiper": "^11.1.1"
   },
   "devDependencies": {

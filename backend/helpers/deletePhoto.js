@@ -11,15 +11,10 @@ async function deleteOldImages(deletedImagePaths) {
             }
 
         }
-        else {
-            res.status(404).json("Image not found");
-        }
     }
 
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json(error.message);
-        }
+        console.log(error);
     }
 };
 

@@ -84,7 +84,6 @@ exports.getCategoryWithSeo = async (req, res) => {
         );
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error);
             res.status(500).json({ error: error.name });
         }
     }

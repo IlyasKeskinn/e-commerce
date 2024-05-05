@@ -6,7 +6,6 @@ export const LimitedEdition = () => {
     const fetchUrl = `/product/getlimitedproducts`;
     const { data, isLoading, error } = useFetch(fetchUrl);
 
-    console.log(data);
 
     return (
         <React.Fragment>

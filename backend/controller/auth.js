@@ -32,7 +32,6 @@ exports.postRegister = async (req, res) => {
         newUser.save();
         res.header("x-auth-token", token).status(200).json(newUser);
     } catch (error) {
-        console.log(error);
     }
 }
 

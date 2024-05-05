@@ -33,7 +33,7 @@ export const ProductSlider = ({products}) => {
             }}
         >
             {products.map((product) => (
-                <SwiperSlide key={product.product.id}><ProductCard product={product.product} /></SwiperSlide>
+                <SwiperSlide key={product.product._id}><ProductCard product={product.product} /></SwiperSlide>
             ))}
         </Swiper>
     )

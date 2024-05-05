@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Products } from "../../Product/Products";
 import useFetch from '../../../hooks/useFetch';
 import { ProductTabs } from "../../Product/ProductTabs";
-import {ProductsSkelton} from "../../Skeltons/ProductsSkeleton"
+import { ProductsSkelton } from "../../Skeltons/ProductsSkeleton"
 export const ProductsArea = () => {
     const { data, isLoading, error, } = useFetch("/product/getproducts", "GET")
 
@@ -12,12 +12,7 @@ export const ProductsArea = () => {
             <section className=" my-5 d-flex justify-content-center align-items-center">
                 <div className="container">
                     <ProductTabs />
-                    <ProductsSkelton/>
-                    <Link to={"/shop"}>
-                        <div className="text-center my-5 pt-5">
-                            <a href="#" className="btn btn-outlined">Disccover More</a>
-                        </div>
-                    </Link>
+                    <ProductsSkelton />
                 </div>
             </section>
 
@@ -26,8 +21,13 @@ export const ProductsArea = () => {
     return (
         <section className=" my-5 d-flex justify-content-center align-items-center">
             <div className="container">
-                <ProductTabs />
+                <h2 className="text-uppercase section-title text-center fw-normal my-4">OUR TRENDY <strong>PRODUCTS</strong>
+                </h2>
+                {/* TODO */}
+                {/* <ProductTabs /> */}
                 <Products products={data} />
+                {/* TODO */}
+                {/* 
                 <div className="tab-content pt-2 ">
                     <div className="tab-pane fade active show" id="collections-tab-1" role="tabpanel"
                         aria-labelledby="collections-tab-1-trigger">
@@ -49,12 +49,7 @@ export const ProductsArea = () => {
                         <div className="row top-product-list">
                         </div>
                     </div>
-                </div>
-                <Link to={"/shop"}>
-                    <div className="text-center my-5 pt-5">
-                        <a href="#" className="btn btn-outlined">Disccover More</a>
-                    </div>
-                </Link>
+                </div> */}
             </div>
         </section>
 

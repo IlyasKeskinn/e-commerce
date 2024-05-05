@@ -11,7 +11,6 @@ router.post("/photo", upload.upload.array("files"), async (req, res) => {
         }
         const images = req.files.map(file => file.filename);
         res.status(200).json(req.files);
-        console.log(req.files);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ error: error.message });

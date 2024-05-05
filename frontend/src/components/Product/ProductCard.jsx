@@ -47,12 +47,9 @@ const ProductCard = ({ product, dispatch }) => {
             </div>
             <div className="pc-info position-relative mt-3 p-1">
                 <p className="text-secondary pc__category">{product.subcategories[0].name}</p>
-
-                <Link to={`/product/${product._id}`}>
-                    <h6 className="pc__title truncate">
-                        <a href="#" className="product-link">{product.title}</a>
-                    </h6>
-                </Link>
+                <h6 className="pc__title truncate">
+                    <Link to={`/product/${product._id}`} href="#" className="product-link">{product.title}</Link>
+                </h6>
                 <div className="d-flex product-card__price">
                     <span className="money price">${newPrice.toFixed(2)}</span>
                 </div>

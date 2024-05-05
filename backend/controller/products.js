@@ -4,7 +4,7 @@ const slugField = require("../helpers/slugField");
 const deleteOldImages = require("../helpers/deletePhoto");
 exports.getProducts = async (req, res) => {
     try {
-        const products = await Product.find().populate("categories").populate("subcategories");
+        const products = await Product.find().populate("categories").populate("subcategories").limit(8);
         res.json(products);
     } catch (error) {
         if (error instanceof Error) {
@@ -191,7 +191,6 @@ exports.getLimitedProducts = async (req, res) => {
         const limitedProducts = await LimitedProducts.find().populate("product");
         res.status(200).json(limitedProducts);
     } catch (error) {
-        console.log(error);
         if (error instanceof Error) {
             res.status(500).json({ "error": error.message })
         }
@@ -217,7 +216,6 @@ exports.postLimitedProducts = async (req, res) => {
 exports.deleteLimitedProducts = async (req,res) => {
     try {
         const productId = req.params.id;
-        console.log(productId);
 
         const limitedProduct = await LimitedProducts.findById(productId);
 

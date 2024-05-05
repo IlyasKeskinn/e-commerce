@@ -21,11 +21,13 @@ const categoryRoutes = require("./router/category");
 const authRoutes = require("./router/auth");
 const sliderRoutes = require("./router/slider");
 const userRoutes = require("./router/user");
+const settingsRoutes = require("./router/siteSettings/siteSettings");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/settings", settingsRoutes);
 app.use("/slider", sliderRoutes);
 app.use("/upload", uploadRoutes);
 

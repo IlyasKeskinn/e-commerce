@@ -1,0 +1,78 @@
+.about-bg{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.about-bg img{
+    max-width: 100% !important;
+    height: 100% !important;
+}
+
+.mw-900{
+    width: 900px;
+    margin: 7rem auto;
+    max-width: 100% !important;
+}
+
+.about__section .image-content {
+    margin-top: 7rem;
+    display: flex;
+}
+
+.about__section .col-6{
+    width: 50%;
+}
+
+.about__section .img-wrapper img{
+    height: auto !important;
+}
+
+.about__section h5 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+.about__section p {
+    line-height: 2;
+    word-spacing: 1.5px;
+}
+
+
+@media (max-width : 1200px) {
+    .about-bg{
+        width: 900px !important;
+        margin: 0 auto;
+        max-width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+@media (max-width : 992px) {
+    .about__section .col-6{
+        width: 100% !important;
+    }
+
+    .about__section .image-content {
+        flex-direction: column;
+    }
+    .about__section .image-content .company-info{
+        padding: 0 !important;
+    }
+    .mision-vision__text {
+        flex-direction: column;
+    }
+    
+    
+}
+
+
+@media (max-width : 576px) {
+    .about__section .container{
+        width: 100% !important;
+        padding: 0 2rem;
+    }
+    .mw-900{
+        width: 100% !important;
+    }
+    
+    
+}

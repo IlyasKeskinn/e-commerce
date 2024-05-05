@@ -36,7 +36,6 @@ const useFetch = (url, method = "GET", { token } = {}, { trigger } = {}) => {
             setLoading(true);
             try {
                 console.log(fetchUrl);
-                console.log(options);       
                 const response = await fetch(fetchUrl, { ...options });
                 if (!response.ok) {
                     throw new Error(response.statusText)

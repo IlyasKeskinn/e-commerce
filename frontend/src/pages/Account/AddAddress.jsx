@@ -59,9 +59,7 @@ export const AddAdressForm = () => {
         }
     }
     const onFinish = async (values) => {
-        console.log(values);
         const formData = { "userId": user.user._id, ...values };
-        console.log(formData);
         updateData(formData);
     }
     
@@ -74,7 +72,6 @@ export const AddAdressForm = () => {
             form.resetFields();
         }
     }, [data, error])
-    console.log(data);
 
     return (
         <Spin spinning={isLoading}>

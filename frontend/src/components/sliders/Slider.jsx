@@ -10,7 +10,6 @@ export const Slider = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const fetchURL = `/slider/getSliders`
     const { data, isLoading, error } = useFetch(fetchURL);
-    console.log(data);
 
     const showSlide = (index) => {
         setActiveIndex(index);

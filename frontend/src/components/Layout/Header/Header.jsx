@@ -16,21 +16,18 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
             <header id="header" className="header">
                 <div className="container">
                     <div className="header-wrapper">
-                        <Link to={"/home"}>
-                            <div className="logo">
-                                <a href="index.html">
-                                    <h1>Zephyra</h1>
-                                </a>
-                            </div></Link>
+                        <div className="logo">
+                            <Link to={"/home"} href="index.html">
+                                <h1>Zephyra</h1>
+                            </Link>
+                        </div>
                         <nav className="navigation">
                             <ul>
-                                <Link to={"/home"}>
-                                    <li className="navigation-item">
-                                        <a href="#" className="navigation-link btn btn-outlined-half">Home</a>
-                                    </li>
-                                </Link>
+                                <li className="navigation-item">
+                                    <Link to={"/home"} className="navigation-link btn btn-outlined-half">Home</Link>
+                                </li>
                                 <li className="navigation-item mega-menu-wrapper">
-                                    <div to={`/shop`} className="navigation-link btn btn-outlined-half">Shop</div>
+                                    <div className="navigation-link btn btn-outlined-half">Shop</div>
                                     <div className="mega-menu default-menu-wrapper">
                                         <MegaMenu data={data} />
                                     </div>
@@ -67,7 +64,7 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
                                     </div>
                                 </li>
                                 <li className="navigation-item">
-                                    <a href="#" className="navigation-link btn btn-outlined-half">About</a>
+                                    <Link to={"/about"} href="#" className="navigation-link btn btn-outlined-half">About</Link>
                                 </li>
                                 <li className="navigation-item">
                                     <a href="#" className="navigation-link btn btn-outlined-half">Contact</a>

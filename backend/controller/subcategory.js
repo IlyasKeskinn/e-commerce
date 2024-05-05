@@ -81,7 +81,6 @@ exports.getSubcategoryWithSeo = async (req, res) => {
         );
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error);
             res.status(500).json({ error: error.name });
         }
     }
@@ -98,7 +97,6 @@ exports.post_subcategory = async (req, res) => {
         res.status(200).json(subcategory)
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error);
             res.status(500).json({ error: error.message });
         }
     }

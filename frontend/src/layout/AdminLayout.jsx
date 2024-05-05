@@ -1,8 +1,15 @@
 
 import { Layout, Menu } from 'antd';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { DashboardOutlined, AppstoreOutlined,SlidersOutlined, LaptopOutlined, UserOutlined, ShoppingCartOutlined, RollbackOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined, ContainerOutlined,
+  AppstoreOutlined, SlidersOutlined,
+  SettingOutlined, LaptopOutlined,
+  UserOutlined, ShoppingCartOutlined,
+  RollbackOutlined
+} from '@ant-design/icons';
 import { connect } from 'react-redux';
+
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -140,6 +147,22 @@ const AdminLayout = ({ auth }) => {
             navigate("/admin/newslider")
           }
         },
+      ]
+    },
+    {
+      key: 18,
+      icon: <SettingOutlined />,
+      label: "Site Settings",
+      children: [
+        {
+          key: 19,
+          icon: <ContainerOutlined />,
+          label: "About",
+          path: "/admin/settings/about",
+          onClick: () => {
+            navigate("/admin/settings/about")
+          }
+        }
       ]
     },
     {

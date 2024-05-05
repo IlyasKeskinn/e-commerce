@@ -121,7 +121,7 @@ export const LimitedProducts = () => {
       )
     },
   ]
-  console.log(products);
+
   return (
     <div>
       <Spin spinning={isLoading}>
