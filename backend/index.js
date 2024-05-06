@@ -24,6 +24,7 @@ const collectionRoutes = require("./router/siteSettings/collection");
 const userRoutes = require("./router/user");
 const settingsRoutes = require("./router/siteSettings/siteSettings");
 const contactRoutes = require("./router/contact");
+const loginRoutes = require("./router/adminLogin");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);
@@ -34,8 +35,7 @@ app.use("/slider", sliderRoutes);
 app.use("/contact/", contactRoutes);
 app.use("/collection", collectionRoutes)
 app.use("/upload", uploadRoutes);
-
-
+app.use("/admin", loginRoutes);
 
 const port = 3000;
 app.listen(port, () => {

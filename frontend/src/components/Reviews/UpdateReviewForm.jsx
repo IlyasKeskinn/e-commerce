@@ -42,7 +42,7 @@ export const UpdateReview = ({productId ,review = { review } ,handleCommentEdit,
             handleCommentEdit("");
         }
         if (error) {
-            message.error(error);
+            message.error("Please log in to your account.");
         }
     }, [data, error]);
     const cancelOnClick = (e) => {

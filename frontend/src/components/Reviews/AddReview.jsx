@@ -17,7 +17,7 @@ export const AddReview = ({ productId }) => {
             message.success("Comment added successfully.");
         }
         if (error) {
-            message.error(error);
+            message.error("Please log in to your account.");
         }
     }, [data, error]);
     return (

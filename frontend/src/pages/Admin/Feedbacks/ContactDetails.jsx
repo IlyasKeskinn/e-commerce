@@ -5,12 +5,13 @@ import {
     Spin, message, Card, Select
 } from "antd"
 import useFetch from '../../../hooks/useFetch';
+import useFetchWithToken from '../../../hooks/useFetchWithToken';
 
 export const ContactDetails = () => {
     const id = useParams().id;
     const fetchURL = `/contact/get_contactById/${id}`;
     const token = localStorage.getItem("x-auth-token");
-    const fecthData = useFetch(fetchURL);
+    const fecthData = useFetchWithToken(fetchURL, token,);
     const updateURL = `/contact/update_contact/${id}`;
 
 

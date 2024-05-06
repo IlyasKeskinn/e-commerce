@@ -14,7 +14,7 @@ export const CommentOperations = ({ productId, review, handleUpdateComment,handl
             handleUpdateComment(review._id);
         }
         if (error) {
-            message.error(error);
+            message.error("Please log in to your account.");
         }
     }, [data, error, review._id]);
 

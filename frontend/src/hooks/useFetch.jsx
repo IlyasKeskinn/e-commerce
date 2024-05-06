@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-const useFetch = (url, method = "GET", { token } = {}, { trigger } = {}) => {
+const useFetch = (url, method = "GET", token, { trigger } = {}) => {
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState("")
@@ -25,10 +25,13 @@ const useFetch = (url, method = "GET", { token } = {}, { trigger } = {}) => {
             "method": "PUT",
             "headers": {
                 "Content-type": "application/json",
+                "x-auth-token": token
             },
             "body": JSON.stringify(data)
         })
     }
+
+
 
 
     useEffect(() => {
@@ -36,6 +39,7 @@ const useFetch = (url, method = "GET", { token } = {}, { trigger } = {}) => {
             setLoading(true);
             try {
                 console.log(fetchUrl);
+                console.log(options);
                 const response = await fetch(fetchUrl, { ...options });
                 if (!response.ok) {
                     throw new Error(response.statusText)

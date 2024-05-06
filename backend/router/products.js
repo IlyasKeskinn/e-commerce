@@ -15,16 +15,16 @@ router.delete("/deleteProduct/:id", isAuth, isAdmin, productController.deletePro
 
 //product comments
 
-router.put("/getProduct/comment/:id", productController.putProductComment);
+router.put("/getProduct/comment/:id", isAuth, productController.putProductComment);
 
-router.put("/getproduct/comment/update/:id", productController.putUpdateProdcutComment)
+router.put("/getproduct/comment/update/:id", isAuth, productController.putUpdateProdcutComment)
 
-router.put("/getproduct/removecomment/:id", productController.deleteProductComment);
+router.put("/getproduct/removecomment/:id", isAuth, productController.deleteProductComment);
 
 
 //limited products
 router.get("/getlimitedproducts", productController.getLimitedProducts);
-router.post("/postlimitedProduct", productController.postLimitedProducts);
-router.delete("/deleteLimitedProduct/:id", productController.deleteLimitedProducts);
+router.post("/postlimitedProduct", isAuth, isAdmin, productController.postLimitedProducts);
+router.delete("/deleteLimitedProduct/:id", isAuth, isAdmin, productController.deleteLimitedProducts);
 
 module.exports = router;

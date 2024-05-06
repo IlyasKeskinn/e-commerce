@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import "./Account.css"
 import { Form, Input, Select, Col, Row, InputNumber, Spin, message } from 'antd';
 import proviencesData from "../../../data/turkey_ provinces.json";
 import districtData from "../../../data/turkey_districts.json";
 import neighbourhoodData from "../../../data/turkey_neighbourhood.json"
 import neighbourhoodData2 from "../../../data/turkey_neighbourhood2.json"
 import useFetch from '../../hooks/useFetch';
+import useFetchWithToken from "../../hooks/useFetchWithToken";
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import "./Account.css"
 
 const { TextArea } = Input;
 
@@ -22,7 +23,7 @@ export const EditAddress = () => {
     const [neighbourhood, setNeighbourhood] = useState([]);
     const [form] = Form.useForm();
     const fetchURL = `/user/getAddressById/${user.user._id}?id=${addressId}`
-    const fetchedAddress = useFetch(fetchURL);
+    const fetchedAddress = useFetchWithToken(fetchURL, token);
     const updateURL = `/user/updateaddress/${user.user._id}`
 
     const { data, isLoading, error, updateData } = useFetch(updateURL, "PUT", token);
@@ -76,19 +77,7 @@ export const EditAddress = () => {
             setDistricts(districtData.filter(district => district.il_id === fetchedAddress.data.city));
             setTown(neighbourhoodData.filter(district => district.ilce_id === fetchedAddress.data.district));
             setNeighbourhood(neighbourhoodData2.filter(district => district.koy_id === fetchedAddress.data.town));
-            form.setFieldsValue({
-                title: fetchedAddress.data.title,
-                address: fetchedAddress.data.address,
-                name: fetchedAddress.data.name,
-                surname: fetchedAddress.data.surname,
-                phone: fetchedAddress.data.phone,
-                city: fetchedAddress.data.city,
-                district: fetchedAddress.data.district,
-                town: fetchedAddress.data.town,
-                neighbourhood: fetchedAddress.data.neighbourhood,
-                postal_code: fetchedAddress.data.postal_code
-
-            })
+            form.setFieldsValue({...fetchedAddress.data})
 
         }
     }, [fetchedAddress.data, fetchedAddress.error])

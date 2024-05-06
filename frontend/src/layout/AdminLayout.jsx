@@ -14,31 +14,30 @@ import {
 import { connect } from 'react-redux';
 
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
 
 const AdminLayout = ({ auth }) => {
   const navigate = useNavigate();
   const siderStyle = {
     textAlign: "center",
     lineHeight: "120px",
-    color: "#333",
-    padding: "10px 10px"
+    color: "#000",
+    backgroundColor: "#e1eaf4",
   }
   const headerStyle = {
-    color: "#333",
-    backgroundColor: "#f2f2f2",
+    color: "#ffff",
+    backgroundColor: "#27374D",
     display: "flex",
     justifyContent: "space-between",
     textAlign: "center",
     width: "100%",
-    borderRadius: 8,
 
   }
   const contentStyle = {
     minHeight: 300,
     lineHeight: '120px',
     color: '#333',
-    backgroundColor: "#fffff"
+    backgroundColor: "#fff"
 
   };
   const layoutStyle = {
@@ -137,7 +136,7 @@ const AdminLayout = ({ auth }) => {
         {
           key: 13,
           label: "Slider List",
-          path: "/admin/categoryList",
+          path: "/admin/sliderlist",
           onClick: () => {
             navigate("/admin/sliderlist")
           }
@@ -145,7 +144,7 @@ const AdminLayout = ({ auth }) => {
         {
           key: 14,
           label: "New Slider",
-          path: "/admin/categoryList",
+          path: "/admin/newslider",
           onClick: () => {
             navigate("/admin/newslider")
           }
@@ -270,31 +269,40 @@ const AdminLayout = ({ auth }) => {
       }
     }
   }
-
+  // TODO : REFACTOR
   const isAdmin = () => {
-    const user = JSON.parse(localStorage.getItem("user").user);
-    const isAdmin = user.role === "admin" ? true : false;
-    return isAdmin;
+    const token = JSON.parse(localStorage.getItem("x-auth-token"));
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!token) return false;
+    if (!user || user.user.role !== "admin") return false;
+
+    return true;
   }
-  if (isAdmin) {
+  if (isAdmin()) {
     return (<div style={{ minHeight: "100vh" }}>
       <Layout style={layoutStyle}>
-        <Sider theme='dark' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
-          <Menu
-            theme='dark'
-            style={{
-              width: "100%",
-            }}
-            mode="vertical"
-            items={menuItems}
-            defaultSelectedKeys={getActiveKeys()}
-          />
-        </Sider>
+        <Header width={"75%"} style={headerStyle}>
+          <h2 style={{ fontSize: "28px", fontFamily: "Arial sans-serif", fontWeight: "600" }}>{getProductTitle()}</h2>
+        </Header>
         <Layout>
-          <Header width={"75%"} style={headerStyle}>
-            <h2>{getProductTitle()}</h2>
-          </Header>
-          <Content style={contentStyle}><Outlet /></Content>
+          <Layout>
+            <Sider theme='light' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
+              <Menu
+                theme='light'
+                style={{
+                  width: "100%",
+                  backgroundColor: "#e1eaf4",
+                  border: "none",
+                }}
+                mode="vertical"
+                items={menuItems}
+                defaultSelectedKeys={getActiveKeys()}
+              />
+            </Sider>
+            <Content style={contentStyle}><Outlet /></Content>
+          </Layout>
         </Layout>
       </Layout>
     </div>);

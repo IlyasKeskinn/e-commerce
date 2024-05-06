@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useFetch from "../../hooks/useFetch";
+import useFetchWithToken from "../../hooks/useFetchWithToken";
 import { Popconfirm, Skeleton, message } from "antd";
 import { Link } from "react-router-dom";
 import "./Account.css"
@@ -12,8 +12,7 @@ export const AccountAdress = () => {
     const deleteURL = `/user/deleteAddress/`
     const [address, setAddress] = useState([]);
 
-    const { data, isLoading, error } = useFetch(fetchURL, "GET", {},);
-
+    const { data, isLoading, error} = useFetchWithToken(fetchURL, token,);
 
     useEffect(() => {
         if (!isLoading && data) {
@@ -79,7 +78,7 @@ export const AccountAdress = () => {
                 </div>
             }
             {address && address.length >= 1 &&
-                <div key={address._id} className="page-content my-account__address">
+                <div className="page-content my-account__address">
                     <div className="d-flex justify-content-between">
                         <p>The following addresses will be used on the checkout page by default.
                         </p>
@@ -88,7 +87,7 @@ export const AccountAdress = () => {
                     <div className="my-account__address-list ">
                         {address.map((data) => {
                             return (
-                                <div className="my-account__address-item">
+                                <div key={data._id}  className="my-account__address-item">
                                     <div
                                         className="my-account__address-item__title my-5 d-flex justify-content-between align-items-center">
                                         <h6 className="text-uppercase-fw-normal w-75 truncate" >

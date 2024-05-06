@@ -1,10 +1,12 @@
 import { Tag, Table, Button, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import useFetch from '../../../hooks/useFetch';
+import useFetchWithToken from '../../../hooks/useFetchWithToken';
 
 export const ConctactMessages = () => {
     const navigate = useNavigate();
-    const fetchUrl = "/contact/get_contacts";
+    const fetchURL = "/contact/get_contacts";
+    const token = localStorage.getItem("x-auth-token") ? JSON.parse(localStorage.getItem("x-auth-token")) : "";
+
 
     const statusColor = (status) => {
         let color;
@@ -53,7 +55,7 @@ export const ConctactMessages = () => {
         }
     ]
 
-    const { data, isLoading, error } = useFetch(fetchUrl);
+    const { data, isLoading, error} = useFetchWithToken(fetchURL, token,);
 
     if (error) {
         message.error(error)

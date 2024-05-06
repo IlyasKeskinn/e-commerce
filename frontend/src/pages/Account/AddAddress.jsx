@@ -62,7 +62,7 @@ export const AddAdressForm = () => {
         const formData = { "userId": user.user._id, ...values };
         updateData(formData);
     }
-    
+
     useEffect(() => {
         if (error) {
             message.error(error.message);
