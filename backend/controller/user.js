@@ -6,7 +6,7 @@ exports.getUserAllAddress = async (req, res) => {
         const userId = req.params.id;
         const user = await User.findById(userId);
         if (!user) {
-            res.status(404).json({ "error": "User not found!" });
+            return   res.status(404).json({ "error": "User not found!" });
         }
 
         res.status(200).json(user.user_address);
@@ -22,7 +22,7 @@ exports.getUserAddressById = async (req, res) => {
         const addressId = req.query.id;
         const user = await User.findById(userId);
         if (!user) {
-            res.status(404).json({ "error": "User not found!" });
+            return  res.status(404).json({ "error": "User not found!" });
         }
         const address = user.user_address.id(addressId);
 
@@ -41,7 +41,7 @@ exports.postAddress = async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            res.status(404).json({ "error": "User not found" })
+            return res.status(404).json({ "error": "User not found" })
         }
         const address = await new Address(addressBody);
         user.user_address.push(address);
@@ -50,7 +50,7 @@ exports.postAddress = async (req, res) => {
         res.status(200).json(userAddress.user_address);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ "error": error.message });
+            return  res.status(500).json({ "error": error.message });
         }
     }
 }
@@ -63,7 +63,7 @@ exports.putAddress = async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            res.status(404).json({ "error": "User not found!" })
+            return   res.status(404).json({ "error": "User not found!" })
         }
 
         const address = user.user_address.id(addressId);
@@ -77,7 +77,7 @@ exports.putAddress = async (req, res) => {
         res.status(200).json(updatedAddress.user_address);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ "error": error.message });
+            return  res.status(500).json({ "error": error.message });
         }
     }
 }
@@ -91,7 +91,7 @@ exports.deleteAddress = async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            res.status(404).json({ "error": "User not found!" })
+            return res.status(404).json({ "error": "User not found!" })
         }
 
         const address = user.user_address.id(addressId);
@@ -105,7 +105,7 @@ exports.deleteAddress = async (req, res) => {
 
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ "error": error.message })
+            return  res.status(500).json({ "error": error.message })
         }
     }
 }

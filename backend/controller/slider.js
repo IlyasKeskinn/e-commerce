@@ -16,12 +16,12 @@ exports.getSliderById = async (req, res) => {
         const sliderId = req.params.id;
         const slider = await Slider.findById(sliderId);
         if (!slider) {
-            res.status(404).json({ "error": "Slider not found" });
+            return res.status(404).json({ "error": "Slider not found" });
         }
         res.status(200).json(slider);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ "error": error.message });
+            return res.status(500).json({ "error": error.message });
         }
     }
 }
@@ -50,14 +50,14 @@ exports.putUpdateSlider = async (req, res) => {
         const slider = await Slider.findById(sliderId);
 
         if (!slider) {
-            res.status(404).json({ "error": "Slider not found!" });
+            return   res.status(404).json({ "error": "Slider not found!" });
         }
         const updatedSlider = await Slider.findByIdAndUpdate(sliderId, updateBody, { new: true });
 
         res.status(200).json({ updatedSlider });
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ "error": error.message });
+            return  res.status(500).json({ "error": error.message });
         }
     }
 }
@@ -68,14 +68,14 @@ exports.deleteSlider = async (req, res) => {
         const slider = await Slider.findById(sliderId);
 
         if (!slider) {
-            res.status(404).json({ "error": "Slider not found!" })
+            return  res.status(404).json({ "error": "Slider not found!" })
         }
         const deletedSlider = await Slider.findOneAndDelete({ "_id": sliderId });
 
         res.status(200).json(deletedSlider);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ "error": error.message });
+            return   res.status(500).json({ "error": error.message });
         }
     }
 }

@@ -14,7 +14,7 @@ exports.getProducts = async (req, res) => {
 }
 
 
-exports.getProdcutById = async (req, res) => {
+exports.getProductById = async (req, res) => {
     const productId = req.params.id;
     try {
         const product = await Product.findById(productId)
@@ -25,16 +25,16 @@ exports.getProdcutById = async (req, res) => {
             });
 
         if (!product) {
-            res.status(404).json({ error: "Product not found" });
+            return res.status(404).json({ error: "Product not found" });
         }
         res.status(201).json(product);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json(error.message);
+            return res.status(500).json(error.message);
         }
     }
 }
-exports.getProdcutBySeo = async (req, res) => {
+exports.getProductBySeo = async (req, res) => {
     const seo_link = req.params.seo_link;
     try {
         const product = await Product.findOne({ "seo_link": seo_link }).populate({ path: "categories", select: "name" }).populate({ path: "subcategories", select: "name" })
@@ -48,6 +48,32 @@ exports.getProdcutBySeo = async (req, res) => {
         }
     }
 }
+
+exports.searchProduct = async (req, res) => {
+    try {
+        query = req.query;
+        const products = await Product.find(
+            {
+                $or:
+                    [
+                        { title: new RegExp(`.*${req.query.query}.*`, 'i') },
+                        { shortDesc: new RegExp(`.*${req.query.query}.*`, 'i') }
+                    ]
+            }
+        );
+
+        if (products.length === 0) {
+            return res.status(404).json({ message: "Product not found." });
+        }
+
+        res.status(200).json(products);
+    } catch (error) {
+        if (error instanceof Error) {
+
+        }
+    }
+}
+
 exports.postProduct = async (req, res) => {
 
     const seo_link = slugField(req.body.title);
@@ -159,7 +185,7 @@ exports.deleteProductComment = async (req, res) => {
     }
 }
 
-exports.putUpdateProdcutComment = async (req, res) => {
+exports.putUpdateProductComment = async (req, res) => {
     const productId = req.params.id;
     const commentId = req.body._id;
     const updates = req.body;
@@ -213,21 +239,21 @@ exports.postLimitedProducts = async (req, res) => {
     }
 }
 
-exports.deleteLimitedProducts = async (req,res) => {
+exports.deleteLimitedProducts = async (req, res) => {
     try {
         const productId = req.params.id;
 
         const limitedProduct = await LimitedProducts.findById(productId);
 
         if (!limitedProduct) {
-            res.status(404).json({"error": "Limited product not found!"});
+            res.status(404).json({ "error": "Limited product not found!" });
         }
 
-        const deletedProduct = await LimitedProducts.findOneAndDelete({"_id" : productId});
+        const deletedProduct = await LimitedProducts.findOneAndDelete({ "_id": productId });
         res.status(200).json(deletedProduct);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({"error" : error.message});
+            res.status(500).json({ "error": error.message });
         }
     }
 }

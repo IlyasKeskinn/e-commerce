@@ -1,4 +1,4 @@
-const {DealCollection} = require("../../models/siteSettings/collection");
+const { DealCollection } = require("../../models/siteSettings/collection");
 
 
 exports.getDealCollection = async (req, res) => {
@@ -37,7 +37,7 @@ exports.updateDealCollection = async (req, res) => {
         const dealCollection = await DealCollection.findById(dealCollectionId);
 
         if (!dealCollection) {
-            res.status(404).json({ error: "DealCollection not found." });
+            return res.status(404).json({ error: "DealCollection not found." });
         }
 
         const updatedDealCollection = await DealCollection.findByIdAndUpdate(dealCollectionId, body, { new: true });
@@ -45,7 +45,7 @@ exports.updateDealCollection = async (req, res) => {
         res.status(200).json(updatedDealCollection);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ error: error.message })
+            return res.status(500).json({ error: error.message })
         }
     }
 }

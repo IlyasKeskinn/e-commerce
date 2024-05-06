@@ -30,9 +30,9 @@ export const searchModal = (isActive) => (
     }
 )
 
-export const searchModalAction = (isActive) => {
+export const setSearchModalAction = (isActive) => {
     return (dispatch) => {
-        dispatch(searchModal(dispatch));
+        dispatch(searchModal(isActive));
     }
 }
 

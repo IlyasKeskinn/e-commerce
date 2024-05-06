@@ -32,7 +32,7 @@ const ShoppingCartAside = ({ cart, drawer, dispatch }) => {
                             <div className="cart-drawer-actions">
                                 <div className="cart-total d-flex justify-content-between align-items-center">
                                     <p className="fw-normal text-uppercase">Subtotal: </p>
-                                    <p className="sub-total-number">${(cart.total.sub_total).toFixed(2)}</p>
+                                    <p className="sub-total-number">${(Number(cart.total.sub_total)).toFixed(2)}</p>
                                 </div>
                                 <div className="buttonwrapper">
                                     <Link to={`/cart`} className="button btn-secondary w-100" onClick={() => { dispatch(setCartAsideAction(false)) }}>View Cart</Link>

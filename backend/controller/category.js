@@ -9,8 +9,7 @@ exports.getCategories = async (req, res) => {
         res.status(200).json(categories)
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error);
-            res.status(500).json({ error: error.name });
+            return res.status(500).json({ error: error.name });
         }
     }
 }
@@ -20,12 +19,12 @@ exports.getCategory = async (req, res) => {
     try {
         const category = await Category.findById(id).populate({ path: "subcategory" });
         if (!category) {
-            res.status(404).json({ error: "Category not found" });
+            return res.status(404).json({ error: "Category not found" });
         }
         res.status(200).json(category);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ error: error.name });
+            return  res.status(500).json({ error: error.name });
         }
     }
 }
@@ -62,7 +61,7 @@ exports.getCategoryWithSeo = async (req, res) => {
         const category = await categoryQuery.exec();
 
         if (!category) {
-            res.status(404).json({ error: "Category not found" });
+            return res.status(404).json({ error: "Category not found" });
         }
         const categoryData = { "name": category.name, "seo_link": category.seo_link, "subcategory": category.subcategory }
 
@@ -126,7 +125,7 @@ exports.putUpdateCategory = async (req, res) => {
         const category = await Category.findById(categoryId);
 
         if (!category) {
-            res.status(404).json({ error: "Category not found" });
+            return res.status(404).json({ error: "Category not found" });
         }
 
         const updatedCategory = await Category.findByIdAndUpdate(categoryId, body, {
@@ -135,7 +134,7 @@ exports.putUpdateCategory = async (req, res) => {
         res.status(200).json(updatedCategory);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(500).json({ error: error.name });
+            return  res.status(500).json({ error: error.name });
         }
     }
 }
@@ -145,7 +144,7 @@ exports.deleteCategory = async (req, res) => {
     try {
         const category = await Category.findById(categoryId);
         if (!category) {
-            res.status(404).json({ error: "Category not found" });
+            return res.status(404).json({ error: "Category not found" });
         }
         const deletedCategory = await Category.findOneAndDelete({ "_id": categoryId });
         res.status(200).json(deletedCategory);

@@ -1,11 +1,20 @@
 import { connect } from "react-redux";
-import { Search } from "../../Search/Serach";
+import Search from "../../Search/Search";
 import { Link } from "react-router-dom";
-import { setAuthAsideAction, setCartAsideAction } from "../../../actions/drawerAction";
+import { setAuthAsideAction, setCartAsideAction, setSearchModalAction } from "../../../actions/drawerAction";
+import { useState } from "react";
 const HeaderTools = (props) => {
+    const handleSearchClick = (e) => {
+        e.preventDefault();
+        const isSearchModalActive = !props.drawer.isSearchModalActive;
+        props.dispatch(setSearchModalAction(isSearchModalActive));
+    }
     return (
         <div className="header-tools">
             <Search />
+            <a href="" onClick={(e) => { handleSearchClick(e) }}>
+                <i className={`bi bi-${props.drawer.isSearchModalActive ? "x-lg" : "search"}`}></i>
+            </a>
             {props.auth.user.user && props.auth.user.user.email ?
                 <Link to={`/account/dashboard`}>
                     <i className="bi bi-person"></i>
@@ -19,7 +28,7 @@ const HeaderTools = (props) => {
                 <i className="bi bi-heart"></i>
             </a>
             <a href="#" className="header-tools__item header-tools__cart">
-                <i className="bi bi-bag" onClick={() => { props.dispatch(setCartAsideAction(true));}}>
+                <i className="bi bi-bag" onClick={() => { props.dispatch(setCartAsideAction(true)); }}>
                     <span className="cart-amount">
                         {props.cart.cartItems.length ? props.cart.cartItems.length : 0}
                     </span>
@@ -39,4 +48,3 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(HeaderTools)
 
-// props.setAsideActive(true)

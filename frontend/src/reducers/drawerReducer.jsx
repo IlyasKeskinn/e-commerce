@@ -14,6 +14,7 @@ export const drawerReducer = (state = initalState, action) => {
                 isPageOverlayActive: false,
                 isCartAsideActive: false,
                 isAuthAsideActive: false,
+                isSearchModalActive : false
             }
         default:
             return { ...state };
