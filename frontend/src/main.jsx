@@ -5,7 +5,6 @@ import configureAppStore from './store/configureAppStore'
 import { applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { thunk } from 'redux-thunk'
-import { getProductsFromData } from './actions/productAction'
 import { setCartLocalStorage } from './actions/cartAction.jsx'
 import { getAuthUser } from './actions/authAction.jsx'
 import "./style/index.css"

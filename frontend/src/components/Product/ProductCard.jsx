@@ -7,6 +7,7 @@ import uuid from 'react-uuid';
 import { message } from 'antd';
 import { ShoppingOutlined } from '@ant-design/icons';
 import "./ProductCard.css";
+import { setCartAsideAction } from "../../actions/drawerAction";
 
 const ProductCard = ({ product, dispatch }) => {
 
@@ -30,7 +31,9 @@ const ProductCard = ({ product, dispatch }) => {
         }
         dispatch(addCartLocalStorage(cartItem, 1));
         dispatch(updateCartTotal());
+        dispatch(setCartAsideAction(true));
         message.success("Product add to cart.")
+
     }
 
     //TODO REFACTOR

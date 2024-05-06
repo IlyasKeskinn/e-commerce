@@ -1,12 +1,13 @@
 import { connect } from "react-redux";
 import AsideCartItem from "./AsideCartItem";
-import "./ShoppingCartAside.css"
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { setCartAsideAction } from "../../../actions/drawerAction";
+import "./ShoppingCartAside.css"
 
-const ShoppingCartAside = ({ cart, isCartAsideActive, setCartAsideActive, setAsideActive }) => {
+const ShoppingCartAside = ({ cart, drawer, dispatch }) => {
     return (
-        <aside className={`aside aside-right ${isCartAsideActive ? "aside-visible" : ""}`} id="shopingCartAside">
+
+        <aside className={`aside aside-right ${drawer.isCartAsideActive ? "aside-visible" : ""}`} id="shopingCartAside">
             <div className="shopping-cart__wraper position-relative d-flex justify-content-center">
                 <div className="shopping-cart w-95">
                     <div className="aside-header  d-flex align-items-center justify-content-between">
@@ -14,7 +15,7 @@ const ShoppingCartAside = ({ cart, isCartAsideActive, setCartAsideActive, setAsi
                             SHOPPING BAG <span className="shoping-cart-amount">( {cart.cartItems.length} )</span>
                         </h3>
                         <button className="aside-header-button">
-                            <i className="bi bi-x" onClick={() => { setCartAsideActive(false); setAsideActive(false) }}></i>
+                            <i className="bi bi-x" onClick={() => { dispatch(setCartAsideAction(false)) }}></i>
                         </button>
                     </div>
                     {cart.cartItems.length <= 0
@@ -25,17 +26,17 @@ const ShoppingCartAside = ({ cart, isCartAsideActive, setCartAsideActive, setAsi
                         :
                         <div className="aside-content">
                             <div className="cart-drawer-item-list">
-                                {Array.from(cart.cartItems).map((product) => {  return <AsideCartItem key={product.cartId} product={product} /> })}
+                                {Array.from(cart.cartItems).map((product) => { return <AsideCartItem key={product.cartId} product={product} /> })}
                             </div>
 
                             <div className="cart-drawer-actions">
                                 <div className="cart-total d-flex justify-content-between align-items-center">
                                     <p className="fw-normal text-uppercase">Subtotal: </p>
-                                    <p className="sub-total-number">${cart.total.sub_total}</p>
+                                    <p className="sub-total-number">${(cart.total.sub_total).toFixed(2)}</p>
                                 </div>
                                 <div className="buttonwrapper">
-                                    <Link to={`/cart`} className="button btn-secondary w-100" onClick={() => { setCartAsideActive(false); setAsideActive(false) }}>View Cart</Link>
-                                    <Link to={`/checkout`} className="button btn-primary w-100" onClick={() => { setCartAsideActive(false); setAsideActive(false) }} >Checkout</Link>
+                                    <Link to={`/cart`} className="button btn-secondary w-100" onClick={() => { dispatch(setCartAsideAction(false)) }}>View Cart</Link>
+                                    <Link to={`/checkout`} className="button btn-primary w-100" onClick={() => { dispatch(setCartAsideAction(false)) }} >Checkout</Link>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +49,8 @@ const ShoppingCartAside = ({ cart, isCartAsideActive, setCartAsideActive, setAsi
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.cart
+        cart: state.cart,
+        drawer: state.drawer
     }
 }
 

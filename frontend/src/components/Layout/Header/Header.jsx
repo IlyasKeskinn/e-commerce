@@ -5,7 +5,7 @@ import HeaderTools from "./HeaderTools";
 import { MegaMenu } from "./MegaMenu";
 import "./Header.css";
 
-export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActive, setCartAsideActive, isAsideActice, setAsideActive }) => {
+export const Header = () => {
     const { data, isLoading, error } = useFetch("/category/getCategories");
 
     if (isLoading) {
@@ -40,8 +40,7 @@ export const Header = ({ isAuthAsideActive, setAuthAsideActive, isCartAsideActiv
                                 </li>
                             </ul>
                         </nav>
-                        {/* TODO: Refactor this section to make it cleaner and more readable */}
-                        <HeaderTools isAuthAsideActive={isAuthAsideActive} setAuthAsideActive={setAuthAsideActive} isCartAsideActive={isCartAsideActive} setCartAsideActive={setCartAsideActive} isAsideActice={isAsideActice} setAsideActive={setAsideActive} />
+                        <HeaderTools/>
                     </div>
                 </div>
             </header>);

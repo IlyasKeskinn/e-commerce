@@ -13,8 +13,6 @@ const useFetchWithToken = (url, token) => {
         const fetchData = async (options) => {
             setLoading(true);
             try {
-                console.log(fetchUrl);
-                console.log(options);
                 const response = await fetch(fetchUrl, {
                     "method": "GET",
                     "headers": {

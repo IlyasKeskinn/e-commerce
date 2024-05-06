@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { connect } from "react-redux";
 import uuid from "react-uuid";
-import { addCartLocalStorage, updateCartLocalStorage, updateCartTotal } from "../../../actions/cartAction";
+import { addCartLocalStorage, updateCartTotal } from "../../../actions/cartAction";
+import { setCartAsideAction } from "../../../actions/drawerAction";
 const AddingCartForm = (props) => {
     const [selectedSize, setSize] = useState(props.product.size_options[0]);
     const [selectedColor, setColor] = useState(props.product.color_options[0]);
@@ -39,6 +40,7 @@ const AddingCartForm = (props) => {
         }
         props.dispatch(addCartLocalStorage(cartItem, quantity));
         props.dispatch(updateCartTotal());
+        props.dispatch(setCartAsideAction(true))
     }
 
 
