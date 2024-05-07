@@ -29,7 +29,6 @@ const userSchema = mongoose.Schema({
 })
 
 userSchema.methods.createAuthToken = function () {
-    //TODO secret keys env
     return jwt.sign({ _id: this._id, role: this.userRole, email: this.email }, JWT_SECRET_KEY)
 }
 

@@ -1,6 +1,5 @@
-import { Rate, message } from 'antd';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { message } from 'antd';
+import { useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { ReviewForm } from './ReviewForm';
 export const AddReview = ({ productId }) => {

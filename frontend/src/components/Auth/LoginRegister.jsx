@@ -6,7 +6,7 @@ import { NavItem } from '../NavTabs/NavItem'
 export const LoginRegister = () => {
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : [];
     if (user.user) return window.location.href = "/account/dashboard"
-    const [activeTabs, setActiveTabs] = useState(0);
+    const [activeTabs, setActiveTabs] = useState("1");
 
     return (
         <section className="login-register-section d-flex justify-content-center align-items-center ">

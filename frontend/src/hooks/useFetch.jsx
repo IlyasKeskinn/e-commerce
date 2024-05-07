@@ -40,7 +40,8 @@ const useFetch = (url, method = "GET", token, { trigger } = {}) => {
             try {
                 const response = await fetch(fetchUrl, { ...options });
                 if (!response.ok) {
-                    throw new Error(response.statusText)
+                    const { error } = await response.json();
+                    throw new Error(error)
                 }
                 const data = await response.json();
                 setData(data);
