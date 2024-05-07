@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
-const secretKeys = require("../config");
+const dotenv = require("dotenv");
+dotenv.config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const MONGOOSE_URI = (process.env.MONGOOSE_URI)
 const connectMongoDB = async () => {
     try {
-        await mongoose.connect(`mongodb+srv://${secretKeys.dbUserName}:${secretKeys.dbPassword}@cluster0.detvns3.mongodb.net/${secretKeys.dataBase}?retryWrites=true&w=majority&appName=Cluster0`)
+        await mongoose.connect(MONGOOSE_URI)
         console.log("Succesful connect to mongoDb");
     } catch (error) {
         console.log(error);

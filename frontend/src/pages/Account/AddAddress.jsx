@@ -67,7 +67,7 @@ export const AddAdressForm = () => {
         if (error) {
             message.error(error.message);
         }
-        if (data && data.user_address) {
+        if (data && data.length >=1) {
             navigate(`/account/address`)
             form.resetFields();
         }

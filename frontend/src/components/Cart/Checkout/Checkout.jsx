@@ -1,73 +1,136 @@
-import React from 'react'
-import { CheckoutForm } from './CheckoutForm'
-import { CheckoutSteps } from '../CheckoutSteps/CheckoutSteps'
+import React, { useEffect, useState } from 'react'
+import useFetchWithToken from '../../../hooks/useFetchWithToken';
+import { AddressList } from '../../Account/AddressList';
+import { NotFoundAddress } from '../../Account/NotFoundAddress';
+import { Reciept } from '../Reciept';
+import { connect } from 'react-redux'
+import { Skeleton, message } from "antd";
+import { loadStripe } from "@stripe/stripe-js";
 
-export const Checkout = () => {
+const Checkout = ({ cart }) => {
+
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : [];
+    if (!user.user) return window.location.href = "/cart"
+
+
+    const API_URL = import.meta.env.VITE_BASE_API_URL;
+    const MY_STRIPE_KEY = import.meta.env.VITE_STRIPE_PUBLISH_KEY
+    const token = localStorage.getItem("x-auth-token") ? JSON.parse(localStorage.getItem("x-auth-token")) : "";
+    const fetchURL = `/user/getaddress/${user.user._id}`;
+    const { data, isLoading, error } = useFetchWithToken(fetchURL, token,);
+    const [address, setAddress] = useState([]);
+    const [isUpload, setUpload] = useState(false);
+
+
+
+
+    const [selectedAddressId, setSelectedAddressId] = useState("");
+    const handleAddress = (id) => {
+        setSelectedAddressId(id);
+    }
+
+    useEffect(() => {
+        if (!isLoading && data && data.length >= 1) {
+            setAddress(data)
+            setSelectedAddressId(data[0]._id)
+        }
+    }, [data, isLoading]);
+
+    useEffect(() => {
+        if (error) {
+            message.error(error);
+        }
+    }, [error]);
+
+    const handlePayment = async () => {
+        if (!user && !user.user && !user.user._id) {
+            return window.location.href = "/cart"
+        }
+
+        const body = {
+            "address": selectedAddressId,
+            "user": user.user,
+            "products": cart.cartItems
+        }
+
+        try {
+            setUpload(true)
+            const stripe = await loadStripe(MY_STRIPE_KEY);
+
+            const res = await fetch(`${API_URL}/payment`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "token": token
+                },
+                body: JSON.stringify(body)
+            })
+
+            if (!res.ok) {
+                return message.error("Payment transaction failed.");
+            }
+
+            const session = await res.json();
+
+            const result = await stripe.redirectToCheckout({
+                sessionId: session.id
+            });
+            if (result.error) {
+                throw new Error(result.error.message);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setUpload(false);
+        }
+    }
     return (
         <section className="checkout-section d-flex justify-content-center align-items-center my-5">
             <div className="container cart-container">
-                <h3 className="page-title text-uppercase">SHIPPING AND CHECKOUT</h3>
-                <CheckoutSteps />
                 <div className="checkout-cart__container ">
-                    <form className="checkout-form">
+                    <div className="checkout-form">
                         <div className="checkout-cart__row">
                             <div className="billings-info__wrapper">
-                                <h3 className="seciton-title text-uppercase">BILLING DETAILS </h3>
-                                <CheckoutForm />
+                                {isLoading &&
+                                    <div className="page-content my-account__address">
+                                        <div className="my-account__address-list ">
+                                            <div className="my-account__address-item">
+                                                <Skeleton active />;
+                                            </div>
+                                            <div className="my-account__address-item">
+                                                <Skeleton active />;
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                {!isLoading && address && address.length <= 0 &&
+                                    <NotFoundAddress />
+                                }
+                                {address && address.length >= 1 &&
+                                    <AddressList selectedAddressId={selectedAddressId} handleAddress={handleAddress} address={address} isCheckoutPage={true} />
+                                }
                             </div>
                             <div className="shopping-cart__totals-wrapper">
                                 <div className="sticky-content">
-                                    <div className="shopping-cart__totals">
-                                        <h3 className="fw-normal text-uppercase">Your Order</h3>
-                                        <table className="order-list-table">
-                                            <thead>
-                                                <th>Product</th>
-                                                <th>Subtotal</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Zessi Dresses x 2</td>
-                                                    <td>$32.50</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kirby T-Shirt</td>
-                                                    <td>$29.90</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table>
-                                            <tr>
-                                                <th>Subtotal</th>
-                                                <td>$1300</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Shipping</th>
-                                                <td>
-                                                    Free Shipping
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>VAT</th>
-                                                <td>$19</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Subtotal</th>
-                                                <td>$1300</td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                    <Reciept cart={cart} isCheckoutPage={true} />
                                     <div className="button__wrapper my-5 ">
-                                        <button className="text-uppercase button btn-primary w-100">
+                                        <button onClick={() => { handlePayment() }} className={`${isUpload ? "disabled" : ""} text-uppercase button btn-primary w-100`}>
                                             Place Order
                                         </button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(Checkout);

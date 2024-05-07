@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useFetchWithToken from "../../hooks/useFetchWithToken";
-import { Popconfirm, Skeleton, message } from "antd";
+import { Skeleton, message } from "antd";
 import { Link } from "react-router-dom";
+import { AddressList } from "../../components/Account/AddressList";
+import { NotFoundAddress } from "../../components/Account/NotFoundAddress";
 import "./Account.css"
 
 export const AccountAdress = () => {
@@ -12,7 +14,7 @@ export const AccountAdress = () => {
     const deleteURL = `/user/deleteAddress/`
     const [address, setAddress] = useState([]);
 
-    const { data, isLoading, error} = useFetchWithToken(fetchURL, token,);
+    const { data, isLoading, error } = useFetchWithToken(fetchURL, token,);
 
     useEffect(() => {
         if (!isLoading && data) {
@@ -68,14 +70,7 @@ export const AccountAdress = () => {
                 </div>
             }
             {isLoading || address.length <= 0 &&
-                <div style={{ height: "40vh" }} className={`d-flex flex-column justify-content-center align-items-center`}>
-                    <div className="mw-300 content d-flex flex-column justify-content-center align-items-center">
-                        <h2 className="text-uppercase mb-3 fw-400 h1">No Address!</h2>
-                        <h2 className="text-uppercase fw-normal mb-3">Address not found</h2>
-                        <p className="text-capitalize text-center mb-3">You do not have an address registered in the system. Let's add a new address.</p>
-                        <Link to={"/account/newaddress"} className="btn-primary button text-uppercase">Add Address</Link>
-                    </div>
-                </div>
+                <NotFoundAddress />
             }
             {address && address.length >= 1 &&
                 <div className="page-content my-account__address">
@@ -84,38 +79,7 @@ export const AccountAdress = () => {
                         </p>
                         <Link to={"/account/newaddress"} className="btn btn-full active ms-3">New Address</Link>
                     </div>
-                    <div className="my-account__address-list ">
-                        {address.map((data) => {
-                            return (
-                                <div key={data._id}  className="my-account__address-item">
-                                    <div
-                                        className="my-account__address-item__title my-5 d-flex justify-content-between align-items-center">
-                                        <h6 className="text-uppercase-fw-normal w-75 truncate" >
-                                            {data.title}
-                                        </h6>
-                                        <div>
-                                            <Link to={`/account/editaddress/${user.user._id}?addressId=${data._id}`} className="btn btn-full active">Edit</Link>
-                                            <Popconfirm
-                                                title="Delete the task"
-                                                description="Are you sure to delete this task?"
-                                                onConfirm={() => deleteAddress(data._id)}
-                                                okText="Yes"
-                                                cancelText="No"
-                                            >
-                                                <a className="btn btn-full active ms-3">Delete</a>
-                                            </Popconfirm>
-                                        </div>
-                                    </div>
-                                    <div className="my-account__address-item__detail">
-                                        <p>{data.name} {data.surname}</p>
-                                        <p>{data.address}</p>
-                                        <br></br>
-                                        <p>{data.phone}</p>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+                    <AddressList deleteAddress={deleteAddress} address={address} />
                 </div>
             }
         </React.Fragment>

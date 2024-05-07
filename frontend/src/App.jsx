@@ -37,6 +37,7 @@ import { DealCollection } from './pages/Admin/Collection/DealCollection/DealColl
 import { Contact } from './pages/Contact/Contact'
 import { ConctactMessages } from './pages/Admin/Feedbacks/ConctactMessages'
 import { ContactDetails } from './pages/Admin/Feedbacks/ContactDetails'
+import PaymentLayouts from './layout/PaymentLayouts'
 
 function App() {
 
@@ -49,13 +50,11 @@ function App() {
         { path: "home", element: <Home /> },
         { path: "allproducts/:seo_link", element: <Allproducts /> },
         { path: "shop/:seo_link", element: <Shop /> },
-        { path: "cart", element: <ShopingCart /> },
-        { path: "checkout", element: <ShopCheckout /> },
         { path: "complete", element: <ShopComplete /> },
         { path: "login_register", element: <Auth /> },
         { path: "/product/:seo_link", element: <ProductDetails /> },
         { path: "about", element: <AboutPage /> },
-        { path: "contact", element: <Contact/> },
+        { path: "contact", element: <Contact /> },
         {
           path: "account", element: <AccountLayout />,
           children: [
@@ -66,6 +65,13 @@ function App() {
             { path: "newaddress", element: <AddAdressForm /> },
             { path: "editaddress/:id", element: <EditAddress /> }
 
+          ]
+        },
+        {
+          path: "/", element: <PaymentLayouts />,
+          children: [
+            { path: "cart", element: <ShopingCart /> },
+            { path: "checkout", element: <ShopCheckout /> }
           ]
         },
         { path: "admin", element: <Dashboard />, },

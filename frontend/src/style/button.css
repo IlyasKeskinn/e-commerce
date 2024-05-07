@@ -93,10 +93,11 @@
     background-color: var(--black);
 }
 
+.disabled {
+    pointer-events: none !important;
+}
 .btn-primary.disabled{
     background-color: #585757;
-
-    pointer-events: none;
 }
 
 .button:hover {

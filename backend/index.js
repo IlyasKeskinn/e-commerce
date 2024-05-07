@@ -24,7 +24,8 @@ const collectionRoutes = require("./router/siteSettings/collection");
 const userRoutes = require("./router/user");
 const settingsRoutes = require("./router/siteSettings/siteSettings");
 const contactRoutes = require("./router/contact");
-const loginRoutes = require("./router/adminLogin");
+// const loginRoutes = require("./router/adminLogin");
+const paymentRoutes = require("./router/payment");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);
@@ -35,7 +36,8 @@ app.use("/slider", sliderRoutes);
 app.use("/contact/", contactRoutes);
 app.use("/collection", collectionRoutes)
 app.use("/upload", uploadRoutes);
-app.use("/admin", loginRoutes);
+// app.use("/admin", loginRoutes);
+app.use("/payment", paymentRoutes)
 
 const port = 3000;
 app.listen(port, () => {
