@@ -10,7 +10,7 @@ const AccountNav = ({dispatch}) => {
     return (
         <nav className="account-nav">
             <div className='account-nav-item'>
-                <NavLink to="dashboard" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Dashboard</NavLink>
+                <NavLink to="" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Dashboard</NavLink>
             </div>
             <div className='account-nav-item'>
                 <NavLink to="orders" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Orders</NavLink>

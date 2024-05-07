@@ -16,7 +16,7 @@ const HeaderTools = (props) => {
                 <i className={`bi bi-${props.drawer.isSearchModalActive ? "x-lg" : "search"}`}></i>
             </a>
             {props.auth.user.user && props.auth.user.user.email ?
-                <Link to={`/account/dashboard`}>
+                <Link to={`/account`}>
                     <i className="bi bi-person"></i>
 
                 </Link>

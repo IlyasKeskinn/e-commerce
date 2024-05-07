@@ -10,10 +10,8 @@ import { LimitedEdition } from "../../components/Home/limitedEdition/LimitedEdit
 import "./Home.css"
 
 export const Home = () => {
-
     return (
         <React.Fragment>
-
             <Slider />
             <ShopCollection />
             <ProductsArea />
@@ -21,7 +19,7 @@ export const Home = () => {
             <GridBanner />
             <InstagramArea />
             <ServicesPromotion />
-            <LimitedEdition/>
+            <LimitedEdition />
         </React.Fragment>
     );
 }

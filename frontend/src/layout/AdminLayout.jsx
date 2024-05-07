@@ -11,12 +11,11 @@ import {
   UserSwitchOutlined
 
 } from '@ant-design/icons';
-import { connect } from 'react-redux';
 
 
 const { Header, Sider, Content } = Layout;
 
-const AdminLayout = ({ auth }) => {
+export const AdminLayout = () => {
   const navigate = useNavigate();
   const siderStyle = {
     textAlign: "center",
@@ -269,53 +268,29 @@ const AdminLayout = ({ auth }) => {
       }
     }
   }
-  // TODO : REFACTOR
-  const isAdmin = () => {
-    const token = JSON.parse(localStorage.getItem("x-auth-token"));
-
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (!token) return false;
-    if (!user || user.user.role !== "admin") return false;
-
-    return true;
-  }
-  if (isAdmin()) {
-    return (<div style={{ minHeight: "100vh" }}>
-      <Layout style={layoutStyle}>
-        <Header width={"75%"} style={headerStyle}>
-          <h2 style={{ fontSize: "28px", fontFamily: "Arial sans-serif", fontWeight: "600" }}>{getProductTitle()}</h2>
-        </Header>
+  return (<div style={{ minHeight: "100vh" }}>
+    <Layout style={layoutStyle}>
+      <Header width={"75%"} style={headerStyle}>
+        <h2 style={{ fontSize: "28px", fontFamily: "Arial sans-serif", fontWeight: "600" }}>{getProductTitle()}</h2>
+      </Header>
+      <Layout>
         <Layout>
-          <Layout>
-            <Sider theme='light' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
-              <Menu
-                theme='light'
-                style={{
-                  width: "100%",
-                  backgroundColor: "#e1eaf4",
-                  border: "none",
-                }}
-                mode="vertical"
-                items={menuItems}
-                defaultSelectedKeys={getActiveKeys()}
-              />
-            </Sider>
-            <Content style={contentStyle}><Outlet /></Content>
-          </Layout>
+          <Sider theme='light' width={"15%"} style={siderStyle} breakpoint='lg' collapsedWidth={0} >
+            <Menu
+              theme='light'
+              style={{
+                width: "100%",
+                backgroundColor: "#e1eaf4",
+                border: "none",
+              }}
+              mode="vertical"
+              items={menuItems}
+              defaultSelectedKeys={getActiveKeys()}
+            />
+          </Sider>
+          <Content style={contentStyle}><Outlet /></Content>
         </Layout>
       </Layout>
-    </div>);
-  } else {
-    window.location.href = "/";
-  }
+    </Layout>
+  </div>);
 }
-
-
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  }
-}
-
-export default connect(mapStateToProps)(AdminLayout);

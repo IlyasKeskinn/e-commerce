@@ -1,4 +1,6 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Navigate, Route, Routes } from "react-router-dom";
+import { MainLayout } from "./layout/MainLayout"
+import { AdminLayout } from "./layout/AdminLayout"
 import { Home } from './pages/Home/Home'
 import { Allproducts } from './pages/Shop/Allproducts'
 import { Shop } from './pages/Shop/Shop'
@@ -7,12 +9,11 @@ import { ShopCheckout } from './pages/ShopCheckout/ShopCheckout'
 import { ShopComplete } from './pages/ShopComplete/ShopComplete'
 import { Auth } from "./pages/Auth/Auth"
 import { NotFound } from './pages/NotFoundPage/NotFound'
-import AccountLayout  from './layout/AccountLayout'
+import AccountLayout from './layout/AccountLayout'
 import { AccountDashboard } from './pages/Account/AccountDashboard'
 import { AccountAdress } from './pages/Account/AccountAddress'
 import { AccountDetails } from './pages/Account/AccountDetails'
 import { AccountOrders } from './pages/Account/AccountOrders'
-import { DefaultLayout } from './layout/DefaultLayout'
 import { ProductDetails } from './pages/ProductDetails/ProductDetails'
 import { Dashboard } from './pages/Admin/Dashboard'
 import { CategoryList } from './pages/Admin/Category/CategoryList'
@@ -41,78 +42,83 @@ import PaymentLayouts from './layout/PaymentLayouts'
 import { Orders } from './pages/Admin/Orders/Orders'
 import { AccountConfirm } from './pages/Account/AccountConfirm'
 import { ResetPassword } from './components/Auth/ResetPassword'
+import { connect } from "react-redux";
+import { ProtectedRoutes } from "./paths/ProtectedRoutes"
 
-function App() {
+const App = ({ auth }) => {
+  return (
+    <Routes>
+      <Route element={<MainLayout />}>
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <DefaultLayout />,
-      children: [
-        { path: "/", element: <Home /> },
-        { path: "home", element: <Home /> },
-        { path: "allproducts/:seo_link", element: <Allproducts /> },
-        { path: "shop/:seo_link", element: <Shop /> },
-        { path: "login_register", element: <Auth /> },
-        { path: "/product/:seo_link", element: <ProductDetails /> },
-        { path: "about", element: <AboutPage /> },
-        { path: "contact", element: <Contact /> },
-        {
-          path: "account", element: <AccountLayout />,
-          children: [
-            { path: "dashboard", element: <AccountDashboard /> },
-            { path: "address", element: <AccountAdress /> },
-            { path: "orders", element: <AccountOrders /> },
-            { path: "newaddress", element: <AddAdressForm /> },
-            { path: "editaddress/:id", element: <EditAddress /> }
-
-          ]
-        },
-        {
-          path: "account/confirm/:id", element: <AccountConfirm />
-        },
-        {
-          path : "account/reset_password/", element : <ResetPassword/>
-        },
-        {
-          path: "/", element: <PaymentLayouts />,
-          children: [
-            { path: "cart", element: <ShopingCart /> },
-            { path: "checkout", element: <ShopCheckout /> },
-            { path: "confirmation", element: <ShopComplete /> },
+        <Route path="/" element={<Home />} />
+        <Route path="home" element={<Home />} />
+        <Route path="allproducts/:seo_link" element={<Allproducts />} />
+        <Route path="shop/:seo_link" element={<Shop />} />
+        <Route path="/product/:seo_link" element={<ProductDetails />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="contact" element={<Contact />} />
 
 
-          ]
-        },
-        { path: "admin", element: <Dashboard />, },
-        { path: "admin/categorylist", element: <CategoryList />, },
-        { path: "admin/newcategory", element: <NewCategory />, },
-        { path: "admin/newsubcategory/", element: <NewSubCategory /> },
-        { path: "admin/updatecategory/:id", element: <CategoryUpdate />, },
-        { path: "admin/subcategorylist/:id", element: <SubCategoryList /> },
-        { path: "admin/updatesubcategory/:id", element: <SubCategoryUpdate /> },
-        { path: "admin/productlist", element: <ProductList />, },
-        { path: "admin/newproduct", element: <NewProduct />, },
-        { path: "admin/updateproduct/:id", element: <UpdateProduct /> },
-        { path: "admin/addlimitedproducts", element: <AddLimitedProducts /> },
-        { path: "admin/limitedproducts", element: <LimitedProducts /> },
-        { path: "admin/sliderlist", element: <SliderList /> },
-        { path: "admin/newslider", element: <NewSlider /> },
-        { path: "admin/updateslider/:id", element: <UpddateSlider /> },
-        { path: "admin/settings/about", element: <About /> },
-        { path: "admin/collections/deal_collection", element: <DealCollection /> },
-        { path: "admin/feedbacks/contacts", element: <ConctactMessages /> },
-        { path: "admin/feedbacks/update_contacts/:id", element: <ContactDetails /> },
-        { path: "admin/orders", element: <Orders /> },
+        <Route path="account/reset_password/" element={<ResetPassword />} />
 
+        <Route element={<ProtectedRoutes condition={!auth.user.user} />}>
+          <Route path="account/confirm/:id" element={<AccountConfirm />} />
+          <Route path="login_register" element={<Auth />} />
+        </Route>
 
-        { path: "*", element: <NotFound /> }
-      ]
-    }
-  ])
-  return (<RouterProvider router={router}></RouterProvider>)
+        <Route element={<ProtectedRoutes condition={auth.user.user} routes={"/login_register"} />}>
 
+          <Route path="account" element={<AccountLayout />}>
+            <Route path="" element={<AccountDashboard />} />
+            <Route path="address" element={<AccountAdress />} />
+            <Route path="orders" element={<AccountOrders />} />
+            <Route path="newaddress" element={<AddAdressForm />} />
+            <Route path="editaddress/:id" element={<EditAddress />} />
+          </Route>
+
+          <Route path="payment" element={<PaymentLayouts />}>
+            <Route path="cart" element={<ShopingCart />} />
+            <Route path="checkout" element={<ShopCheckout />} />
+            <Route path="confirmation" element={<ShopComplete />} />
+          </Route>
+        </Route>
+      </Route>
+
+      <Route element={<ProtectedRoutes condition={auth.user.user && auth.user.user.role === "admin"} />}>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route path="" element={<Dashboard />} />
+          <Route path="categorylist" element={<CategoryList />} />
+          <Route path="newcategory" element={<NewCategory />} />
+          <Route path="newsubcategory/" element={<NewSubCategory />} />
+          <Route path="updatecategory/:id" element={<CategoryUpdate />} />
+          <Route path="subcategorylist/:id" element={<SubCategoryList />} />
+          <Route path="updatesubcategory/:id" element={<SubCategoryUpdate />} />
+          <Route path="productlist" element={<ProductList />} />
+          <Route path="newproduct" element={<NewProduct />} />
+          <Route path="updateproduct/:id" element={<UpdateProduct />} />
+          <Route path="addlimitedproducts" element={<AddLimitedProducts />} />
+          <Route path="limitedproducts" element={<LimitedProducts />} />
+          <Route path="sliderlist" element={<SliderList />} />
+          <Route path="newslider" element={<NewSlider />} />
+          <Route path="updateslider/:id" element={<UpddateSlider />} />
+          <Route path="settings/about" element={<About />} />
+          <Route path="collections/deal_collection" element={<DealCollection />} />
+          <Route path="feedbacks/contacts" element={<ConctactMessages />} />
+          <Route path="feedbacks/update_contacts/:id" element={<ContactDetails />} />
+          <Route path="orders" element={<Orders />} />
+        </Route>
+      </Route>
+
+      <Route path="*" element={<NotFound />} />
+    </Routes >
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  }
 }
 
-export default App
 
+export default connect(mapStateToProps)(App);

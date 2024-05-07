@@ -13,6 +13,7 @@ import "./style/button.css"
 import "./style/input.css"
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css"
 import 'swiper/css';
+import { BrowserRouter } from 'react-router-dom'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -25,8 +26,10 @@ store.dispatch(getAuthUser());
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 )
 

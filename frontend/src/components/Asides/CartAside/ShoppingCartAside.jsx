@@ -35,8 +35,8 @@ const ShoppingCartAside = ({ cart, drawer, dispatch }) => {
                                     <p className="sub-total-number">${(Number(cart.total.sub_total)).toFixed(2)}</p>
                                 </div>
                                 <div className="buttonwrapper">
-                                    <Link to={`/cart`} className="button btn-secondary w-100" onClick={() => { dispatch(setCartAsideAction(false)) }}>View Cart</Link>
-                                    <Link to={`/checkout`} className="button btn-primary w-100" onClick={() => { dispatch(setCartAsideAction(false)) }} >Checkout</Link>
+                                    <Link to={`/payment/cart`} className="button btn-secondary w-100" onClick={() => { dispatch(setCartAsideAction(false)) }}>View Cart</Link>
+                                    <Link to={`/payment/checkout`} className="button btn-primary w-100" onClick={() => { dispatch(setCartAsideAction(false)) }} >Checkout</Link>
                                 </div>
                             </div>
                         </div>

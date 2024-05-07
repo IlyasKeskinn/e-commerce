@@ -9,10 +9,6 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = ({ cart }) => {
 
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : [];
-    if (!user.user) return window.location.href = "/cart"
-
-
     const API_URL = import.meta.env.VITE_BASE_API_URL;
     const MY_STRIPE_KEY = import.meta.env.VITE_STRIPE_PUBLISH_KEY
     const token = localStorage.getItem("x-auth-token") ? JSON.parse(localStorage.getItem("x-auth-token")) : "";
@@ -20,9 +16,6 @@ const Checkout = ({ cart }) => {
     const { data, isLoading, error } = useFetchWithToken(fetchURL, token,);
     const [address, setAddress] = useState([]);
     const [isUpload, setUpload] = useState(false);
-
-
-
 
     const [selectedAddressId, setSelectedAddressId] = useState("");
     const handleAddress = (id) => {

@@ -7,8 +7,7 @@ import { message } from "antd";
 
 
 export const AccountConfirm = () => {
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : [];
-    if (user.user) return window.location.href = "/"
+
     const navigate = useNavigate();
     const id = useParams().id;
     const [email, setEmail] = useState("");
@@ -17,7 +16,6 @@ export const AccountConfirm = () => {
     const [isLoading, setLoading] = useState(false);
     const API_URL = import.meta.env.VITE_BASE_API_URL;
     const fetchURL = `/auth/confirm/${id}`;
-
 
     const setOnChangeMail = (e) => {
         const newEmail = e.trim();
@@ -32,7 +30,6 @@ export const AccountConfirm = () => {
         }
 
         try {
-            console.log(fetchURL);
             const response = await fetch(`${API_URL}${fetchURL}`, {
                 method: "POST",
                 headers: {
