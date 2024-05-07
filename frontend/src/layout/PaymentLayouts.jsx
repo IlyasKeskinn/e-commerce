@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { CheckoutSteps } from '../components/Cart/CheckoutSteps/CheckoutSteps'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 const PaymentLayouts = ({ cart }) => {
-    const pathname = window.location.pathname;
-    const parts = pathname.split('/');
+    const location = useLocation();
+    const parts = location.pathname.split('/');
     const name = parts[parts.length - 1];
+
 
     return (
         <React.Fragment>
@@ -13,7 +14,7 @@ const PaymentLayouts = ({ cart }) => {
                 <div className="container cart-container">
                     <h3 className="page-title text-uppercase">{name}</h3>
                     <CheckoutSteps name={name} />
-                    {cart.cartItems.length <= 0
+                    {name !=="confirmation"  && cart.cartItems.length <= 0
                         ?
                         <div className="p-5 m-5 h" style={{ height: 500 }}>
                             <p className="lead text-uppercase text-secondary text-capitalize fw-normal">There are no items in your cart, go ahead and add items to your cart!</p>

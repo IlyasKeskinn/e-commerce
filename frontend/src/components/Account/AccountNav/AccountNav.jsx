@@ -18,12 +18,9 @@ const AccountNav = ({dispatch}) => {
             <div className='account-nav-item'>
                 <NavLink to="address" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Addresses</NavLink>
             </div>
-            <div className='account-nav-item'>
-                <NavLink to="details" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Account Details</NavLink>
-            </div>
-            <div className='account-nav-item'>
+            {/* <div className='account-nav-item'>
                 <NavLink to="wishlist" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Wishlist</NavLink>
-            </div>
+            </div> */}
             <div className='account-nav-item'>
                 <NavLink onClick={handleLogout} to="/" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Logout</NavLink>
             </div>

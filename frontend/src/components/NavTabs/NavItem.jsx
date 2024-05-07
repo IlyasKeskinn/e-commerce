@@ -1,6 +1,7 @@
 import "./NavItem.css"
 export const NavItem = (props) => {
     
+    console.log(props.isActive);
     const handleTab = (e)=> {
         e.preventDefault();
         if (props.setActiveTabs) {
@@ -11,7 +12,7 @@ export const NavItem = (props) => {
     }
     return (
         <li className={`nav-item me-2`}  onClick={(e)=> {handleTab(e)}}>
-            <a href="#" id={props.navId}
+            <a href="#"  id={props.navId}
                 className={`btn btn-full text-uppercase text-secondary  ${props.isActive ? "active" : ""}`}>
                 {props.navText}
             </a>

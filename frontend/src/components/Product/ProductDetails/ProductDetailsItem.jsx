@@ -17,7 +17,7 @@ export const ProductDetailsItem = ({ seo_link }) => {
     }, [])
     const productFetchURL = `/product/getProductBySeo/`;
     const product = useFetch(`${productFetchURL}${seo_link}`);
-    const [newPrice, setNewPrice] = useState(10);
+    const [newPrice, setNewPrice] = useState(0);
     const [comments, setComments] = useState([]);
 
     useEffect(() => {

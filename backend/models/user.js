@@ -1,6 +1,8 @@
 const { mongoose, Schema } = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
+const JWT_SECRET_KEY  = (process.env.JWT_SECRET_KEY);
+
 
 const addressSchema = mongoose.Schema({
     userId: { type: Schema.Types.ObjectId, ref: "Users", required: true },
@@ -28,7 +30,7 @@ const userSchema = mongoose.Schema({
 
 userSchema.methods.createAuthToken = function () {
     //TODO secret keys env
-    return jwt.sign({ _id: this._id, role: this.userRole, email: this.email }, "mySecretKey")
+    return jwt.sign({ _id: this._id, role: this.userRole, email: this.email }, JWT_SECRET_KEY)
 }
 
 //define model 

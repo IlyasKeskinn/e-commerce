@@ -33,7 +33,14 @@ export const cartReducer = (state = cartState, action) => {
                     }
                 })
             };
-
+        case "CLEAR_CART":
+            return {
+                total: {
+                    sub_total: 0,
+                    total: 0
+                },
+                cartItems: []
+            };
         case "UPDATE_TOTAL":
             return {
                 ...state,

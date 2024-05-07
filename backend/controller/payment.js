@@ -26,12 +26,12 @@ exports.postPayment = async (req, res) => {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: `${process.env.CLIENT_DOMAIN}/success`,
+            success_url: `${process.env.CLIENT_DOMAIN}/confirmation`,
             payment_intent_data: {
                 metadata: {
-                    "user_id": user._id,
+                    "user_email": user.email,
                     "address_id": address._id,
-                    "status": "payment_received"
+                    "status": "payment_received",
                 },
             },
 

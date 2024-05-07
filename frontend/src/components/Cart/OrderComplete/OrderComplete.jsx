@@ -1,12 +1,23 @@
-import React from 'react'
-import { CheckoutSteps } from '../CheckoutSteps/CheckoutSteps'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { clearCartLocalStorage } from '../../../actions/cartAction'
 
-export const OrderComplete = () => {
+const OrderComplete = ({ dispatch, cart }) => {
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : [];
+    if (!user.user) return window.location.href = "/cart"
+
+    const [pageLoaded, setPageLoaded] = useState(false);
+    const [data, setDataa] = useState(cart)
+    useEffect(() => {
+
+        if (!pageLoaded) {
+            dispatch(clearCartLocalStorage());
+            setPageLoaded(true);
+        }
+    }, [pageLoaded, clearCartLocalStorage]);
     return (
         <section className="shop-complete-section d-flex justify-content-center align-items-center my-5">
             <div className="container cart-container">
-                <h3 className="page-title text-uppercase">ORDER RECEIVED</h3>
-                <CheckoutSteps/>
                 <div className="shop-complete__container ">
                     <div className="shop-complete__wrapper">
                         <div className="order-complete__msg d-flex justify-content-center align-items-center flex-column">
@@ -34,7 +45,7 @@ export const OrderComplete = () => {
                                     Date
                                 </label>
                                 <span>
-                                    27/10/2023
+                                    {new Date().getFullYear()}
                                 </span>
                             </div>
                             <div className="order-complete__info-item">
@@ -42,7 +53,7 @@ export const OrderComplete = () => {
                                     Total
                                 </label>
                                 <span>
-                                    $81.40
+                                    {data.total.total}
                                 </span>
                             </div>
                             <div className="order-complete__info-item">
@@ -64,20 +75,22 @@ export const OrderComplete = () => {
                                             <th>Subtotal</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Zessi Dresses x 2</td>
-                                                <td>$32.50</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Kirby T-Shirt</td>
-                                                <td>$29.90</td>
-                                            </tr>
+                                            {data.cartItems.map((item) => {
+                                                return (
+                                                    <tr key={item.id}>
+                                                        <td>{item.name} * {item.amount}</td>
+                                                        <td>${Number(item.price * item.amount).toFixed(2)}</td>
+                                                    </tr>
+                                                );
+                                            })}
                                         </tbody>
                                     </table>
                                     <table>
                                         <tr>
                                             <th>Subtotal</th>
-                                            <td>$1300</td>
+                                            <td>$
+                                                {data.total.sub_total}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Shipping</th>
@@ -91,13 +104,13 @@ export const OrderComplete = () => {
                                         </tr>
                                         <tr>
                                             <th>Subtotal</th>
-                                            <td>$1300</td>
+                                            <td>$
+                                                {data.total.sub_total}
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -106,3 +119,12 @@ export const OrderComplete = () => {
         </section>
     )
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(OrderComplete);

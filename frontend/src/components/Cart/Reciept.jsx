@@ -8,7 +8,7 @@ export const Reciept = ({ cart, isCheckoutPage }) => {
                 <tbody>
                     <tr>
                         <th>Subtotal</th>
-                        <td className="sub-total-number">${cart.total.sub_total}</td>
+                        <td className="sub-total-number">${Number(cart.total.sub_total).toFixed(2)}</td>
                     </tr>
                     <tr>
                         <th>Shipping</th>
@@ -20,7 +20,7 @@ export const Reciept = ({ cart, isCheckoutPage }) => {
                     </tr>
                     <tr>
                         <th>Total</th>
-                        <td className="sub-total-number">${cart.total.total}</td>
+                        <td className="sub-total-number">${Number(cart.total.total).toFixed(2)}</td>
                     </tr>
                 </tbody>
             </table>

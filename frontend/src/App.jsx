@@ -38,6 +38,7 @@ import { Contact } from './pages/Contact/Contact'
 import { ConctactMessages } from './pages/Admin/Feedbacks/ConctactMessages'
 import { ContactDetails } from './pages/Admin/Feedbacks/ContactDetails'
 import PaymentLayouts from './layout/PaymentLayouts'
+import { Orders } from './pages/Admin/Orders/Orders'
 
 function App() {
 
@@ -50,7 +51,6 @@ function App() {
         { path: "home", element: <Home /> },
         { path: "allproducts/:seo_link", element: <Allproducts /> },
         { path: "shop/:seo_link", element: <Shop /> },
-        { path: "complete", element: <ShopComplete /> },
         { path: "login_register", element: <Auth /> },
         { path: "/product/:seo_link", element: <ProductDetails /> },
         { path: "about", element: <AboutPage /> },
@@ -60,7 +60,6 @@ function App() {
           children: [
             { path: "dashboard", element: <AccountDashboard /> },
             { path: "address", element: <AccountAdress /> },
-            { path: "details", element: <AccountDetails /> },
             { path: "orders", element: <AccountOrders /> },
             { path: "newaddress", element: <AddAdressForm /> },
             { path: "editaddress/:id", element: <EditAddress /> }
@@ -71,7 +70,10 @@ function App() {
           path: "/", element: <PaymentLayouts />,
           children: [
             { path: "cart", element: <ShopingCart /> },
-            { path: "checkout", element: <ShopCheckout /> }
+            { path: "checkout", element: <ShopCheckout /> },
+            { path: "confirmation", element: <ShopComplete /> },
+
+
           ]
         },
         { path: "admin", element: <Dashboard />, },
@@ -93,6 +95,7 @@ function App() {
         { path: "admin/collections/deal_collection", element: <DealCollection /> },
         { path: "admin/feedbacks/contacts", element: <ConctactMessages /> },
         { path: "admin/feedbacks/update_contacts/:id", element: <ContactDetails /> },
+        { path: "admin/orders", element: <Orders /> },
 
 
         { path: "*", element: <NotFound /> }

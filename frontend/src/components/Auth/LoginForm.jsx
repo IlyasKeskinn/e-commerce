@@ -3,28 +3,30 @@ import { FormInput } from '../Inputs/FormInput'
 import { Checkbox } from '../Inputs/Checkbox'
 import { message } from "antd";
 import { setAuthUser } from '../../actions/authAction';
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 
 
-const LoginForm = ({dispatch}) => {
+const LoginForm = ({ dispatch }) => {
 
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-        rememberMe: "",
-    });
-    const setOnChange = (e) => {
-        const { name, value } = e.target
-        setFormData({ ...formData, [name]: value });
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [rememberMe, setRememberMe] = useState("");
+
+    const setOnChangePassword = (e) => {
+        setPassword(e)
+    }
+    const setOnChangeMail = (e) => {
+        setEmail(e)
     }
     const setOnChecked = (checked) => {
-        setFormData({ ...formData, rememberMe: checked })
+        setRememberMe(checked)
     }
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        const formData = { password: password, email: email, rememberMe: rememberMe }
         try {
             const response = await fetch(`${apiUrl}/auth/login`, {
                 method: "POST",
@@ -36,7 +38,7 @@ const LoginForm = ({dispatch}) => {
             if (response.ok) {
                 const authToken = response.headers.get("x-auth-token");
                 const user = await response.json();
-                dispatch(setAuthUser(user,authToken,formData));
+                dispatch(setAuthUser(user, authToken, formData));
                 if (user.role === "admin") {
                     window.location.href = "/admin"
                 }
@@ -60,10 +62,10 @@ const LoginForm = ({dispatch}) => {
         <div className="login-form form">
             <form onSubmit={handleLogin} className="login-form form">
                 <div className="col-12">
-                    <FormInput type={"text"} setOnChange={setOnChange} inputName="email" text="email" required />
+                    <FormInput value={email} type={"text"} handleInput={setOnChangeMail} inputName="email" text="email" required />
                 </div>
                 <div className="col-12">
-                    <FormInput type={"password"} setOnChange={setOnChange} inputName="password" text="password" required />
+                    <FormInput value={password} type={"password"} handleInput={setOnChangePassword} inputName="password" text="password" required />
 
                 </div>
                 <div className="col-12 input-check-box d-flex justify-content-between align-items-center">

@@ -132,7 +132,7 @@ export const updateCartTotal = () => {
         let total = 0;
         if (localCart.cartItems.length > 0) {
             productsPrices = Object.values(localCart.cartItems).map((item) => { return (item.amount * item.price) });
-            subTotal = productsPrices.reduce((prevValue, currentValue) => prevValue + currentValue,0);
+            subTotal = productsPrices.reduce((prevValue, currentValue) => prevValue + currentValue, 0);
             total = (subTotal + 10)
         }
         localCart.total = {
@@ -145,3 +145,16 @@ export const updateCartTotal = () => {
         dispatch(updateTotal(subTotal, total))
     }
 }
+
+export const clearCart = () => ({
+    type: "CLEAR_CART"
+});
+
+export const clearCartLocalStorage = () => {
+    return dispatch => {
+        const clearedCart = { total: { sub_total: 0, total: 0 }, cartItems: [] }
+        localStorage.setItem("cart", JSON.stringify(clearedCart));
+        dispatch(clearCart());
+        dispatch(setCart({ total: { sub_total: 0, total: 0 }, cartItems: [] }));
+    };
+};
