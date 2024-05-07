@@ -53,7 +53,7 @@ export const RegisterForm = () => {
 
     useEffect(() => {
         if (data && data._id) {
-            message.success("Account created successfully.");
+            message.success("Your account has been created. You can log in by verifying your email.");
             setPassword("");
             setEmail("");
             setUserName("");

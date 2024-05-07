@@ -39,6 +39,7 @@ import { ConctactMessages } from './pages/Admin/Feedbacks/ConctactMessages'
 import { ContactDetails } from './pages/Admin/Feedbacks/ContactDetails'
 import PaymentLayouts from './layout/PaymentLayouts'
 import { Orders } from './pages/Admin/Orders/Orders'
+import { AccountConfirm } from './pages/Account/AccountConfirm'
 
 function App() {
 
@@ -65,6 +66,9 @@ function App() {
             { path: "editaddress/:id", element: <EditAddress /> }
 
           ]
+        },
+        {
+          path: "account/confirm/:id", element: <AccountConfirm />
         },
         {
           path: "/", element: <PaymentLayouts />,

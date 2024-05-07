@@ -1,8 +1,7 @@
 const { mongoose, Schema } = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET_KEY  = (process.env.JWT_SECRET_KEY);
-
+const JWT_SECRET_KEY = (process.env.JWT_SECRET_KEY);
 
 const addressSchema = mongoose.Schema({
     userId: { type: Schema.Types.ObjectId, ref: "Users", required: true },
@@ -26,6 +25,9 @@ const userSchema = mongoose.Schema({
     userRole: { type: String, default: "user", enum: ["user", "admin"] },
     avatar: { type: String },
     user_address: [addressSchema],
+    token: { type: String, default: "" },
+    tokenExpiration: { type: Date, default: Date.now() },
+    inActive : {type :Boolean}
 })
 
 userSchema.methods.createAuthToken = function () {

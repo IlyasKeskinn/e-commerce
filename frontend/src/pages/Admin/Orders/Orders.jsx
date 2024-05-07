@@ -56,7 +56,6 @@ useEffect(() => {
 }, [MY_STRIPE_SECRET_KEY]);
 
 
-console.log(data);
 return (
     <div>
         <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={data} loading={isLoading} rowKey={(record) => record.id} />

@@ -1,7 +1,6 @@
 import "./NavItem.css"
 export const NavItem = (props) => {
     
-    console.log(props.isActive);
     const handleTab = (e)=> {
         e.preventDefault();
         if (props.setActiveTabs) {

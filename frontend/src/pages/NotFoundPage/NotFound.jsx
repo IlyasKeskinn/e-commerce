@@ -13,7 +13,7 @@ export const NotFound = (props) => {
                 <h2 className="text-uppercase fw-normal mb-3">Page not found</h2>
                 <p className="text-capitalize text-center mb-3">Sorry, we couldn't find the page you where looking for. We
                     suggest that you return to home page.</p>
-                <Link to={""} className="btn-primary button text-uppercase">Go Back...</Link>
+                <Link to={"/"} className="btn-primary button text-uppercase">Go Home...</Link>
             </div>
         </section>
     )
