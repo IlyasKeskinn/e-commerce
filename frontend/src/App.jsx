@@ -7,7 +7,7 @@ import { ShopCheckout } from './pages/ShopCheckout/ShopCheckout'
 import { ShopComplete } from './pages/ShopComplete/ShopComplete'
 import { Auth } from "./pages/Auth/Auth"
 import { NotFound } from './pages/NotFoundPage/NotFound'
-import { AccountLayout } from './layout/AccountLayout'
+import AccountLayout  from './layout/AccountLayout'
 import { AccountDashboard } from './pages/Account/AccountDashboard'
 import { AccountAdress } from './pages/Account/AccountAddress'
 import { AccountDetails } from './pages/Account/AccountDetails'
@@ -40,6 +40,7 @@ import { ContactDetails } from './pages/Admin/Feedbacks/ContactDetails'
 import PaymentLayouts from './layout/PaymentLayouts'
 import { Orders } from './pages/Admin/Orders/Orders'
 import { AccountConfirm } from './pages/Account/AccountConfirm'
+import { ResetPassword } from './components/Auth/ResetPassword'
 
 function App() {
 
@@ -69,6 +70,9 @@ function App() {
         },
         {
           path: "account/confirm/:id", element: <AccountConfirm />
+        },
+        {
+          path : "account/reset_password/", element : <ResetPassword/>
         },
         {
           path: "/", element: <PaymentLayouts />,

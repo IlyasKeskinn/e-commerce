@@ -98,7 +98,7 @@ exports.postLogin = async (req, res) => {
 exports.confirmUser = async (req, res) => {
 
     const token = req.params.id;
-    const  email  = req.body.email;
+    const email = req.body.email;
 
     try {
         const user = await User.findOne({ email: email, token: token });
@@ -116,6 +116,48 @@ exports.confirmUser = async (req, res) => {
         user.tokenExpiration = null;
         await user.save();
         res.status(200).json();
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+exports.resetPaswordRequest = async (req, res) => {
+    try {
+        const email = req.body;
+
+        const user = await User.findOne({ email: email });
+
+        if (!user) {
+            return res.status(404).json("There is no such user");
+        }
+
+        const validationToken = crypto.randomBytes(32).toString("hex");
+
+        user.token = validationToken;
+        user.tokenExpiration = Date.now() + (1000 * 60 * 60);
+
+        await user.save();
+
+        await sendMailer.sendMail({
+            from: mailFrom,
+            to: email,
+            subject: "Reset Your Password",
+            html: `
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h1>Hello!</h1>
+                    <p>To reset your password, please click the button below:</p>
+                    <p style="text-align: center;">
+                        <a href=${CLIENT_DOMAIN}/account/reset-password/${resetToken}?q=email=${email}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a>
+                    </p>
+                    <p>If you did not request a password reset, you can safely ignore this email.</p>
+                    <p>Best regards!</p>
+                </div>
+            `
+        })
+        // The password reset link has been sent to your email.
+        res.status(200).json()
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ error: error.message });

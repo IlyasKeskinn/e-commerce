@@ -4,6 +4,7 @@ import { Checkbox } from '../Inputs/Checkbox'
 import { message } from "antd";
 import { setAuthUser } from '../../actions/authAction';
 import { connect } from "react-redux"
+import { Link } from 'react-router-dom';
 
 
 const LoginForm = ({ dispatch }) => {
@@ -77,7 +78,7 @@ const LoginForm = ({ dispatch }) => {
                 </div>
                 <div className="col-12 my-5 d-flex justify-content-center align-items-center">
                     <span className="text-secondary text-capitalize">No account yet?</span>
-                    <a href="#" className="checkbox-label-text btn btn-full active">Create Account</a>
+                    <Link to={"/login_register"} className="checkbox-label-text btn btn-full active">Create Account</Link>
                 </div>
             </form>
         </div>
