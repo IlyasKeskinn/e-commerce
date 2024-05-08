@@ -201,9 +201,9 @@ export const AdminLayout = () => {
           key: 24,
           icon: <ContactsOutlined />,
           label: "Reviews",
-          path: "/admin/feedbacks/contacts",
+          path: "/admin/feedbacks/productreviews",
           onClick: () => {
-            navigate("/admin/feedbacks/contacts")
+            navigate("/admin/feedbacks/productreviews")
           }
         }
       ]

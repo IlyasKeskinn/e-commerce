@@ -56,8 +56,12 @@ const ProductCard = ({ product, dispatch }) => {
                 <div className="d-flex product-card__price">
                     <span className="money price">${newPrice.toFixed(2)}</span>
                 </div>
-                <ReviewsStars />
-                <ReviewRate reviews={product.reviews.length} />
+                {product.reviews.length >= 1 &&
+                    <>
+                        <ReviewsStars />
+                        <ReviewRate reviews={product.reviews.length} />
+                    </>
+                }
                 <button className="pc__btn d-flex align-items-center justify-content center" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                         className="bi bi-heart" viewBox="0 0 16 16">

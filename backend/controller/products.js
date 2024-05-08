@@ -2,6 +2,7 @@ const { Product, Comment, LimitedProducts, validateProduct } = require("../model
 const { mongoose } = require("mongoose");
 const slugField = require("../helpers/slugField");
 const deleteOldImages = require("../helpers/deletePhoto");
+
 exports.getProducts = async (req, res) => {
     try {
         const products = await Product.find().populate("categories").populate("subcategories").limit(8);
@@ -12,7 +13,6 @@ exports.getProducts = async (req, res) => {
         }
     }
 }
-
 
 exports.getProductById = async (req, res) => {
     const productId = req.params.id;
@@ -121,7 +121,6 @@ exports.putUpdateProduct = async (req, res) => {
     }
 }
 
-
 exports.deleteProduct = async (req, res) => {
 
     try {
@@ -136,6 +135,18 @@ exports.deleteProduct = async (req, res) => {
 
 
 //product comments
+
+//get all comments
+exports.getProductsComments = async (req, res) => {
+    try {
+        const products = await Product.find().select("reviews").populate("reviews");
+        res.json(products);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json(error.message);
+        }
+    }
+}
 
 exports.putProductComment = async (req, res) => {
     const productId = req.params.id;
@@ -212,6 +223,7 @@ exports.putUpdateProductComment = async (req, res) => {
 }
 
 
+//limited products
 exports.getLimitedProducts = async (req, res) => {
     try {
         const limitedProducts = await LimitedProducts.find().populate("product");

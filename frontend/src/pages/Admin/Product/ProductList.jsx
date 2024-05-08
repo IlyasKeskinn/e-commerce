@@ -80,6 +80,7 @@ export const ProductList = () => {
 
 
 
+    console.log(data);
     return (
         <div>
             <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={data} loading={isLoading} rowKey={(record) => record._id} />
