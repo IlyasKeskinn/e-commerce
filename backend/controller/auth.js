@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+require('express-async-errors');
 const bcrypt = require('bcrypt');
 const { User, validateUser } = require("../models/user");
 const crypto = require("crypto");
@@ -16,32 +16,31 @@ exports.postRegister = async (req, res) => {
     }
     const { userName, email, password, userRole, avatar } = req.body;
 
-    try {
-        const existingUser = await User.findOne({ "email": email });
+    const existingUser = await User.findOne({ "email": email });
 
-        if (existingUser) {
-            return res.status(400).json({ "error": "Email address is already registed." });
-        }
+    if (existingUser) {
+        return res.status(400).json({ "error": "Email address is already registed." });
+    }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await new User({
-            userName: userName,
-            email: email,
-            password: hashedPassword,
-            userRole: userRole,
-            avatar: avatar,
-            token: validationToken,
-            tokenExpiration: Date.now() + (1000 * 60 * 60),
-            inActive: true
-        })
-        const token = newUser.createAuthToken();
+    const newUser = await new User({
+        userName: userName,
+        email: email,
+        password: hashedPassword,
+        userRole: userRole,
+        avatar: avatar,
+        token: validationToken,
+        tokenExpiration: Date.now() + (1000 * 60 * 60),
+        inActive: true
+    })
+    const token = newUser.createAuthToken();
 
-        await sendMailer.sendMail({
-            from: mailFrom,
-            to: email,
-            subject: "Confirm Your Account",
-            html: `
+    await sendMailer.sendMail({
+        from: mailFrom,
+        to: email,
+        subject: "Confirm Your Account",
+        html: `
                 <div style="max-width: 600px; margin: 0 auto;">
                     <h1>Welcome to Zephyra!</h1>
                     <p>To complete your registration, please click the button below to confirm your account:</p>
@@ -52,47 +51,35 @@ exports.postRegister = async (req, res) => {
                 <p>Thank you for choosing Blog Apps!</p>
                 </div>
             `
-        })
-
-        newUser.save();
-        res.header("x-auth-token", token).status(201).json(newUser);
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
+    })
+    newUser.save();
+    res.header("x-auth-token", token).status(201).json(newUser);
 }
 
 exports.postLogin = async (req, res) => {
     const { email, password } = req.body;
-    try {
-        const user = await User.findOne({ "email": email });
-        if (!user) {
-            return res.status(401).json({ error: "Invalid email or password!" })
-        }
-        const isValidPassword = await bcrypt.compare(password, user.password);
 
-
-        if (!isValidPassword) {
-            return res.status(401).json({ error: "Invalid email or password!" })
-        }
-        if (user.inActive) {
-            return res.status(403).json({ error: "Your account is inactive, please confirm your account!" });
-        }
-
-        const token = user.createAuthToken();
-
-        res.setHeader("Access-Control-Expose-Headers", "x-auth-token");
-
-        res.status(201).header({ "x-auth-token": token }).json(
-            { _id: user._id, email: user.email, userName: user.userName, role: user.userRole }
-        )
-
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
+    const user = await User.findOne({ "email": email });
+    if (!user) {
+        return res.status(401).json({ error: "Invalid email or password!" })
     }
+    const isValidPassword = await bcrypt.compare(password, user.password);
+
+
+    if (!isValidPassword) {
+        return res.status(401).json({ error: "Invalid email or password!" })
+    }
+    if (user.inActive) {
+        return res.status(403).json({ error: "Your account is inactive, please confirm your account!" });
+    }
+
+    const token = user.createAuthToken();
+
+    res.setHeader("Access-Control-Expose-Headers", "x-auth-token");
+
+    res.status(201).header({ "x-auth-token": token }).json(
+        { _id: user._id, email: user.email, userName: user.userName, role: user.userRole }
+    )
 }
 
 exports.confirmUser = async (req, res) => {
@@ -100,54 +87,48 @@ exports.confirmUser = async (req, res) => {
     const token = req.params.id;
     const email = req.body.email;
 
-    try {
-        const user = await User.findOne({ email: email, token: token });
+    const user = await User.findOne({ email: email, token: token });
 
-        if (!user) {
-            return res.status(401).json({ error: "Invalid token or email!" });
-        }
-
-        if (user.tokenExpiration < Date.now() || !user.inActive) {
-            return res.status(400).json({ error: "Invalid token!" });
-        }
-
-        if (!user.inActive) {
-            return res.status(400).json({ error: "User is already active!" })
-        }
-
-        user.inActive = false;
-        user.token = "";
-        user.tokenExpiration = null;
-        await user.save();
-        res.status(200).json();
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
+    if (!user) {
+        return res.status(401).json({ error: "Invalid token or email!" });
     }
+
+    if (user.tokenExpiration < Date.now() || !user.inActive) {
+        return res.status(400).json({ error: "Invalid token!" });
+    }
+
+    if (!user.inActive) {
+        return res.status(400).json({ error: "User is already active!" })
+    }
+
+    user.inActive = false;
+    user.token = "";
+    user.tokenExpiration = null;
+    await user.save();
+    res.status(200).json();
 }
 
 exports.resetPaswordRequest = async (req, res) => {
     const email = req.body.email;
-    try {
-        const user = await User.findOne({ email: email });
 
-        if (!user) {
-            return res.status(404).json({ error: "There is no such user!" });
-        }
+    const user = await User.findOne({ email: email });
 
-        const resetToken = crypto.randomBytes(32).toString("hex");
+    if (!user) {
+        return res.status(404).json({ error: "There is no such user!" });
+    }
 
-        user.token = resetToken;
-        user.tokenExpiration = Date.now() + (1000 * 60 * 60);
+    const resetToken = crypto.randomBytes(32).toString("hex");
 
-        await user.save();
+    user.token = resetToken;
+    user.tokenExpiration = Date.now() + (1000 * 60 * 60);
 
-        await sendMailer.sendMail({
-            from: mailFrom,
-            to: email,
-            subject: "Reset Your Password",
-            html: `
+    await user.save();
+
+    await sendMailer.sendMail({
+        from: mailFrom,
+        to: email,
+        subject: "Reset Your Password",
+        html: `
                 <div style="max-width: 600px; margin: 0 auto;">
                     <h1>Hello!</h1>
                     <p>To reset your password, please click the button below:</p>
@@ -158,13 +139,8 @@ exports.resetPaswordRequest = async (req, res) => {
                     <p>Best regards!</p>
                 </div>
             `
-        })
-        res.status(200).json({ email: email })
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
+    })
+    res.status(200).json({ email: email })
 }
 
 exports.resetPassword = async (req, res) => {
@@ -173,35 +149,29 @@ exports.resetPassword = async (req, res) => {
     const password = req.body.password;
     const password_again = req.body.password_again;
 
-    try {
-        const user = await User.findOne({ email: email, token: token });
+    const user = await User.findOne({ email: email, token: token });
 
-        if (!user) {
-            return res.status(401).json({ error: "Invalid token or email!" })
-        }
-
-        if (user.tokenExpiration < Date.now()) {
-            return res.status(400).json({ error: "Invalid token!" });
-        }
-
-        if (password !== password_again) {
-            return res.status(400).json({ error: "Passwords do not match!" })
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        user.password = hashedPassword;
-        user.token = "";
-        user.tokenExpiration = "";
-
-        const updatedUser = await user.save();
-        console.log(updatedUser);
-
-        res.status(200).json({email : updatedUser.email});
-
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
+    if (!user) {
+        return res.status(401).json({ error: "Invalid token or email!" })
     }
+
+    if (user.tokenExpiration < Date.now()) {
+        return res.status(400).json({ error: "Invalid token!" });
+    }
+
+    if (password !== password_again) {
+        return res.status(400).json({ error: "Passwords do not match!" })
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
+    user.token = "";
+    user.tokenExpiration = "";
+
+    const updatedUser = await user.save();
+    console.log(updatedUser);
+
+    res.status(200).json({ email: updatedUser.email });
+
 }

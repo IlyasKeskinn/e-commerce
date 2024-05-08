@@ -10,8 +10,10 @@ const connectDB = require("./db/dataBase")
 connectDB();
 
 //middlewares
+const errorMiddlewares = require("./middlewares/errors");
 app.use(express.json());
 app.use(cors());
+
 
 //models 
 
@@ -30,16 +32,18 @@ const contactRoutes = require("./router/contact");
 const paymentRoutes = require("./router/payment");
 
 app.use("/product", productRoutes);
-app.use("/category/", categoryRoutes);
-app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
-app.use("/settings", settingsRoutes);
-app.use("/slider", sliderRoutes);
-app.use("/contact/", contactRoutes);
-app.use("/collection", collectionRoutes)
-app.use("/upload", uploadRoutes);
+// app.use("/category/", categoryRoutes);
+// app.use("/auth", authRoutes);
+// app.use("/user", userRoutes);
+// app.use("/settings", settingsRoutes);
+// app.use("/slider", sliderRoutes);
+// app.use("/contact/", contactRoutes);
+// app.use("/collection", collectionRoutes)
+// app.use("/upload", uploadRoutes);
 // app.use("/admin", loginRoutes);
-app.use("/payment", paymentRoutes)
+// app.use("/payment", paymentRoutes)
+app.use(errorMiddlewares);
+
 
 const port = 3000;
 app.listen(port, () => {
