@@ -31,7 +31,7 @@ const Cart = ({ cart }) => {
                     <div className="sticky-content">
                         <Reciept cart={cart} />
                         <div className="button__wrapper my-5 ">
-                            <Link to={"/checkout"} className={`text-uppercase button btn-primary w-100 ${user && user.user && user.user._id ? "" : "disabled"}`}>
+                            <Link to={"/payment/checkout"} className={`text-uppercase button btn-primary w-100 ${user && user.user && user.user._id ? "" : "disabled"}`}>
                                 PROCEED TO CHECKOUT
                             </Link>
                         </div>

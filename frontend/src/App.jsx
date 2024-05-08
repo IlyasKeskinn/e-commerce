@@ -45,6 +45,7 @@ import { ResetPassword } from './components/Auth/ResetPassword'
 import { connect } from "react-redux";
 import { ProductReviews } from "./pages/Admin/Feedbacks/ProductReviews";
 import { ProtectedRoutes } from "./paths/ProtectedRoutes"
+import { ResetPasswordRequest } from "./components/Auth/ResetPasswordRequest";
 
 const App = ({ auth }) => {
   return (
@@ -60,7 +61,8 @@ const App = ({ auth }) => {
         <Route path="contact" element={<Contact />} />
 
 
-        <Route path="account/reset_password/" element={<ResetPassword />} />
+        <Route path="account/reset_password_request" element={<ResetPasswordRequest />} />
+        <Route path="account/reset_password/:token" element={<ResetPassword />} />
 
         <Route element={<ProtectedRoutes condition={!auth.user.user} />}>
           <Route path="account/confirm/:id" element={<AccountConfirm />} />
@@ -68,8 +70,9 @@ const App = ({ auth }) => {
         </Route>
 
         <Route path="payment" element={<PaymentLayouts />}>
-            <Route path="cart" element={<ShopingCart />} />
-          </Route>
+          <Route path="cart" element={<ShopingCart />} />
+        </Route>
+
         <Route element={<ProtectedRoutes condition={auth.user.user} routes={"/login_register"} />}>
 
           <Route path="account" element={<AccountLayout />}>

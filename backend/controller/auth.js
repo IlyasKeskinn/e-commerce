@@ -55,7 +55,7 @@ exports.postRegister = async (req, res) => {
         })
 
         newUser.save();
-        res.header("x-auth-token", token).status(200).json(newUser);
+        res.header("x-auth-token", token).status(201).json(newUser);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ error: error.message });
@@ -108,7 +108,11 @@ exports.confirmUser = async (req, res) => {
         }
 
         if (user.tokenExpiration < Date.now() || !user.inActive) {
-            return res.status(400).json({ error: "Invalid token or user is already active!" });
+            return res.status(400).json({ error: "Invalid token!" });
+        }
+
+        if (!user.inActive) {
+            return res.status(400).json({ error: "User is already active!" })
         }
 
         user.inActive = false;
@@ -124,18 +128,17 @@ exports.confirmUser = async (req, res) => {
 }
 
 exports.resetPaswordRequest = async (req, res) => {
+    const email = req.body.email;
     try {
-        const email = req.body;
-
         const user = await User.findOne({ email: email });
 
         if (!user) {
-            return res.status(404).json("There is no such user");
+            return res.status(404).json({error : "There is no such user!"});
         }
 
-        const validationToken = crypto.randomBytes(32).toString("hex");
+        const resetToken = crypto.randomBytes(32).toString("hex");
 
-        user.token = validationToken;
+        user.token = resetToken;
         user.tokenExpiration = Date.now() + (1000 * 60 * 60);
 
         await user.save();
@@ -149,15 +152,53 @@ exports.resetPaswordRequest = async (req, res) => {
                     <h1>Hello!</h1>
                     <p>To reset your password, please click the button below:</p>
                     <p style="text-align: center;">
-                        <a href=${CLIENT_DOMAIN}/account/reset-password/${resetToken}?q=email=${email}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a>
+                        <a href=${CLIENT_DOMAIN}/account/reset_password/${resetToken}?q=email=${email}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a>
                     </p>
                     <p>If you did not request a password reset, you can safely ignore this email.</p>
                     <p>Best regards!</p>
                 </div>
             `
         })
-        // The password reset link has been sent to your email.
-        res.status(200).json()
+        res.status(200).json({email : email})
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+
+exports.resetPassword = async (req, res) => {
+    const token = req.params.token;
+    const email = req.body.email;
+    const password = req.body.password;
+    const password_again = req.body.password_again;
+
+    try {
+        const user = await User.findOne({ email: email, token });
+
+        if (!user) {
+            return res.status(401).json({ error: "Invalid token or email!" })
+        }
+
+        if (!user.tokenExpiration < Date.now()) {
+            return res.status(400).json({ error: "Invalid token!" });
+        }
+
+        if (password === password_again) {
+            return res.status(400).json({ error: "Passwords do not match!" })
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        user.password = hashedPassword;
+        user.token = "";
+        user.tokenExpiration = "";
+
+        const updatedUser = await User.save();
+
+        res.status(200).json(updatedUser.email);
+
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ error: error.message });

@@ -27,20 +27,26 @@ export const ResetPasswordForm = () => {
     const submitReset = async (e) => {
         e.preventDefault();
         if (password.length < 8) {
-            setPasswordError("Password must be more than 8 characters.");
+            return setPasswordError("Password must be more than 8 characters.");
+        } else {
+            setPasswordError("")
         }
         if (passwordAgain.length < 8) {
-            setPasswordAgainError("Password must be more than 8 characters.");
+           return setPasswordAgainError("Password must be more than 8 characters.");
+        } else {
+            setPasswordAgainError("")
         }
         if (passwordAgain !== password) {
-            setPasswordAgainError("Passwords do not match!")
-            setPasswordError("Passwords do not match!")
+           return setPasswordAgainError("Passwords do not match!")
         }
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(email)) {
             return setEmailError("Invalid mail format.");
         }
-
+        
+        setEmailError("")
+        setPasswordAgainError("");
+        setPasswordError("")
     }
 
 

@@ -10,4 +10,10 @@ router.post("/register", authController.postRegister)
 //confirm user 
 router.post("/confirm/:id", authController.confirmUser);
 
+// password reset request
+router.post("/reset_password/request", authController.resetPaswordRequest);
+
+// password reset
+router.put("/reset_password", authController.resetPassword);
+
 module.exports = router

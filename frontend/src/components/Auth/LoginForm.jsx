@@ -71,7 +71,7 @@ const LoginForm = ({ dispatch }) => {
                 </div>
                 <div className="col-12 input-check-box d-flex justify-content-between align-items-center">
                     <Checkbox setOnChecked={setOnChecked} inputName="rememberMe" text="Remember Me!" />
-                    <a href="#" className="checkbox-label-text btn btn-full active">Lost Password?</a>
+                    <Link to={"/account/reset_password_request"} className="ms-3 btn btn-full active">Lost Password?</Link>
                 </div>
                 <div className="col-12">
                     <button type='submit' className="button btn-primary w-100">LOG IN</button>

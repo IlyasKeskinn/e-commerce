@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { Skeleton, message } from "antd";
 import { loadStripe } from "@stripe/stripe-js";
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, user }) => {
 
     const API_URL = import.meta.env.VITE_BASE_API_URL;
     const MY_STRIPE_KEY = import.meta.env.VITE_STRIPE_PUBLISH_KEY
@@ -122,7 +122,8 @@ const Checkout = ({ cart }) => {
 }
 const mapStateToProps = (state) => {
     return {
-        cart: state.cart
+        cart: state.cart,
+        user: state.auth.user
     }
 }
 
