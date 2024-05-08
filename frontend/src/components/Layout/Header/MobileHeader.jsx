@@ -10,6 +10,8 @@ import { setMobileMenu } from '../../../actions/drawerAction';
 import { Link } from 'react-router-dom';
 import { Logo } from './HeaderTools/Logo';
 import LoginIcon from './HeaderTools/LoginIcon';
+import Search from '../../Search/Search';
+import SearchIcon from './HeaderTools/SearchIcon';
 const MobileHeader = ({ dispatch, drawer }) => {
 
     const { data, isLoading, error } = useFetch("/category/getCategories");
@@ -31,34 +33,28 @@ const MobileHeader = ({ dispatch, drawer }) => {
     return (
         <header className="header-mobile header_sticky position-relative  d-flex justify-content-center align-items-center">
             <div className="header-container container position-relative d-flex align-items-center justify-content-between">
-                <a href="" onClick={(e) => { toggleMenu(e) }} className="header-tools__item d-block mobile-menu__activator">
-                    <i className="bi bi-list"></i>
-                </a>
-                <Link onClick={() => {dispatch(setMobileMenu(false))}} to={"/"}>
+                <div className='d-flex'>
+                    <a href="" onClick={(e) => { toggleMenu(e) }} className="header-tools__item d-block mobile-menu__activator">
+                        <i className="bi bi-list"></i>
+                    </a>
+                    <div onClick={() => { dispatch(setMobileMenu(false)) }} className='ms-5'>
+                        <SearchIcon />
+                    </div>
+                </div>
+
+                <Link onClick={() => { dispatch(setMobileMenu(false)) }} to={"/"}>
                     <Logo />
                 </Link>
                 <div className='d-flex'>
                     <Cart />
-                    <div className='ms-5'>
+                    <div onClick={() => { dispatch(setMobileMenu(false)) }} className='ms-5'>
                         <LoginIcon />
-
                     </div>
                 </div>
             </div>
+            <Search />
             <nav
                 className="header-mobile__navigation navigation d-flex flex-column justify-content-start align-items-center w-100 overflow-auto">
-                {/* <div className="my-4">
-                    <div className="container d-flex justify-content-center align-items-center">
-                        <div className="popup-items w-100 px-1">
-                            <form action="">
-                                <div className="position-relative search-input">
-                                    <input type="text" placeholder="Search product" className="search-field__input search-popup__input" />
-                                    <i className="bi bi-search"></i>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="my-4">
                     <MobileNavigation data={data} />
                 </div>

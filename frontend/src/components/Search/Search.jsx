@@ -5,6 +5,7 @@ import { ProductsSkelton } from "../Skeltons/ProductsSkeleton";
 import { NotFoundItem } from "./NotFoundItem";
 import { SearchResultItem } from "./SearchResultItem";
 import { setSearchModalAction } from "../../actions/drawerAction";
+
 const Search = ({ drawer, dispatch }) => {
     const [value, setValue] = useState("");
     const [isSearching, setIsSearching] = useState(false);
@@ -34,7 +35,7 @@ const Search = ({ drawer, dispatch }) => {
 
     return (
         <div className="header-tools__item js-content-visible">
-            <div className={`search-popup js-hidden-content ${drawer.isSearchModalActive ? "visible" : ""}`}>
+            <div className={`search-popup js-hidden-content  ${drawer.isSearchModalActive ? "visible" : ""}`}>
                 <div className="container">
                     <div className="popup-items">
                         <form>
