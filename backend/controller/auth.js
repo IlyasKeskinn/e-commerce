@@ -133,7 +133,7 @@ exports.resetPaswordRequest = async (req, res) => {
         const user = await User.findOne({ email: email });
 
         if (!user) {
-            return res.status(404).json({error : "There is no such user!"});
+            return res.status(404).json({ error: "There is no such user!" });
         }
 
         const resetToken = crypto.randomBytes(32).toString("hex");
@@ -159,7 +159,7 @@ exports.resetPaswordRequest = async (req, res) => {
                 </div>
             `
         })
-        res.status(200).json({email : email})
+        res.status(200).json({ email: email })
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ error: error.message });
@@ -175,17 +175,17 @@ exports.resetPassword = async (req, res) => {
     const password_again = req.body.password_again;
 
     try {
-        const user = await User.findOne({ email: email, token });
+        const user = await User.findOne({ email: email, token: token });
 
         if (!user) {
             return res.status(401).json({ error: "Invalid token or email!" })
         }
 
-        if (!user.tokenExpiration < Date.now()) {
+        if (user.tokenExpiration < Date.now()) {
             return res.status(400).json({ error: "Invalid token!" });
         }
 
-        if (password === password_again) {
+        if (password !== password_again) {
             return res.status(400).json({ error: "Passwords do not match!" })
         }
 
@@ -195,9 +195,10 @@ exports.resetPassword = async (req, res) => {
         user.token = "";
         user.tokenExpiration = "";
 
-        const updatedUser = await User.save();
+        const updatedUser = await user.save();
+        console.log(updatedUser);
 
-        res.status(200).json(updatedUser.email);
+        res.status(200).json({email : updatedUser.email});
 
     } catch (error) {
         if (error instanceof Error) {

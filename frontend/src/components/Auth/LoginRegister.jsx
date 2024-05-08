@@ -7,7 +7,7 @@ import { NavItem } from '../NavTabs/NavItem'
 
 
 export const LoginRegister = () => {
-    const [activeTabs, setActiveTabs] = useState("1");
+    const [activeTabs, setActiveTabs] = useState("0");
     return (
         <section className="login-register-section d-flex justify-content-center align-items-center ">
             <div className="container">

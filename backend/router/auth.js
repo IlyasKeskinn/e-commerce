@@ -14,6 +14,6 @@ router.post("/confirm/:id", authController.confirmUser);
 router.post("/reset_password/request", authController.resetPaswordRequest);
 
 // password reset
-router.put("/reset_password", authController.resetPassword);
+router.put("/reset_password/:token", authController.resetPassword);
 
 module.exports = router
