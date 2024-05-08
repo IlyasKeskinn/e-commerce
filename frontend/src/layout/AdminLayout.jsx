@@ -1,5 +1,5 @@
 
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Avatar, Space, Row, Col, Badge, Button, Dropdown, List } from 'antd';
 import { Outlet, useNavigate } from 'react-router-dom';
 import {
   DashboardOutlined, ContainerOutlined,
@@ -8,8 +8,8 @@ import {
   UserOutlined, ShoppingCartOutlined,
   RollbackOutlined, ClusterOutlined,
   HourglassOutlined, ContactsOutlined,
-  UserSwitchOutlined
-
+  UserSwitchOutlined, LogoutOutlined,
+  BellOutlined,
 } from '@ant-design/icons';
 
 
@@ -28,7 +28,7 @@ export const AdminLayout = () => {
     backgroundColor: "#27374D",
     display: "flex",
     justifyContent: "space-between",
-    textAlign: "center",
+    textAlign: "start",
     width: "100%",
 
   }
@@ -36,7 +36,8 @@ export const AdminLayout = () => {
     minHeight: 300,
     lineHeight: '120px',
     color: '#333',
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    padding : "0 10px"
 
   };
   const layoutStyle = {
@@ -237,6 +238,8 @@ export const AdminLayout = () => {
 
   ]
 
+
+
   const getActiveKeys = () => {
     for (const item of menuItems) {
       if (item.children) {
@@ -272,6 +275,18 @@ export const AdminLayout = () => {
     <Layout style={layoutStyle}>
       <Header width={"75%"} style={headerStyle}>
         <h2 style={{ fontSize: "28px", fontFamily: "Arial sans-serif", fontWeight: "600" }}>{getProductTitle()}</h2>
+        <div className='d-flex align-items-center'>
+
+          <Space size={'large'}>
+            <Button style={{ backgroundColor: "transparent", border: "none", color: "white" }} icon={<SettingOutlined />} />
+            <Badge count={5}>
+              <Button style={{ backgroundColor: "transparent", border: "none", color: "white" }} icon={<BellOutlined />} />
+            </Badge>
+            <Avatar size="large" src={"../../public/img/instagram/insta11.jpg"} />
+
+          </Space>
+        </div>
+
       </Header>
       <Layout>
         <Layout>

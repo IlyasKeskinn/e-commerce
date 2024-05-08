@@ -78,7 +78,7 @@ const LoginForm = ({ dispatch }) => {
                 </div>
                 <div className="col-12 my-5 d-flex justify-content-center align-items-center">
                     <span className="text-secondary text-capitalize">No account yet?</span>
-                    <Link to={"/login_register"} className="checkbox-label-text btn btn-full active">Create Account</Link>
+                    <Link to={"/login_register"} className="ms-3 btn btn-full active">Create Account</Link>
                 </div>
             </form>
         </div>

@@ -35,7 +35,11 @@ const Cart = ({ cart }) => {
                                 PROCEED TO CHECKOUT
                             </Link>
                         </div>
+                        {user && user.user && user.user._id ? "" :
+                            <Link to={"/login_register"} className="btn btn-full active">Login Account</Link>
+                        }
                     </div>
+
                 </div>
             </div>
         </div>

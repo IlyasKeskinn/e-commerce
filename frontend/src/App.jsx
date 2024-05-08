@@ -15,7 +15,7 @@ import { AccountAdress } from './pages/Account/AccountAddress'
 import { AccountDetails } from './pages/Account/AccountDetails'
 import { AccountOrders } from './pages/Account/AccountOrders'
 import { ProductDetails } from './pages/ProductDetails/ProductDetails'
-import { Dashboard } from './pages/Admin/Dashboard'
+import { Dashboard } from './pages/Admin/Dashboard/Dashboard'
 import { CategoryList } from './pages/Admin/Category/CategoryList'
 import { NewCategory } from './pages/Admin/Category/NewCategory'
 import { CategoryUpdate } from './pages/Admin/Category/CategoryUpdate'
@@ -43,6 +43,7 @@ import { Orders } from './pages/Admin/Orders/Orders'
 import { AccountConfirm } from './pages/Account/AccountConfirm'
 import { ResetPassword } from './components/Auth/ResetPassword'
 import { connect } from "react-redux";
+import { ProductReviews } from "./pages/Admin/Feedbacks/ProductReviews";
 import { ProtectedRoutes } from "./paths/ProtectedRoutes"
 
 const App = ({ auth }) => {
@@ -66,6 +67,9 @@ const App = ({ auth }) => {
           <Route path="login_register" element={<Auth />} />
         </Route>
 
+        <Route path="payment" element={<PaymentLayouts />}>
+            <Route path="cart" element={<ShopingCart />} />
+          </Route>
         <Route element={<ProtectedRoutes condition={auth.user.user} routes={"/login_register"} />}>
 
           <Route path="account" element={<AccountLayout />}>
@@ -77,7 +81,6 @@ const App = ({ auth }) => {
           </Route>
 
           <Route path="payment" element={<PaymentLayouts />}>
-            <Route path="cart" element={<ShopingCart />} />
             <Route path="checkout" element={<ShopCheckout />} />
             <Route path="confirmation" element={<ShopComplete />} />
           </Route>
@@ -105,6 +108,7 @@ const App = ({ auth }) => {
           <Route path="collections/deal_collection" element={<DealCollection />} />
           <Route path="feedbacks/contacts" element={<ConctactMessages />} />
           <Route path="feedbacks/update_contacts/:id" element={<ContactDetails />} />
+          <Route path="feedbacks/productreviews" element={<ProductReviews />} />
           <Route path="orders" element={<Orders />} />
         </Route>
       </Route>

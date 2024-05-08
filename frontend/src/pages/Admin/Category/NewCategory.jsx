@@ -6,7 +6,7 @@ export const NewCategory = () => {
     const fetchUrl = "/category/postcategory";
     const [form] = Form.useForm();
     const token = localStorage.getItem("x-auth-token");
-    const { data, isLoading, error, postData } = useFetch(fetchUrl, "POST", { token });
+    const { data, isLoading, error, postData } = useFetch(fetchUrl, "POST",  token );
 
     const onFinish = async (values) => {
         postData(values);
