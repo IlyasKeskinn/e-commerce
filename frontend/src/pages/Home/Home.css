@@ -126,6 +126,10 @@
     .deal-timer .dealtimer-bg img {
         height: 30rem;
     }
+    .home__sections .container{
+        width: 100% !important;
+        padding: 0 1rem;
+    }
 
     .deal-timer-text .h1 {
         font-size: 25px;

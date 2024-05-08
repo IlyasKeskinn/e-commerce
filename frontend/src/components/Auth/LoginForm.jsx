@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FormInput } from '../Inputs/FormInput'
 import { Checkbox } from '../Inputs/Checkbox'
-import { message } from "antd";
+import { Spin, message } from "antd";
 import { setAuthUser } from '../../actions/authAction';
 import { connect } from "react-redux"
 import { Link } from 'react-router-dom';
@@ -14,6 +14,7 @@ const LoginForm = ({ dispatch }) => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [rememberMe, setRememberMe] = useState("");
+    const [isLoading, setLoading] = useState(false);
 
     const setOnChangePassword = (e) => {
         setPassword(e)
@@ -29,6 +30,7 @@ const LoginForm = ({ dispatch }) => {
         e.preventDefault();
         const formData = { password: password, email: email, rememberMe: rememberMe }
         try {
+            setLoading(true);
             const response = await fetch(`${apiUrl}/auth/login`, {
                 method: "POST",
                 headers: {
@@ -55,33 +57,40 @@ const LoginForm = ({ dispatch }) => {
             if (message instanceof Error) {
                 message.error(error)
             }
+            setLoading(false);
+        }finally{
+            setLoading(false);
         }
     }
 
 
     return (
-        <div className="login-form form">
-            <form onSubmit={handleLogin} className="login-form form">
-                <div className="col-12">
-                    <FormInput value={email} type={"text"} handleInput={setOnChangeMail} inputName="email" text="email" required />
-                </div>
-                <div className="col-12">
-                    <FormInput value={password} type={"password"} handleInput={setOnChangePassword} inputName="password" text="password" required />
+        <React.Fragment>
 
-                </div>
-                <div className="col-12 input-check-box d-flex justify-content-between align-items-center">
-                    <Checkbox setOnChecked={setOnChecked} inputName="rememberMe" text="Remember Me!" />
-                    <Link onClick={() => {dispatch(setAuthAsideAction(false))}} to={"/account/reset_password_request"} className="ms-3 btn btn-full active">Lost Password?</Link>
-                </div>
-                <div className="col-12">
-                    <button type='submit' className="button btn-primary w-100">LOG IN</button>
-                </div>
-                <div className="col-12 my-5 d-flex justify-content-center align-items-center">
-                    <span className="text-secondary text-capitalize">No account yet?</span>
-                    <Link onClick={() => {dispatch(setAuthAsideAction(false))}} to={"/login_register"} className="ms-3 btn btn-full active">Create Account</Link>
-                </div>
-            </form>
-        </div>
+            <Spin spinning={isLoading} fullscreen />
+            <div className="login-form form">
+                <form onSubmit={handleLogin} className="login-form form">
+                    <div className="col-12">
+                        <FormInput value={email} type={"text"} handleInput={setOnChangeMail} inputName="email" text="email" required />
+                    </div>
+                    <div className="col-12">
+                        <FormInput value={password} type={"password"} handleInput={setOnChangePassword} inputName="password" text="password" required />
+
+                    </div>
+                    <div className="col-12 input-check-box d-flex justify-content-between align-items-center">
+                        <Checkbox setOnChecked={setOnChecked} inputName="rememberMe" text="Remember Me!" />
+                        <Link onClick={() => { dispatch(setAuthAsideAction(false)) }} to={"/account/reset_password_request"} className="ms-3 btn btn-full active">Lost Password?</Link>
+                    </div>
+                    <div className="col-12">
+                        <button type='submit' className="button btn-primary w-100">LOG IN</button>
+                    </div>
+                    <div className="col-12 my-5 d-flex justify-content-center align-items-center">
+                        <span className="text-secondary text-capitalize">No account yet?</span>
+                        <Link onClick={() => { dispatch(setAuthAsideAction(false)) }} to={"/login_register"} className="ms-3 btn btn-full active">Create Account</Link>
+                    </div>
+                </form>
+            </div>
+        </React.Fragment>
     )
 }
 

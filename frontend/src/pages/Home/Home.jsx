@@ -13,13 +13,15 @@ export const Home = () => {
     return (
         <React.Fragment>
             <Slider />
-            <ShopCollection />
-            <ProductsArea />
-            <CollectionTimer />
-            <GridBanner />
-            <InstagramArea />
-            <ServicesPromotion />
-            <LimitedEdition />
+            <div className="home__sections">
+                <ShopCollection />
+                <ProductsArea />
+                <CollectionTimer />
+                <GridBanner />
+                <InstagramArea />
+                <ServicesPromotion />
+                <LimitedEdition />
+            </div>
         </React.Fragment>
     );
 }

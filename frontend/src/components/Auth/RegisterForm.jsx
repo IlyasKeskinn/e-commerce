@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FormInput } from '../Inputs/FormInput'
 import useFetch from '../../hooks/useFetch';
-import { message } from 'antd';
+import { Spin, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -68,30 +68,33 @@ export const RegisterForm = () => {
         }
     }, [data, error])
     return (
-        <div className="register-form form">
-            <form onSubmit={onSubmit} className="register-form form">
-                <div className="col-12">
-                    <FormInput value={userName} validationError={usernameError} handleInput={setOnChangeUsername} inputName="username" text="Username" required />
-                </div>
-                <div className="col-12">
-                    <FormInput value={email} validationError={emailError} handleInput={setOnChangeMail} inputName="email" text="email" required />
-                </div>
-                <div className="col-12">
-                    <FormInput validationError={passwordError} value={password} handleInput={setOnChangePassword} inputName="password" text="password" type='password' required />
-                </div>
-                <div className="col-12">
-                    <p className="text-capitalize text-secondary">
-                        Your personal data will be used to support your experience throughout this
-                        website, to manage access to your account, and for other purposes described in
-                        our privacy policy.
-                    </p>
-                </div>
-                <div className="col-12 my-5">
-                    <button type='submit' className={`button btn-primary w-100 ${isLoading ? "disabled" : ""}`}>Register</button>
-                </div>
 
-            </form>
-        </div>
+        <React.Fragment>
+            <Spin spinning={isLoading} fullscreen />
+            <div className="register-form form">
+                <form onSubmit={onSubmit} className="register-form form">
+                    <div className="col-12">
+                        <FormInput value={userName} validationError={usernameError} handleInput={setOnChangeUsername} inputName="username" text="Username" required />
+                    </div>
+                    <div className="col-12">
+                        <FormInput value={email} validationError={emailError} handleInput={setOnChangeMail} inputName="email" text="email" required />
+                    </div>
+                    <div className="col-12">
+                        <FormInput validationError={passwordError} value={password} handleInput={setOnChangePassword} inputName="password" text="password" type='password' required />
+                    </div>
+                    <div className="col-12">
+                        <p className="text-capitalize text-secondary">
+                            Your personal data will be used to support your experience throughout this
+                            website, to manage access to your account, and for other purposes described in
+                            our privacy policy.
+                        </p>
+                    </div>
+                    <div className="col-12 my-5">
+                        <button type='submit' className={`button btn-primary w-100 ${isLoading ? "disabled" : ""}`}>Register</button>
+                    </div>
 
+                </form>
+            </div>
+        </React.Fragment>
     )
 }

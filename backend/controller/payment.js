@@ -26,7 +26,7 @@ exports.postPayment = async (req, res) => {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: `${process.env.CLIENT_DOMAIN}/confirmation`,
+            success_url: `${process.env.CLIENT_DOMAIN}/payment/confirmation`,
             payment_intent_data: {
                 metadata: {
                     "user_email": user.email,

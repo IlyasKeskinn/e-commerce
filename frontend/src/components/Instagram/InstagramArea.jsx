@@ -3,7 +3,6 @@ import { InstagramTile } from "./InstagramTile";
 import instagramPhotos from "../../../data/instagrams.json"
 
 export const InstagramArea = () =>{
-    console.log(instagramPhotos);
     return(
         <section className="instgram__section section my-5 d-flex justify-content-center align-items-center">
         <div className="container">

@@ -35,6 +35,30 @@ export const setSearchModalAction = (isActive) => {
         dispatch(searchModal(isActive));
     }
 }
+export const mobileMenu = (isActive) => (
+    {
+        type: "SET_MOBILE_MENU",
+        isActive
+    }
+)
+
+export const setMobileMenu = (isActive) => {
+    return (dispatch) => {
+        dispatch(mobileMenu(isActive));
+    }
+}
+export const mobileSubMenu = (isActive) => (
+    {
+        type: "SET_MOBILE_SUB_MENU",
+        isActive
+    }
+)
+
+export const setMobileSubMenu = (isActive) => {
+    return (dispatch) => {
+        dispatch(mobileSubMenu(isActive));
+    }
+}
 
 export const setPageOverlay = () => (
     {

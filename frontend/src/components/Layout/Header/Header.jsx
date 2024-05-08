@@ -4,6 +4,7 @@ import { Loader } from "../../Loader/Loader";
 import HeaderTools from "./HeaderTools";
 import { MegaMenu } from "./MegaMenu";
 import "./Header.css";
+import { Logo } from "./HeaderTools/Logo";
 
 export const Header = () => {
     const { data, isLoading, error } = useFetch("/category/getCategories");
@@ -17,8 +18,8 @@ export const Header = () => {
                 <div className="container">
                     <div className="header-wrapper">
                         <div className="logo">
-                            <Link to={"/home"} href="index.html">
-                                <h1>Zephyra</h1>
+                            <Link to={"/"}>
+                                <Logo />
                             </Link>
                         </div>
                         <nav className="navigation">
@@ -40,7 +41,7 @@ export const Header = () => {
                                 </li>
                             </ul>
                         </nav>
-                        <HeaderTools/>
+                        <HeaderTools />
                     </div>
                 </div>
             </header>);

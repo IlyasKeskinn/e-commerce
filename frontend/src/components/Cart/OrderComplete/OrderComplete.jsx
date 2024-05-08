@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { clearCartLocalStorage } from '../../../actions/cartAction'
+import { Link } from 'react-router-dom';
 
 const OrderComplete = ({ dispatch, cart }) => {
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : [];
@@ -100,7 +101,7 @@ const OrderComplete = ({ dispatch, cart }) => {
                                         </tr>
                                         <tr>
                                             <th>VAT</th>
-                                            <td>$19</td>
+                                            <td>$0</td>
                                         </tr>
                                         <tr>
                                             <th>Subtotal</th>
@@ -112,6 +113,7 @@ const OrderComplete = ({ dispatch, cart }) => {
                                 </div>
                             </div>
                         </div>
+                        <Link to={"/"} className="btn-primary button text-uppercase">Go Home...</Link>
                     </div>
                 </div>
 
