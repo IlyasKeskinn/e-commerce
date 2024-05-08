@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const CollectionItem = (props) => {
     const collection  =props.title.split(" ");
 
@@ -10,7 +12,7 @@ export const CollectionItem = (props) => {
                     <strong>{collection[0]} </strong>
                     {collection[1]}
                 </h3>
-                <a href="#" className="btn btn-outlined">Shop Now</a>
+                <Link to={props.link} className="btn btn-outlined">Shop Now</Link>
             </div>
         </div>
     );

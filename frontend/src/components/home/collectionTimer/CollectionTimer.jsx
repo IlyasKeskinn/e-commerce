@@ -35,7 +35,7 @@ export const CollectionTimer = () => {
                     <h1 className="text-uppercase fw-400 h1">
                         <strong>{data[0].title}</strong> COLLECTION
                     </h1>
-                    <Link to={`${data[0].collection_url}`} className="btn btn-outlined">Discover More</Link>
+                    <Link to={`/allproducts/Women-124326460`} className="btn btn-outlined">Discover More</Link>
                 </div>
                 <div className="d-flex align-items-center justify-content-center">
                     <div className="container position-relative">

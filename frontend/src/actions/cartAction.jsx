@@ -133,7 +133,7 @@ export const updateCartTotal = () => {
         if (localCart.cartItems.length > 0) {
             productsPrices = Object.values(localCart.cartItems).map((item) => { return (item.amount * item.price) });
             subTotal = productsPrices.reduce((prevValue, currentValue) => prevValue + currentValue, 0);
-            total = (subTotal + 25)
+            total = (subTotal )
         }
         localCart.total = {
             sub_total: subTotal.toFixed(2),

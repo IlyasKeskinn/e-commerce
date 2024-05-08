@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { FormInput } from '../Inputs/FormInput'
 import useFetch from '../../hooks/useFetch';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 
 export const RegisterForm = () => {
+
+    const navigate = useNavigate();
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -57,6 +60,8 @@ export const RegisterForm = () => {
             setPassword("");
             setEmail("");
             setUserName("");
+            navigate("/");
+
         }
         if (error) {
             message.error(error.message);

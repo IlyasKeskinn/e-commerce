@@ -12,11 +12,11 @@ export const Reciept = ({ cart, isCheckoutPage }) => {
                     </tr>
                     <tr>
                         <th>Shipping</th>
-                        <td>$4.99</td>
+                        <td>Free Shipping</td>
                     </tr>
                     <tr>
                         <th>VAT</th>
-                        <td>$19</td>
+                        <td>$0</td>
                     </tr>
                     <tr>
                         <th>Total</th>

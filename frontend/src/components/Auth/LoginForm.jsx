@@ -71,14 +71,14 @@ const LoginForm = ({ dispatch }) => {
                 </div>
                 <div className="col-12 input-check-box d-flex justify-content-between align-items-center">
                     <Checkbox setOnChecked={setOnChecked} inputName="rememberMe" text="Remember Me!" />
-                    <Link to={"/account/reset_password_request"} className="ms-3 btn btn-full active">Lost Password?</Link>
+                    <Link onClick={() => {dispatch(setAuthAsideAction(false))}} to={"/account/reset_password_request"} className="ms-3 btn btn-full active">Lost Password?</Link>
                 </div>
                 <div className="col-12">
                     <button type='submit' className="button btn-primary w-100">LOG IN</button>
                 </div>
                 <div className="col-12 my-5 d-flex justify-content-center align-items-center">
                     <span className="text-secondary text-capitalize">No account yet?</span>
-                    <Link to={"/login_register"} className="ms-3 btn btn-full active">Create Account</Link>
+                    <Link onClick={() => {dispatch(setAuthAsideAction(false))}} to={"/login_register"} className="ms-3 btn btn-full active">Create Account</Link>
                 </div>
             </form>
         </div>
