@@ -1,0 +1,1 @@
+function v(f){var e,t,i,o=f||1;function c(r,n){++e>o&&(i=t,u(1),++e),t[r]=n}function u(r){e=0,t=Object.create(null),r||(i=Object.create(null))}return u(),{clear:u,has:function(r){return t[r]!==void 0||i[r]!==void 0},get:function(r){var n=t[r];if(n!==void 0)return n;if((n=i[r])!==void 0)return c(r,n),n},set:function(r,n){t[r]!==void 0?t[r]=n:c(r,n)}}}export{v as f};
