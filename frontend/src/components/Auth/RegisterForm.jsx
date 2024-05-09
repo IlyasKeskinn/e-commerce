@@ -60,7 +60,7 @@ export const RegisterForm = () => {
             setPassword("");
             setEmail("");
             setUserName("");
-            navigate("/");
+            navigate("/e-commerce/");
 
         }
         if (error) {

@@ -52,7 +52,7 @@ export const AdminLayout = () => {
       label: "Dashboard",
       path: "/admin",
       onClick: () => {
-        navigate(`/admin`);
+        navigate(`/e-commerce/admin`);
       }
     },
     {

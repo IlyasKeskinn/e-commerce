@@ -50,7 +50,7 @@ import { ResetPasswordRequest } from "./components/Auth/ResetPasswordRequest";
 const App = ({ auth }) => {
   return (
     <Routes>
-      <Route element={<MainLayout />}>
+      <Route path="/e-commerce/" element={<MainLayout />}>
 
         <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
@@ -116,7 +116,7 @@ const App = ({ auth }) => {
         </Route>
       </Route>
 
-      <Route path="*" element={<NotFound />} />
+      <Route path="/e-commerce/*" element={<NotFound />} />
     </Routes >
   );
 };
