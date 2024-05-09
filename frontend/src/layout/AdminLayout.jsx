@@ -37,7 +37,7 @@ export const AdminLayout = () => {
     lineHeight: '120px',
     color: '#333',
     backgroundColor: "#fff",
-    padding : "0 10px"
+    padding: "0 10px"
 
   };
   const layoutStyle = {
@@ -232,7 +232,8 @@ export const AdminLayout = () => {
       label: "Home",
       path: "/",
       onClick: () => {
-        window.location.href = "/";
+        navigate("/")
+          ;
       }
     },
 

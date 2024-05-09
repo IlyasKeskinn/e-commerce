@@ -9,7 +9,7 @@ export const authReducer = (state = authState, action) => {
         case "GET_AUTH":
             return { ...state, user: action.authUser };
         case "DELETE_USER":
-            return action.auth;
+            return { ...state, user: {} };
         default:
             return state;
     }
