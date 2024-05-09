@@ -3,10 +3,10 @@ import { SliderControl } from "./SliderControl"
 import { SliderBackgrounds } from "./SliderBackground";
 import { useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import "./Slider.css"
 import { Loader } from "../Loader/Loader";
+import "./Slider.css"
 
-export const Slider = () => {
+export const Slide = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const fetchURL = `/slider/getSliders`
     const { data, isLoading, error } = useFetch(fetchURL);
