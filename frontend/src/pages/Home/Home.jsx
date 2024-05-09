@@ -1,5 +1,5 @@
 import React from "react";
-import { Slider } from "../../components/Sliders/Slider";
+import {Slider} from "../../components/Sliders/Slider"
 import { ShopCollection } from "../../components/Home/shopCollection/ShopCollection";
 import { ProductsArea } from "../../components/Home/productsArea/ProductsArea";
 import { CollectionTimer } from "../../components/Home/collectionTimer/CollectionTimer";
