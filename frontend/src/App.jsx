@@ -52,7 +52,7 @@ const App = ({ auth }) => {
     <Routes>
       <Route path="/e-commerce/" element={<MainLayout />}>
 
-        <Route path="/" element={<Home />} />
+        <Route path="" element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="allproducts/:seo_link" element={<Allproducts />} />
         <Route path="shop/:seo_link" element={<Shop />} />
@@ -116,7 +116,7 @@ const App = ({ auth }) => {
         </Route>
       </Route>
 
-      <Route path="/e-commerce/*" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes >
   );
 };

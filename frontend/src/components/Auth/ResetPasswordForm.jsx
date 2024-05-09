@@ -66,7 +66,7 @@ export const ResetPasswordForm = () => {
             setEmail("");
             setPassword("");
             setPasswordAgain("");
-            navigate("/e-commerce/login_register");
+            navigate("/login_register");
         }
         if (error) {
             message.error(error.message);

@@ -34,7 +34,7 @@ export const ResetPasswordRequestForm = () => {
         if (data && data.email) {
             message.success("Your password reset request has been accepted. Please check your email for further instructions.");
             setEmail("");
-            navigate("/e-commerce/");
+            navigate("/");
         }
         if (error) {
             message.error(error.message);
