@@ -5,6 +5,7 @@ import { Spin, message } from "antd";
 import { setAuthUser } from '../../actions/authAction';
 import { connect } from "react-redux"
 import { Link } from 'react-router-dom';
+import { setAuthAsideAction } from '../../actions/drawerAction';
 
 
 const LoginForm = ({ dispatch }) => {
@@ -43,10 +44,10 @@ const LoginForm = ({ dispatch }) => {
                 const user = await response.json();
                 dispatch(setAuthUser(user, authToken, formData));
                 if (user.role === "admin") {
-                    window.location.href = "/e-commerce/admin"
+                    window.location.href = "/#/e-commerce/admin"
                 }
                 else {
-                    window.location.href = "/e-commerce/"
+                    window.location.href = "/e-commerce/#/"
                 }
             }
             else {

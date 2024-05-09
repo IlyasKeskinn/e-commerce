@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 import { deleteAuthUser } from '../../../actions/authAction'
 
-const AccountNav = ({dispatch}) => {
-    const handleLogout = () =>  {
+const AccountNav = ({ dispatch }) => {
+    const handleLogout = () => {
         dispatch(deleteAuthUser());
     }
     return (
@@ -22,7 +22,7 @@ const AccountNav = ({dispatch}) => {
                 <NavLink to="wishlist" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Wishlist</NavLink>
             </div> */}
             <div className='account-nav-item'>
-                <NavLink onClick={handleLogout} to="/" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Logout</NavLink>
+                <NavLink onClick={() => { handleLogout() }} to="/" className={({ isActive }) => isActive ? "btn btn-outlined-half active" : "btn btn-outlined-half"} >Logout</NavLink>
             </div>
 
         </nav>
