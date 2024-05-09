@@ -4,7 +4,7 @@ const slugField = require("../helpers/slugField");
 const deleteOldImages = require("../helpers/deletePhoto");
 
 exports.getProducts = async (req, res) => {
-    const products = await Product.find().populate("categories").populate("subcategories").limit(8);
+    const products = await Product.find().populate("categories").populate("subcategories");
     res.json(products);
 }
 
