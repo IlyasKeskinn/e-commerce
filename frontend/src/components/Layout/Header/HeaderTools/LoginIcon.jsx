@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { setAuthAside, setCartAsideAction } from '../../../../actions/drawerAction';
 import { Link } from 'react-router-dom';
 const LoginIcon = (props) => {
+    console.log(props)
     return (
-
         props.auth.user.user && props.auth.user.user.email ?
             <Link to={`/account`}>
                 <i className="bi bi-person"></i>
@@ -20,9 +20,7 @@ const LoginIcon = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.cart,
         auth: state.auth,
-        drawer: state.drawer
     }
 }
 

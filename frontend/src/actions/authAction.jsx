@@ -34,6 +34,6 @@ export const deleteAuthUser = () => {
     return(dispatch) => {
         localStorage.removeItem("user");
         localStorage.removeItem("x-auth-token");
-        dispatch(deleteAuth({}));
+        dispatch(deleteAuth());
     }
 }
