@@ -6,13 +6,11 @@ import { GridBanner } from "../../components/Home/gridBanner/GridBanner";
 import { InstagramArea } from "../../components/Instagram/InstagramArea"
 import { ServicesPromotion } from "../../components/ServicePromotion/ServicePromotion";
 import { LimitedEdition } from "../../components/Home/limitedEdition/LimitedEdition";
-import { Slide } from "../../components/Sliders/Slide";
 import "./Home.css"
 
 export const Home = () => {
     return (
         <React.Fragment>
-            <Slide />
             <div className="home__sections">
                 <ShopCollection />
                 <ProductsArea />
