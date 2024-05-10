@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { setAuthAside, setCartAsideAction } from '../../../../actions/drawerAction';
 import { Link } from 'react-router-dom';
 const LoginIcon = (props) => {
-    console.log(props)
     return (
         props.auth.user.user && props.auth.user.user.email ?
             <Link to={`/account`}>

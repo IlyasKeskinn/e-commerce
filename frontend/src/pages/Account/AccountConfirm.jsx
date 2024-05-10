@@ -70,7 +70,7 @@ export const AccountConfirm = () => {
                 <p className="text-capitalize text-center mb-3">To complete your registration, please fill the input and click the button below to confirm your account:</p>
                 <form onSubmit={handleSubmit}>
                     <FormInput value={email} validationError={emailError} handleInput={setOnChangeMail} inputName="email" text="email" required />
-                    <button type="submit" className={`btn-primary button text-uppercase ${isLoading ? "disabled" : ""}`}>Validate Account</button>
+                    <button type="submit" className={`w-100 btn-primary button text-uppercase ${isLoading ? "disabled" : ""}`}>Validate Account</button>
                 </form>
             </div>
         </section>

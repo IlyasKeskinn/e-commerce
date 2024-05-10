@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import AccountNav from '../components/Account/AccountNav/AccountNav'
 import { connect } from 'react-redux'
 
-export const AccountLayout = ({ auth }) => {
+export const AccountLayout = () => {
     return (
         <section className="my-account__section d-flex justify-content-center align-items-center ">
             <div className="container">
@@ -19,10 +19,3 @@ export const AccountLayout = ({ auth }) => {
         </section>
     )
 }
-const mapStateToProps = (state) => {
-    return {
-        auth: state.auth,
-    }
-}
-export default connect(mapStateToProps)(AccountLayout)
-

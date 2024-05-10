@@ -55,9 +55,7 @@ useEffect(() => {
     fetchData();
 }, [MY_STRIPE_SECRET_KEY]);
 
-console.log(data);
 const date = new Date(1715056644 * 1000)
-console.log(date);
 
 return (
     <div>

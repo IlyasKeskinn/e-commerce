@@ -41,7 +41,6 @@ export const ProductReviews = () => {
   ]
 
 
-  console.log(data);
   useEffect(() => {
     data.map((product) => {
       product.reviews.map((review) => {
@@ -50,7 +49,6 @@ export const ProductReviews = () => {
     })
   },[data])
 
-  console.log(comments);
   return (
     <div>
       <Table style={{ textTransform: "capitalize" }} columns={columns} dataSource={comments} loading={isLoading} rowKey={(record) => record._id} />

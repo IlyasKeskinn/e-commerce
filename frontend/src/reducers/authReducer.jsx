@@ -5,7 +5,7 @@ const authState = {
 export const authReducer = (state = authState, action) => {
     switch (action.type) {
         case "SET_AUTH":
-            return { ...state, user: action.authUser };
+            return {user: action.authUser };
         case "GET_AUTH":
             return { ...state, user: action.authUser };
         case "DELETE_USER":
