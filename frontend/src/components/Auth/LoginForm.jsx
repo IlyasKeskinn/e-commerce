@@ -45,13 +45,12 @@ const LoginForm = ({ dispatch }) => {
                 const user = await response.json();
                 dispatch(setAuthUser(user, authToken, formData));
                 console.log(VITE_CLIENT_URL);
-                // if (user.role === "admin") {
-                //     window.location.href = "/#/e-commerce/admin"
-                //     window.location.href = "/#/admin"
-                // }
-                // else {
-                //     window.location.href = "/e-commerce/#/"
-                // }
+                if (user.role === "admin") {
+                    window.location.href = "/admin"
+                }
+                else {
+                    window.location.href = "/"
+                }
             }
             else {
                 const { error } = await response.json();

@@ -11,7 +11,6 @@ exports.postPayment = async (req, res) => {
             currency: "usd",
             product_data: {
                 name: product.name,
-                images: [product.img],
                 metadata: { "size": product.selectedSize, "color": product.selectedColor }
             },
             unit_amount: Math.round(product.price * 100),
@@ -37,4 +36,5 @@ exports.postPayment = async (req, res) => {
 
     })
     res.status(200).json({ id: session.id });
+
 }
