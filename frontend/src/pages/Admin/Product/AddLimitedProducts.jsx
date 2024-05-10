@@ -94,7 +94,7 @@ export const AddLimitedProducts = () => {
             title: "Image",
             dataIndex: "images",
             key: "image",
-            render: (images) => <img src={`./img/images/${images[0]}`} alt="Image" width={100} />,
+            render: (images) => <img src={`${images[0].downloadURL}`} alt="Image" width={100} />,
 
         },
         {
