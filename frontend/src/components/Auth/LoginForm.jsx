@@ -44,12 +44,11 @@ const LoginForm = ({ dispatch }) => {
                 const authToken = response.headers.get("x-auth-token");
                 const user = await response.json();
                 dispatch(setAuthUser(user, authToken, formData));
-                console.log(VITE_CLIENT_URL);
                 if (user.role === "admin") {
-                    window.location.href = "e-commerce/admin"
+                    window.location.href = `${VITE_CLIENT_URL}/#/admin`
                 }
                 else {
-                    window.location.href = "e-commerce/"
+                    window.location.href = `${VITE_CLIENT_URL}/`
                 }
             }
             else {
