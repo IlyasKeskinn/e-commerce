@@ -46,10 +46,10 @@ const LoginForm = ({ dispatch }) => {
                 dispatch(setAuthUser(user, authToken, formData));
                 console.log(VITE_CLIENT_URL);
                 if (user.role === "admin") {
-                    window.location.href = "/e-commerce/admin"
+                    window.location.href = "e-commerce/admin"
                 }
                 else {
-                    window.location.href = "/"
+                    window.location.href = "e-commerce/"
                 }
             }
             else {
