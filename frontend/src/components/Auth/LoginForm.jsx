@@ -44,12 +44,7 @@ const LoginForm = ({ dispatch }) => {
                 const authToken = response.headers.get("x-auth-token");
                 const user = await response.json();
                 dispatch(setAuthUser(user, authToken, formData));
-                if (user.role === "admin") {
-                    window.location.href = `${VITE_CLIENT_URL}/#/admin`
-                }
-                else {
-                    window.location.href = `${VITE_CLIENT_URL}/`
-                }
+                window.location.href = `${VITE_CLIENT_URL}/`
             }
             else {
                 const { error } = await response.json();
