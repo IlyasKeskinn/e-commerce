@@ -17,7 +17,7 @@ export const SliderList = () => {
             title: "Image",
             dataIndex: "img",
             key: "img",
-            render: (img) => <img src={`../src/images/${img}`} alt="Image" width={100} />,
+            render: (img) => <img src={`./img/images/${img}`} alt="Image" width={100} />,
         },
         {
             title: "Slider",

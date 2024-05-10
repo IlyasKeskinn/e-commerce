@@ -38,7 +38,7 @@ export const DealCollection = () => {
     useEffect(() => {
         if (collectionData.data && collectionData.data[0]) {
             setImages(collectionData.data[0].img);
-            setFileList([{ uid: 1, name: collectionData.data[0].img, status: "done", url: `../../../../src/images/${collectionData.data[0].img}` }]);
+            setFileList([{ uid: 1, name: collectionData.data[0].img, status: "done", url: `./img/images/${collectionData.data[0].img}` }]);
             const date = dayjs(collectionData.data[0].date);
 
             form.setFieldsValue({

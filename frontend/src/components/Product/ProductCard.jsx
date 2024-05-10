@@ -44,7 +44,7 @@ const ProductCard = ({ product, dispatch }) => {
         <div className="product-card">
             <div className="pc-img__wrapper">
                 <Link to={`/product/${product.seo_link}`} className="product-link">
-                    <img src={`../src/images/${product.images[0]}`} alt={`${product.images[0]}`} className="pc__img "></img>
+                    <img src={`./img/images/${product.images[0]}`} alt={`${product.images[0]}`} className="pc__img "></img>
                 </Link>
                 <button className="pc__addcart button btn-white" id="addToCart" onClick={(e) => { addCart(e) }}><ShoppingOutlined /> Add Cart</button>
             </div>

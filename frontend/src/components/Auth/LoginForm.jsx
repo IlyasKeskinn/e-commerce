@@ -4,7 +4,7 @@ import { Checkbox } from '../Inputs/Checkbox'
 import { Spin, message } from "antd";
 import { setAuthUser } from '../../actions/authAction';
 import { connect } from "react-redux"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { setAuthAsideAction } from '../../actions/drawerAction';
 
 
@@ -12,6 +12,7 @@ const LoginForm = ({ dispatch }) => {
 
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
+    const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [rememberMe, setRememberMe] = useState("");
@@ -43,12 +44,7 @@ const LoginForm = ({ dispatch }) => {
                 const authToken = response.headers.get("x-auth-token");
                 const user = await response.json();
                 dispatch(setAuthUser(user, authToken, formData));
-                if (user.role === "admin") {
-                    window.location.href = "/e-commerce/#/admin"
-                }
-                else {
-                    window.location.href = "/e-commerce/#/"
-                }
+                window.location.href = "/"
             }
             else {
                 const { error } = await response.json();
@@ -59,7 +55,7 @@ const LoginForm = ({ dispatch }) => {
                 message.error(error)
             }
             setLoading(false);
-        }finally{
+        } finally {
             setLoading(false);
         }
     }

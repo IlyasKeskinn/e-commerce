@@ -11,7 +11,7 @@ const AsideCartItem = ({ product, dispatch }) => {
             <hr className="divider text-secondary"></hr>
             <div className="cart-drawer-item d-flex position-relative">
                 <div className="position-relative cart-drawer-img-wrapper">
-                    <img src={`../src/images/${product.img}`} alt="" className="cart-item-img"></img>
+                    <img src={`./img/images/${product.img}`} alt="" className="cart-item-img"></img>
                 </div>
                 <div className="cart-drawer-info">
                     <h3 className="card-drawer-title fw-normal ">

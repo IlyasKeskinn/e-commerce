@@ -97,7 +97,7 @@ export const LimitedProducts = () => {
       title: "Image",
       dataIndex: "images",
       key: "image",
-      render : (_, record) =>  <img src={`../src/images/${record.product.images[0]}`} alt="Image" width={100} />,
+      render : (_, record) =>  <img src={`./img/images/${record.product.images[0]}`} alt="Image" width={100} />,
 
     },
     {

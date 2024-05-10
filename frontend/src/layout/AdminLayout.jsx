@@ -283,7 +283,7 @@ export const AdminLayout = () => {
             <Badge count={5}>
               <Button style={{ backgroundColor: "transparent", border: "none", color: "white" }} icon={<BellOutlined />} />
             </Badge>
-            <Avatar size="large" src={"../../public/img/instagram/insta11.jpg"} />
+            <Avatar size="large" src={"./img/instagram/insta11.jpg"} />
 
           </Space>
         </div>

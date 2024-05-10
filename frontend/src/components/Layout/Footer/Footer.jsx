@@ -123,7 +123,7 @@ export const Footer = () => {
                         </div>
                         <div>
                             <strong className="text-capitalize fw-normal">Secure payments</strong>
-                            <p><img src="../img/footer/payment-options.png" alt="payment methods"></img></p>
+                            <p><img src="./img/footer/payment-options.png" alt="payment methods"></img></p>
                         </div>
                     </div>
                 </div>

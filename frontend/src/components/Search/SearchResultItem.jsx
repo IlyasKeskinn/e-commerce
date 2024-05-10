@@ -9,7 +9,7 @@ export const SearchResultItem = ({ product, handleClose }) => {
         <div className="product-card">
             <div className="pc-img__wrapper">
                 <Link to={`/product/${product.seo_link}`} onClick={() => handleClick()} className="product-link">
-                    <img src={`../src/images/${product.images[0]}`} className="pc__img "></img>
+                    <img src={`./img/images/${product.images[0]}`} className="pc__img "></img>
                 </Link>
             </div>
             <div className="pc-info position-relative mt-3 p-1">

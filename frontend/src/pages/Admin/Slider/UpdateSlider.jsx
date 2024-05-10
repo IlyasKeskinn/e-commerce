@@ -33,7 +33,7 @@ export const UpddateSlider = () => {
     useEffect(() => {
         if (sliderData.data && sliderData.data._id) {
             setImages(sliderData.data.img);
-            setFileList([{ uid: 1, name: sliderData.data.img, status: "done", url: `../../../../src/images/${sliderData.data.img}` }]);
+            setFileList([{ uid: 1, name: sliderData.data.img, status: "done", url: `./img/images/${sliderData.data.img}` }]);
             form.setFieldsValue({
                 title: sliderData.data.title,
                 sub_title: sliderData.data.sub_title,

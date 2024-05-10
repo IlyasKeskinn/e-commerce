@@ -66,7 +66,7 @@ export const UpdateProduct = () => {
     useEffect(() => {
         if (data && data.title) {
             data.images.map(image => setImages((prevImages => [...prevImages, image])));
-            data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image, status: "done", url: `../../../../src/images/${image}` }]) });
+            data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image, status: "done", url: `./img/images/${image}` }]) });
             setCategoryId(data.categories._id);
             data.subcategories.map((subcat) => { setSubcategories((prevSub) => [...prevSub, subcat]) });
             form.setFieldsValue({
