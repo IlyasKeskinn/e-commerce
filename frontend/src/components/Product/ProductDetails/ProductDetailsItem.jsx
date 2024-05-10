@@ -12,9 +12,6 @@ import { ProductDetailSkeleton } from '../../Skeltons/ProductDetailSkeleton/Prod
 
 
 export const ProductDetailsItem = ({ seo_link }) => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [])
     const productFetchURL = `/product/getProductBySeo/`;
     const product = useFetch(`${productFetchURL}${seo_link}`);
     const [newPrice, setNewPrice] = useState(0);

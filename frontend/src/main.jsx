@@ -14,6 +14,7 @@ import "./style/input.css"
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css"
 import 'swiper/css';
 import { HashRouter } from 'react-router-dom'
+import { ScrollToTop } from './components/ScrollToTop.jsx'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -27,6 +28,7 @@ store.dispatch(getAuthUser());
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <HashRouter>
+    <ScrollToTop />
     <Provider store={store}>
       <App />
     </Provider>
