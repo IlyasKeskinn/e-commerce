@@ -321,3 +321,84 @@ Before starting the development of the project, follow these steps:
             └── main.jsx
         └── vite.config.js
 ```
+
+
+# Screenshots
+
+## Admin Panel
+
+### Dashboard
+<img width="1469" alt="dashboard" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/2138f02f-84e3-4cd6-b6e5-0ae92572022c">
+
+### Product Listing
+<img width="1470" alt="product listing" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/745fe288-f267-4922-a49d-f5d172c0b2fc">
+
+### Add New Product
+<img width="1470" alt="add new product" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/7fb9496c-9b37-4000-9ca1-5d8d72efb828">
+<img width="1467" alt="add new product 1" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/05242978-15e4-494c-a150-e00077b6783c">
+
+### Limited Product
+<img width="1470" alt="limited product adding" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/e58a39ac-3b23-468d-a71e-c06b1da08f92">
+
+### Subcategory List
+<img width="1470" alt="subcategory list" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/691cc43b-69af-4af4-af6c-25e65976ae71">
+
+### Slider List
+<img width="1470" alt="slider list" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/4e2e21d2-688d-42bd-a902-aac5afe8876b">
+
+### Review Management
+<img width="1470" alt="reviews management" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/a5efa650-8296-4e7f-9f82-2a9170af4c52">
+
+
+## User
+
+### Homepage
+<img width="1470" alt="home slider" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/c136134c-97c1-48a0-bffb-9d4202944849">
+<img width="1468" alt="home collection" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/d87fcb54-077a-4f02-ba56-d25239c4a165">
+<img width="1470" alt="home product" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/cf7bdb9d-7681-4b36-830f-c7ce029c39af">
+<img width="1470" alt="collection timer" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/080739b8-1cd1-4864-b92f-fd1ddc3bc2a0">
+<img width="1470" alt="limited products" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/fa354c64-3a68-4c96-a0a6-e6d1c4dbd57c">
+
+### Shop && Shop view Settings
+<img width="1470" alt="shop" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/0bc06c0e-de03-4d0c-a2df-8f99b6b5b72d">
+<img width="1470" alt="shop view" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/6c7582ad-6fa4-4e7a-a6fb-ace934b04b8c">
+<img width="1470" alt="shop view 4" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/231d5f76-445c-4408-a370-7fe176e6bf6f">
+
+
+### Product Details
+<img width="1410" alt="product details" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/e6978a00-97d5-4f9b-8ec6-70b5d51f20a1">
+<img width="1470" alt="product comments" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/6c4e86c4-cf06-4386-9c39-154808a148b1">
+
+### Payment
+<img width="1470" alt="cart" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/f647a7a1-502a-4852-9a4f-dd1faf3063ab">
+<img width="1468" alt="checkout" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/0deadf51-93b4-497b-b9be-7f74653c4378">
+<img width="1470" alt="stirpe payments" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/7eaa1b74-39bb-4ee6-b9ea-a07669ffa63a">
+<img width="1470" alt="order complete" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/c27933c4-abb4-4c6e-93f5-6ea64986d454">
+
+### Drawer
+<img width="1470" alt="drawer login" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/5f248d32-648f-45e9-a223-75ae4497e526">
+<img width="1470" alt="drawer cart" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/6217a9f3-0e57-45de-b85f-04ef8efeb3fe">
+
+### Login Screen 
+<img width="1470" alt="login" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/93ff9b5b-fbaf-4c4e-99f0-8de702077ef2">
+<img width="1468" alt="Ekran Resmi 2024-05-11 00 14 55" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/a5244afe-1a8b-4e82-97db-2f43f7ee1dd1">
+
+### Confirm Account
+<img width="1468" alt="Ekran Resmi 2024-05-11 00 16 36" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/480a5b33-a016-4b00-8edd-b07e714cd56f">
+
+
+### Lost Password
+<img width="1179" alt="Ekran Resmi 2024-05-11 00 17 51" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/7f2c1513-ce67-426c-80cb-0597a7269483">
+<img width="1467" alt="Ekran Resmi 2024-05-11 00 19 03" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/06ca8c54-5850-49a1-b905-93698c06c431">
+
+### Search Product
+<img width="1470" alt="product search" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/a3e70293-61b7-4165-94d6-e74aa1c02c0f">
+
+### Some Mobile Screens 
+<img width="498" alt="Ekran Resmi 2024-05-10 23 54 10" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/8b6d4b47-db4e-4bc2-9414-4a6c5106403f">
+<img width="498" alt="Ekran Resmi 2024-05-10 23 54 10" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/57cf5081-2ac2-422d-843e-0ffdbccf182f">
+<img width="498" alt="Ekran Resmi 2024-05-10 23 54 10" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/38de8f1b-1cb9-4931-a2c0-47f939514e12">
+<img width="498" alt="Ekran Resmi 2024-05-10 23 54 10" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/5d840761-30b0-490a-a1ca-fd021673ca60">
+
+
+
