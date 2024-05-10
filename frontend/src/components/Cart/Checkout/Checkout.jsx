@@ -48,6 +48,7 @@ const Checkout = ({ cart, user }) => {
 
         try {
             setUpload(true)
+            console.log(body);
             const stripe = await loadStripe(MY_STRIPE_KEY);
 
             const res = await fetch(`${API_URL}/payment`, {
