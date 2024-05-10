@@ -5,9 +5,13 @@ import TextArea from 'antd/es/input/TextArea';
 import useFetch from '../../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const { Dragger } = Upload;
 
 export const NewSlider = () => {
+
+    const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
     const [fileList, setFileList] = useState([]);
     const fetchUrl = "/slider/postslider";
@@ -45,7 +49,7 @@ export const NewSlider = () => {
         });
         try {
             const response =
-                await fetch('http://localhost:3000/upload/photo', {
+                await fetch(`${apiUrl}/upload/`, {
                     method: 'POST',
                     body: formy
                 });
@@ -53,8 +57,8 @@ export const NewSlider = () => {
                 message.success("Photos uploaded successfully");
                 const data = await response.json();
                 if (data) {
-                    data.forEach(file => {
-                        setImages(file.filename);
+                    data.files.forEach(file => {
+                        setImages(file.downloadURL);
                     });
                 }
             }
@@ -82,8 +86,9 @@ export const NewSlider = () => {
         }
     }, [data, error])
 
+
     return (
-        <Spin spinning={isLoading}>
+        <Spin spinning={isLoading || isUpload}>
             <Form encType="multipart/form-data" style={{ padding: "20px" }}
                 name='basic'
                 layout='vertical'
@@ -106,7 +111,7 @@ export const NewSlider = () => {
                 <Form.Item
                     label="Slider URL"
                     name="slider_url"
-                    rules={[{ max:200, message: 'Maximum 200!' }]}>
+                    rules={[{ max: 200, message: 'Maximum 200!' }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item

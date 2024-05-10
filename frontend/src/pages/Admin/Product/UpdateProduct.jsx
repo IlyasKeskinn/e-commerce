@@ -4,7 +4,7 @@ import {
     Spin, message
 } from "antd"
 import { useNavigate, useParams } from 'react-router-dom';
-import {InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 import ReactQuill from 'react-quill';
@@ -66,7 +66,7 @@ export const UpdateProduct = () => {
     useEffect(() => {
         if (data && data.title) {
             data.images.map(image => setImages((prevImages => [...prevImages, image])));
-            data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image, status: "done", url: `./img/images/${image}` }]) });
+            data.images.map((image, index) => { setFileList(prevFiles => [...prevFiles, { uid: index, name: image.image_name, status: "done", url: `${image.downloadURL}` }]) });
             setCategoryId(data.categories._id);
             data.subcategories.map((subcat) => { setSubcategories((prevSub) => [...prevSub, subcat]) });
             form.setFieldsValue({
@@ -105,7 +105,7 @@ export const UpdateProduct = () => {
         });
         try {
             const response =
-                await fetch('http://localhost:3000/upload/photo', {
+                await fetch(`${apiUrl}/upload/`, {
                     method: 'POST',
                     body: formy
                 });
@@ -113,8 +113,8 @@ export const UpdateProduct = () => {
                 message.success("Photos uploaded successfully");
                 const data = await response.json();
                 if (data) {
-                    await data.forEach(file => {
-                        setImages(prevImages => [...prevImages, file.filename]);
+                    data.files.forEach(file => {
+                        setImages(prevImages => [...prevImages, file]);
                     });
                 }
             }
@@ -126,8 +126,8 @@ export const UpdateProduct = () => {
     }
     const handleChange = ({ fileList: newFileList }) => {
         setFileList(newFileList)
-        setOldImages(fileList.filter(file => !newFileList.some(newFile => newFile.uid === file.uid)));
-        setImages(images.filter(image => oldImages.some(oldImage => oldImage === image)));
+        const deletedFile = fileList.filter(oldFile => !newFileList.some(newFile => newFile.uid === oldFile.uid));
+        setImages(images.filter(image => !deletedFile.some(deleted => deleted.name === image.image_name)));
     };
 
 
@@ -181,7 +181,7 @@ export const UpdateProduct = () => {
         }
     }
     return (
-        <Spin spinning={isLoading}>
+        <Spin spinning={isLoading || isUpload}>
             <Form encType="multipart/form-data" style={{ padding: "20px" }}
                 name='basic'
                 layout='vertical'
@@ -337,7 +337,7 @@ export const UpdateProduct = () => {
                 >
                     <Select onClick={() => handleSubCategory()} mode="multiple" placeholder="Please select a subcategory!">
                         {subcategories.map((category) => {
-                            return <Select.Option  key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
+                            return <Select.Option key={category._id} value={`${category._id}`}>{category.name}</Select.Option>
                         })}
                     </Select>
                 </Form.Item>

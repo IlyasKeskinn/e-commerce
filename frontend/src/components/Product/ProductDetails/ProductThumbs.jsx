@@ -30,11 +30,11 @@ export const ProductThumbs = ({ activeImage, setActiveImage, productImg }) => {
             >
                 {productImg.map((img) => {
                     return (
-                        <SwiperSlide key={img}>
-                            <img src={`./img/images/${img}`} style={{ height: 104, width: 104 }}
-                                className={`img-fluid gallery-thumbs__img ${activeImage == img ? "active" : ""}`}
+                        <SwiperSlide key={img.downloadURL}>
+                            <img src={`${img.downloadURL}}`} style={{ height: 104, width: 104 }}
+                                className={`img-fluid gallery-thumbs__img ${activeImage == img.downloadURL ? "active" : ""}`}
                                 alt=""
-                                onClick={() => { setActiveImage(img) }}
+                                onClick={() => { setActiveImage(img.downloadURL) }}
                             >
                             </img>
                         </SwiperSlide>

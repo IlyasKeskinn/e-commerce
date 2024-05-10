@@ -11,7 +11,7 @@ import { setAuthAsideAction } from '../../actions/drawerAction';
 const LoginForm = ({ dispatch }) => {
 
     const apiUrl = import.meta.env.VITE_BASE_API_URL;
-
+    const VITE_CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -44,7 +44,14 @@ const LoginForm = ({ dispatch }) => {
                 const authToken = response.headers.get("x-auth-token");
                 const user = await response.json();
                 dispatch(setAuthUser(user, authToken, formData));
-                window.location.href = "/"
+                console.log(VITE_CLIENT_URL);
+                // if (user.role === "admin") {
+                //     window.location.href = "/#/e-commerce/admin"
+                //     window.location.href = "/#/admin"
+                // }
+                // else {
+                //     window.location.href = "/e-commerce/#/"
+                // }
             }
             else {
                 const { error } = await response.json();

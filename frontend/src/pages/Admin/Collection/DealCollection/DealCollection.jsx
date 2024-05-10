@@ -16,6 +16,7 @@ import useFetch from '../../../../hooks/useFetch';
 
 export const DealCollection = () => {
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
     const fetchUrl = `/collection/get_deal_collection/`;
     const token = localStorage.getItem("x-auth-token");
@@ -38,7 +39,7 @@ export const DealCollection = () => {
     useEffect(() => {
         if (collectionData.data && collectionData.data[0]) {
             setImages(collectionData.data[0].img);
-            setFileList([{ uid: 1, name: collectionData.data[0].img, status: "done", url: `./img/images/${collectionData.data[0].img}` }]);
+            setFileList([{ uid: 1, name: collectionData.data[0].img, status: "done", url: collectionData.data[0].img }]);
             const date = dayjs(collectionData.data[0].date);
 
             form.setFieldsValue({
@@ -77,7 +78,7 @@ export const DealCollection = () => {
         });
         try {
             const response =
-                await fetch('http://localhost:3000/upload/photo', {
+                await fetch(`${apiUrl}/upload/`, {
                     method: 'POST',
                     body: formy
                 });
@@ -85,8 +86,8 @@ export const DealCollection = () => {
                 message.success("Photos uploaded successfully");
                 const data = await response.json();
                 if (data) {
-                    await data.forEach(file => {
-                        setImages(file.filename);
+                    data.files.forEach(file => {
+                        setImages(file.downloadURL);
                     });
                 }
             }
@@ -123,7 +124,7 @@ export const DealCollection = () => {
     }
 
     return (
-        <Spin spinning={isLoading}>
+        <Spin spinning={isLoading || isUpload}>
             <Form encType="multipart/form-data" style={{ padding: "20px" }}
                 name='basic'
                 layout='vertical'

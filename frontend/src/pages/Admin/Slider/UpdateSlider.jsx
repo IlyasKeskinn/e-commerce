@@ -14,6 +14,8 @@ import useFetch from '../../../hooks/useFetch';
 export const UpddateSlider = () => {
     const navigate = useNavigate();
     const sliderId = useParams().id;
+    const apiUrl = import.meta.env.VITE_BASE_API_URL;
+
 
     const fetchUrl = `/slider/getsliderbyid/${sliderId}`;
     const updateUrl = `/slider/updateslider/${sliderId}`;
@@ -33,13 +35,13 @@ export const UpddateSlider = () => {
     useEffect(() => {
         if (sliderData.data && sliderData.data._id) {
             setImages(sliderData.data.img);
-            setFileList([{ uid: 1, name: sliderData.data.img, status: "done", url: `./img/images/${sliderData.data.img}` }]);
+            setFileList([{ uid: 1, name: sliderData.data.img, status: "done", url: sliderData.data.img }]);
             form.setFieldsValue({
                 title: sliderData.data.title,
                 sub_title: sliderData.data.sub_title,
                 desc: sliderData.data.desc,
                 topic: sliderData.data.topic,
-                slider_url : sliderData.data.slider_url
+                slider_url: sliderData.data.slider_url
             })
         }
     }, [sliderData.data])
@@ -69,7 +71,7 @@ export const UpddateSlider = () => {
         });
         try {
             const response =
-                await fetch('http://localhost:3000/upload/photo', {
+                await fetch(`${apiUrl}/upload/`, {
                     method: 'POST',
                     body: formy
                 });
@@ -77,8 +79,8 @@ export const UpddateSlider = () => {
                 message.success("Photos uploaded successfully");
                 const data = await response.json();
                 if (data) {
-                    await data.forEach(file => {
-                        setImages(file.filename);
+                    data.files.forEach(file => {
+                        setImages(file.downloadURL);
                     });
                 }
             }
@@ -114,7 +116,7 @@ export const UpddateSlider = () => {
     }
 
     return (
-        <Spin spinning={isLoading}>
+        <Spin spinning={isLoading || isUpload}>
             <Form encType="multipart/form-data" style={{ padding: "20px" }}
                 name='basic'
                 layout='vertical'
@@ -142,7 +144,7 @@ export const UpddateSlider = () => {
                 <Form.Item
                     label="Slider URl"
                     name="slider_url"
-                    rules={[{ max:200, message: 'Maximum 200!' }]}>
+                    rules={[{ max: 200, message: 'Maximum 200!' }]}>
                     <Input />
                 </Form.Item>
 

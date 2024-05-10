@@ -43,7 +43,7 @@ const ProductTile = ({ dispatch, product }) => {
         <tr className="cart-table-row">
             <td>
                 <div className="position-relative cart-drawer-img-wrapper">
-                    <img src={`./img/images/${product.img}`} alt=""
+                    <img src={`${product.img.downloadURL}`} alt=""
                         className="cart-item-img img-fluid"></img>
                 </div>
             </td>

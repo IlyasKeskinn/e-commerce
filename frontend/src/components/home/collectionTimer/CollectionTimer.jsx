@@ -28,7 +28,7 @@ export const CollectionTimer = () => {
         <section className="deal-timer d-flex align-items-center justify-content-center ">
             <div className="position-relative">
                 <div className="dealtimer-bg">
-                    <img src={`./img/images/${data[0].img}`} alt="dealtimer_bg"></img>
+                    <img src={`${data[0].img}`} alt="dealtimer_bg"></img>
                 </div>
                 <div className="deal-timer-text container ps-4">
                     <p className="position-relative text-uppercase fw-600 text-dash">{data[0].topic}</p>

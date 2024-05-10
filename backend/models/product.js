@@ -4,7 +4,7 @@ const { Category, Subcategory } = require("./category");
 
 //creating limited product schema
 const limitedProductSchema = mongoose.Schema({
-    product: {type: Schema.Types.ObjectId, ref: "Products"}
+    product: { type: Schema.Types.ObjectId, ref: "Products" }
 })
 
 
@@ -31,7 +31,11 @@ const productSchema = mongoose.Schema({
         current: { type: Number, required: true },
         discount: { type: Number }
     },
-    images: { type: Array, required: true },
+    images: {
+        image_name: { type: String, required: true },
+        downloadURL: { type: String, required: true },
+        type: Array, required: true,
+    },
     categories:
         { type: Schema.Types.ObjectId, ref: "Categories", required: true }
     ,

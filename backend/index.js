@@ -20,7 +20,6 @@ const errorMiddlewares = require("./middlewares/errors");
 
 
 //routes
-const uploadRoutes = require("./middlewares/photoUpload");
 const productRoutes = require("./router/products");
 const categoryRoutes = require("./router/category");
 const authRoutes = require("./router/auth");
@@ -30,6 +29,7 @@ const userRoutes = require("./router/user");
 const settingsRoutes = require("./router/siteSettings/siteSettings");
 const contactRoutes = require("./router/contact");
 const paymentRoutes = require("./router/payment");
+const uploadRoutes= require("./controller/fileupload");
 
 app.use("/product", productRoutes);
 app.use("/category/", categoryRoutes);

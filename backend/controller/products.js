@@ -1,7 +1,6 @@
 require('express-async-errors');
 const { Product, Comment, LimitedProducts, validateProduct } = require("../models/product");
 const slugField = require("../helpers/slugField");
-const deleteOldImages = require("../helpers/deletePhoto");
 
 exports.getProducts = async (req, res) => {
     const products = await Product.find().populate("categories").populate("subcategories");
@@ -84,7 +83,6 @@ exports.putUpdateProduct = async (req, res) => {
     }
 
     const updatedProduct = await Product.findOneAndUpdate({ _id: productId }, body, { new: true });
-    deleteOldImages(req.body.deletedImagePaths);
 
     return res.json(updatedProduct);
 }

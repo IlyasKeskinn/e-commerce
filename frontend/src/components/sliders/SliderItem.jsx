@@ -2,7 +2,7 @@ export const SliderItem = ({ slideItem, activeIndex, index}) => {
     return (
         <div className="slider-item">
             <div className={`slide-show-character ${activeIndex === index ? "active" : ""}`}>
-                <img className="slide-show-character__img  " src={`./img/images/${slideItem.img}`}
+                <img className="slide-show-character__img  " src={`${slideItem.img}`}
                     alt={slideItem.title}></img>
             </div>
             <div className={`slide-show-text container ps-4 ${activeIndex === index ? "active" : ""}`}>

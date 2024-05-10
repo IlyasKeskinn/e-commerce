@@ -57,7 +57,7 @@ export const NewProduct = () => {
 
         try {
             const response =
-                await fetch('http://localhost:3000/upload/photo', {
+                await fetch(`${apiUrl}/upload/`, {
                     method: 'POST',
                     body: formy
                 });
@@ -65,8 +65,8 @@ export const NewProduct = () => {
                 message.success("Photos uploaded successfully");
                 const data = await response.json();
                 if (data) {
-                    data.forEach(file => {
-                        setImages(prevImages => [...prevImages, file.filename]);
+                    data.files.forEach(file => {
+                        setImages(prevImages => [...prevImages, file]);
                     });
                 }
             }
@@ -91,7 +91,7 @@ export const NewProduct = () => {
 
     const onFinish = async (values) => {
         setLoading(true);
-        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount }}
+        const data = { ...values, "images": images, price: { "current": values.current, "discount": values.discount } }
         try {
             const response = await fetch(`${apiUrl}${fetchUrl}`, {
                 method: "POST",
