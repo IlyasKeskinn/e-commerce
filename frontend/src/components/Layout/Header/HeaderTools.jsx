@@ -5,7 +5,7 @@ import Cart from "./HeaderTools/Cart";
 import LoginIcon from "./HeaderTools/LoginIcon";
 import SearchIcon from "./HeaderTools/SearchIcon";
 const HeaderTools = (props) => {
-  
+  console.log(props.auth);
     return (
         <div className="header-tools">
             <Search />

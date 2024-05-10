@@ -26,7 +26,6 @@ export const getAuthUser = () => {
 export const deleteAuth = () => (
     {
         type : "DELETE_USER",
-        action
     }
 )
 
