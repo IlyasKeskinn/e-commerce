@@ -401,4 +401,60 @@ Before starting the development of the project, follow these steps:
 <img width="498" alt="Ekran Resmi 2024-05-10 23 54 10" src="https://github.com/IlyasKeskinn/e-commerce/assets/86023697/5d840761-30b0-490a-a1ca-fd021673ca60">
 
 
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/username/e-commerce.git
+   cd e-commerce
+    ```
+   
+3. Install dependencies:
+
+  ```
+  cd backend 
+  npm install
+
+  cd frontend
+  npm install
+  ```
+3. Set up environment variables: Create a .env file in the frontend and backend directory:
+
+  frontend .env :
+  ```  
+   VITE_BASE_API_URL=http://localhost:3000
+   VITE_STRIPE_PUBLISH_KEY=YOUR_STRIPE_PUBLISH_KEY
+   VITE_API_STRIPE_SECRET_KEY=YOUR_STRIPE_SECRET_KEY
+   VITE_CLIENT_URL=https://ilyaskeskinn.github.io/e-commerce
+  ```
+
+  backend .env : 
+  ```
+   MONGOOSE_URI="mongodb+srv://username:YOUR_PASSWORD@cluster0.detvns3.mongodb.net/ecommerceDB?retryWrites=true&w=majority&appName=Cluster0"
+   CLIENT_DOMAIN=FRONTEND_DOMAIN
+   STRIPE_SECRET_KEY=YOUR_STRIPE_SECRET_KEY
+   JWT_SECRET_KEY=YOUR_JWT_SECRET_KEY
+   MAIL_USER=YOUR_MAIL_USER
+   MAIL_PASSWORD=YOUR_MAIL_PASSWORD
+   FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY
+   FIREBASE_AUTH_DOMAIN=YOUR_FIREBASE_AUTH_DOMAIN
+   FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
+   FIREBASE_STORAGE_BUCKET=YOUR_FIREBASE_STORAGE_BUCKET
+   FIREBASE_MESSAGING_SENDER_ID=YOUR_FIREBASE_MESSAGING_SENDER_ID
+   FIREBASE_APP_ID=YOUR_FIREBASE_APP_ID
+   FIREBASE_MEASUREMENT_ID=YOUR_FIREBASE_MEASUREMENT_ID
+  ```
+
+
+4. Run the development server:
+  ```
+  cd backend
+  npm run start
+  ```
+5. Run the client
+  ```
+  cd frontend
+  npm run dev
+  ```
 
